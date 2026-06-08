@@ -196,6 +196,8 @@ class FacetFiltersForm extends HTMLElement {
       document.querySelector(selector).innerHTML = html.querySelector(selector).innerHTML;
     });
 
+    FacetFiltersForm.syncSortBySelects();
+
     document.getElementById('FacetFiltersFormMobile').closest('menu-drawer').bindEvents();
   }
 
@@ -240,6 +242,18 @@ class FacetFiltersForm extends HTMLElement {
 
   static updateURLHash(searchParams) {
     history.pushState({ searchParams }, '', `${window.location.pathname}${searchParams && '?'.concat(searchParams)}`);
+    FacetFiltersForm.syncSortBySelects(searchParams);
+  }
+
+  static syncSortBySelects(searchParams = window.location.search.slice(1)) {
+    const sortBy = new URLSearchParams(searchParams).get('sort_by');
+    if (!sortBy) return;
+
+    document.querySelectorAll('select[name="sort_by"]').forEach((select) => {
+      if (Array.from(select.options).some((option) => option.value === sortBy)) {
+        select.value = sortBy;
+      }
+    });
   }
 
   static getSections() {
@@ -298,6 +312,7 @@ FacetFiltersForm.searchParamsInitial = window.location.search.slice(1);
 FacetFiltersForm.searchParamsPrev = window.location.search.slice(1);
 customElements.define('facet-filters-form', FacetFiltersForm);
 FacetFiltersForm.setListeners();
+FacetFiltersForm.syncSortBySelects();
 
 class PriceRange extends HTMLElement {
   constructor() {

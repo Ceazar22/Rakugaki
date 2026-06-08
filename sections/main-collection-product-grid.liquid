@@ -56,15 +56,18 @@
                   aria-describedby="a11y-refresh-page-message"
                 >
                   {%- for option in collection.sort_options -%}
-                    {%- if option.value == 'created-descending' -%}
-                      <option value="{{ option.value | escape }}" selected="selected">
+                    <option
+                      value="{{ option.value | escape }}"
+                      {% if option.value == sort_by %}
+                        selected="selected"
+                      {% endif %}
+                    >
+                      {%- if option.value == 'created-descending' -%}
                         New Arrivals
-                      </option>
-                    {%- else -%}
-                      <option value="{{ option.value | escape }}">
+                      {%- else -%}
                         {{ option.name | escape }}
-                      </option>
-                    {%- endif -%}
+                      {%- endif -%}
+                    </option>
                   {%- endfor -%}
                 </select>
                 <span class="svg-wrapper">

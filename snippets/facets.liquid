@@ -368,15 +368,18 @@
                     aria-describedby="a11y-refresh-page-message"
                   >
                     {%- for option in results.sort_options -%}
-                      {%- if option.value == 'created-descending' -%}
-                        <option value="{{ option.value | escape }}" selected="selected">
+                      <option
+                        value="{{ option.value | escape }}"
+                        {% if option.value == sort_by %}
+                          selected="selected"
+                        {% endif %}
+                      >
+                        {%- if option.value == 'created-descending' -%}
                           New Arrivals
-                        </option>
-                      {%- else -%}
-                        <option value="{{ option.value | escape }}">
+                        {%- else -%}
                           {{ option.name | escape }}
-                        </option>
-                      {%- endif -%}
+                        {%- endif -%}
+                      </option>
                     {%- endfor -%}
                   </select>
                   <span class="svg-wrapper">
@@ -1200,6 +1203,7 @@ const colorMap = {
                     <div class="mobile-facets__sort">
                       <label for="SortBy-mobile">{{ 'products.facets.sort_by_label' | t }}</label>
                       <div class="select">
+                        {%- assign sort_by = results.sort_by | default: 'created-descending' -%}
                         <select
                           name="sort_by"
                           class="select__select"
@@ -1207,15 +1211,18 @@ const colorMap = {
                           aria-describedby="a11y-refresh-page-message"
                         >
                           {%- for option in results.sort_options -%}
-                            {%- if option.value == 'created-descending' -%}
-                              <option value="{{ option.value | escape }}" selected="selected">
+                            <option
+                              value="{{ option.value | escape }}"
+                              {% if option.value == sort_by %}
+                                selected="selected"
+                              {% endif %}
+                            >
+                              {%- if option.value == 'created-descending' -%}
                                 New Arrivals
-                              </option>
-                            {%- else -%}
-                              <option value="{{ option.value | escape }}">
+                              {%- else -%}
                                 {{ option.name | escape }}
-                              </option>
-                            {%- endif -%}
+                              {%- endif -%}
+                            </option>
                           {%- endfor -%}
                         </select>
                         <span class="svg-wrapper">
@@ -1327,15 +1334,18 @@ const colorMap = {
                 aria-describedby="a11y-refresh-page-message"
               >
                {%- for option in results.sort_options -%}
-                {%- if option.value == 'created-descending' -%}
-                  <option value="{{ option.value | escape }}" selected="selected">
+                <option
+                  value="{{ option.value | escape }}"
+                  {% if option.value == sort_by %}
+                    selected="selected"
+                  {% endif %}
+                >
+                  {%- if option.value == 'created-descending' -%}
                     New Arrivals
-                  </option>
-                {%- else -%}
-                  <option value="{{ option.value | escape }}">
+                  {%- else -%}
                     {{ option.name | escape }}
-                  </option>
-                {%- endif -%}
+                  {%- endif -%}
+                </option>
               {%- endfor -%}
               </select>
               <span class="svg-wrapper">

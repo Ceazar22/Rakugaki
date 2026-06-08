@@ -178,11 +178,13 @@
 
                   {%- when 'link_list' -%}
                     {%- if block.settings.menu != blank -%}
+                      {%- assign footer_menu = linklists[block.settings.menu.handle] -%}
                       <ul class="footer-block__details-content list-unstyled {% if block.settings.accordion_type %}footer-accordion__content{% endif %}">
-                        {%- for link in block.settings.menu.links -%}
+                        {%- for link in footer_menu.links -%}
                           <li>
                             <a
                               href="{{ link.url }}"
+                              data-footer-menu-link
                               class="link link--text list-menu__item list-menu__item--link{% if link.active %} list-menu__item--active{% endif %}"
                             >
                               {{ link.title | escape }}
@@ -540,6 +542,36 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
+    function guardSupportFooterLinks() {
+      var footer = document.querySelector('.footer');
+
+      if (!footer) {
+        return;
+      }
+
+      var footerBlocks = footer.querySelectorAll('.footer-block--menu');
+
+      for (var i = 0; i < footerBlocks.length; i++) {
+        var heading = footerBlocks[i].querySelector('.footer-block__heading');
+
+        if (!heading || heading.textContent.trim().toLowerCase() !== 'support') {
+          continue;
+        }
+
+        var supportItems = footerBlocks[i].querySelectorAll('.footer-block__details-content li');
+
+        for (var j = supportItems.length - 1; j >= 0; j--) {
+          var supportLink = supportItems[j].querySelector('a');
+          var linkText = supportLink ? supportLink.textContent.trim().toLowerCase() : '';
+          var linkUrl = supportLink ? supportLink.getAttribute('href').toLowerCase() : '';
+
+          if (j > 2 || linkText === 'tracking' || linkUrl.indexOf('tracking') !== -1 || linkUrl.indexOf('ordtrak') !== -1) {
+            supportItems[j].remove();
+          }
+        }
+      }
+    }
+
     function initFooterAccordion() {
       var coll = document.getElementsByClassName('footer-accordion');
       
@@ -568,9 +600,24 @@
       }
     }
 
+    guardSupportFooterLinks();
     initFooterAccordion();
 
+    var footer = document.querySelector('.footer');
+
+    if (footer) {
+      var footerMenuObserver = new MutationObserver(function() {
+        guardSupportFooterLinks();
+      });
+
+      footerMenuObserver.observe(footer, {
+        childList: true,
+        subtree: true
+      });
+    }
+
     document.addEventListener('shopify:section:load', function() {
+      guardSupportFooterLinks();
       initFooterAccordion();
     });
   });
