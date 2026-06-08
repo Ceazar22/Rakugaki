@@ -560,12 +560,29 @@
 
         var supportItems = footerBlocks[i].querySelectorAll('.footer-block__details-content li');
 
+        var hasAdminTrackingLink = false;
         for (var j = supportItems.length - 1; j >= 0; j--) {
           var supportLink = supportItems[j].querySelector('a');
           var linkText = supportLink ? supportLink.textContent.trim().toLowerCase() : '';
           var linkUrl = supportLink ? supportLink.getAttribute('href').toLowerCase() : '';
+          var isAdminMenuLink = supportLink ? supportLink.hasAttribute('data-footer-menu-link') : false;
 
-          if (j > 2 || linkText === 'tracking' || linkUrl.indexOf('tracking') !== -1 || linkUrl.indexOf('ordtrak') !== -1) {
+          if (linkUrl.indexOf('ordtrak') !== -1) {
+            supportItems[j].remove();
+            continue;
+          }
+
+          if (isAdminMenuLink && linkText === 'tracking') {
+            if (hasAdminTrackingLink) {
+              supportItems[j].remove();
+            } else {
+              hasAdminTrackingLink = true;
+            }
+
+            continue;
+          }
+
+          if (!isAdminMenuLink && linkText === 'tracking') {
             supportItems[j].remove();
           }
         }

@@ -311,7 +311,8 @@ padding: 30px;
     <div class="tab-list">
       {% assign tabs = section.blocks | where: "type", "tab" %}
       {% for tab in tabs %}
-        <div class="tab-item {% if forloop.first %}active{% endif %}" data-tab="{{ tab.settings.tab_title }}">
+        {%- assign tab_key = tab.settings.tab_title | strip | handleize -%}
+        <div class="tab-item {% if forloop.first %}active{% endif %}" data-tab="{{ tab_key }}">
           <h3 class="tab-title">{{ tab.settings.tab_title }}</h3>
           <p class="tab-subtitle">{{ tab.settings.tab_subtitle }}</p>
         </div>
@@ -319,10 +320,12 @@ padding: 30px;
     </div>
 
     {% for tab in tabs %}
-      <div class="accordion-content {% if forloop.first %}active{% endif %}" data-content="{{ tab.settings.tab_title }}">
+      {%- assign tab_key = tab.settings.tab_title | strip | handleize -%}
+      <div class="accordion-content {% if forloop.first %}active{% endif %}" data-content="{{ tab_key }}">
         {% assign accordions = section.blocks | where: "type", "accordion" %}
         {% for accordion in accordions %}
-          {% if accordion.settings.tab_id == tab.settings.tab_title %}
+          {%- assign accordion_tab_key = accordion.settings.tab_id | strip | handleize -%}
+          {% if accordion_tab_key == tab_key %}
             <div class="accordion-item">
               <div class="accordion-header">
                 <h4 class="accordion-question">{{ accordion.settings.question }}</h4>
@@ -347,35 +350,45 @@ padding: 30px;
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  const tabItems = document.querySelectorAll('.tab-item');
-  const accordionContents = document.querySelectorAll('.accordion-content');
-  const accordionHeaders = document.querySelectorAll('.accordion-header');
+  function initTabAccordion(section) {
+    const accordionSection = section || document.querySelector('.tab-accordion-section');
 
-  tabItems.forEach(tab => {
-    tab.addEventListener('click', function() {
-      const tabName = this.getAttribute('data-tab');
+    if (!accordionSection || accordionSection.dataset.tabAccordionBound === 'true') {
+      return;
+    }
 
-      tabItems.forEach(t => t.classList.remove('active'));
-      this.classList.add('active');
+    accordionSection.dataset.tabAccordionBound = 'true';
 
-      accordionContents.forEach(content => {
-        if (content.getAttribute('data-content') === tabName) {
-          content.classList.add('active');
-        } else {
-          content.classList.remove('active');
-        }
-      });
+    accordionSection.addEventListener('click', function(event) {
+      const tab = event.target.closest('.tab-item');
+      const header = event.target.closest('.accordion-header');
+
+      if (tab && accordionSection.contains(tab)) {
+        const tabName = tab.getAttribute('data-tab');
+        const tabItems = accordionSection.querySelectorAll('.tab-item');
+        const accordionContents = accordionSection.querySelectorAll('.accordion-content');
+
+        tabItems.forEach(item => item.classList.remove('active'));
+        tab.classList.add('active');
+
+        accordionContents.forEach(content => {
+          content.classList.toggle('active', content.getAttribute('data-content') === tabName);
+        });
+
+        return;
+      }
+
+      if (header && accordionSection.contains(header)) {
+        header.closest('.accordion-item').classList.toggle('open');
+      }
     });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.tab-accordion-section').forEach(section => initTabAccordion(section));
   });
 
-  accordionHeaders.forEach(header => {
-    header.addEventListener('click', function() {
-      const accordionItem = this.parentElement;
-      const isOpen = accordionItem.classList.contains('open');
-
-      accordionItem.classList.toggle('open');
-    });
+  document.addEventListener('shopify:section:load', function(event) {
+    event.target.querySelectorAll('.tab-accordion-section').forEach(section => initTabAccordion(section));
   });
-});
 </script>

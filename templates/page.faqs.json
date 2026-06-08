@@ -33,8 +33,9 @@
       ],
       "custom_css": [
         "h2 {color: white !important;}",
-        ".banner__box.content-container.content-container--full-width-mobile.color-scheme-1.gradient {margin-top: -930px;}",
-        "@media screen and (max-width: 768px) {.banner__box.content-container.content-container--full-width-mobile.color-scheme-1.gradient {margin-top: -60px; } .banner__content.banner__content--middle-left.page-width.scroll-trigger.animate--slide-in {background: transparent; }}"
+        ".banner__content {position: absolute !important; inset: 0; height: 100% !important; margin-top: 0 !important; background: transparent;}",
+        ".banner__box.content-container.content-container--full-width-mobile.color-scheme-1.gradient {margin-top: 0 !important; background: transparent;}",
+        "@media screen and (max-width: 768px) {.banner__content.banner__content--middle-left.page-width.scroll-trigger.animate--slide-in {background: transparent; }}"
       ],
       "name": "Image banner",
       "settings": {
