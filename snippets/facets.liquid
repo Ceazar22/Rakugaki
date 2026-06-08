@@ -1,0 +1,1438 @@
+{{ 'component-show-more.css' | asset_url | stylesheet_tag }}
+{{ 'component-swatch-input.css' | asset_url | stylesheet_tag }}
+{{ 'component-swatch.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign sort_by = results.sort_by | default: 'created-descending'
+  assign total_active_values = 0
+  assign default_presentation = 'text'
+  if results.url
+    assign results_url = results.url
+  else
+    assign terms = results.terms | escape
+    assign results_url = '?q=' | append: terms | append: '&options%5Bprefix%5D=last&sort_by=' | append: sort_by
+  endif
+  assign has_shopify_collections_facet = false
+  for sf in results.filters
+    assign spn = sf.param_name | downcase
+    if spn contains 'custom.collections'
+      assign has_shopify_collections_facet = true
+      break
+    endif
+  endfor
+-%}
+
+<div class="facets-container{% if filter_type == 'drawer' %} facets-container-drawer{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+  {%- if filter_type == 'vertical' or filter_type == 'horizontal' -%}
+    <facet-filters-form class="facets small-hide">
+      <form
+        id="FacetFiltersForm"
+        class="{% if filter_type == 'horizontal' %}facets__form{% else %}facets__form-vertical{% endif %}"
+      >
+        {%- if results.terms -%}
+          <input type="hidden" name="q" value="{{ results.terms | escape }}">
+          <input name="options[prefix]" type="hidden" value="last">
+        {%- endif -%}
+
+        {% if enable_filtering %}
+          <div
+            id="FacetsWrapperDesktop"
+            {% if filter_type == 'horizontal' %}
+              class="facets__wrapper"
+            {% endif %}
+          >
+            {%- if filter_type == 'horizontal' and results.filters != empty -%}
+              <div class="filter-header">
+                <div class="filter-icon">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M2 4h12M4 8h8M6 12h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>
+                </div>
+              </div>
+            {%- endif -%}
+
+            {%- unless has_shopify_collections_facet -%}
+              {%- capture category_fallback_inner -%}
+                {%- liquid
+                  assign category_seen = '||'
+                  assign category_fallback_count = 0
+                -%}
+                {%- for product in results.products -%}
+                  {%- assign mf = product.metafields.custom.collections -%}
+                  {%- if mf == blank or mf.value == blank -%}{% continue %}{%- endif -%}
+                  {%- assign mt = mf.type | default: '' -%}
+                  {%- if mt contains 'list.collection' or mt == 'list.collection_reference' -%}
+                    {%- for col_ref in mf.value -%}
+                      {%- if col_ref.handle == blank -%}{% continue %}{%- endif -%}
+                      {%- assign token = '||' | append: col_ref.handle | append: '||' -%}
+                      {%- unless category_seen contains token -%}
+                        {%- assign category_seen = category_seen | append: col_ref.handle | append: '||' -%}
+                        {%- assign category_fallback_count = category_fallback_count | plus: 1 -%}
+                        <div class="checkbox-item">
+                          <input type="checkbox" name="filter.p.m.custom.collections" value="{{ col_ref.handle | escape }}" id="Filter-category-fallback-{{ category_fallback_count }}" class="custom-checkbox js-category-facet-input">
+                          <label for="Filter-category-fallback-{{ category_fallback_count }}" class="checkbox-label">
+                            <span class="checkbox-box"></span>
+                            {{ col_ref.title | escape }}
+                          </label>
+                        </div>
+                      {%- endunless -%}
+                    {%- endfor -%}
+                  {%- elsif mt == 'collection_reference' -%}
+                    {%- assign col_ref = mf.value -%}
+                    {%- if col_ref.handle != blank -%}
+                      {%- assign token = '||' | append: col_ref.handle | append: '||' -%}
+                      {%- unless category_seen contains token -%}
+                        {%- assign category_seen = category_seen | append: col_ref.handle | append: '||' -%}
+                        {%- assign category_fallback_count = category_fallback_count | plus: 1 -%}
+                        <div class="checkbox-item">
+                          <input type="checkbox" name="filter.p.m.custom.collections" value="{{ col_ref.handle | escape }}" id="Filter-category-fallback-{{ category_fallback_count }}" class="custom-checkbox js-category-facet-input">
+                          <label for="Filter-category-fallback-{{ category_fallback_count }}" class="checkbox-label">
+                            <span class="checkbox-box"></span>
+                            {{ col_ref.title | escape }}
+                          </label>
+                        </div>
+                      {%- endunless -%}
+                    {%- endif -%}
+                  {%- elsif mt contains 'list.' -%}
+                    {%- for text_item in mf.value -%}
+                      {%- assign label = text_item | strip -%}
+                      {%- if label == blank -%}{% continue %}{%- endif -%}
+                      {%- assign slug = label | handleize -%}
+                      {%- assign token = '||' | append: slug | append: '||' -%}
+                      {%- unless category_seen contains token -%}
+                        {%- assign category_seen = category_seen | append: slug | append: '||' -%}
+                        {%- assign category_fallback_count = category_fallback_count | plus: 1 -%}
+                        <div class="checkbox-item">
+                          <input type="checkbox" name="filter.p.m.custom.collections" value="{{ label | escape }}" id="Filter-category-fallback-{{ category_fallback_count }}" class="custom-checkbox js-category-facet-input">
+                          <label for="Filter-category-fallback-{{ category_fallback_count }}" class="checkbox-label">
+                            <span class="checkbox-box"></span>
+                            {{ label | escape }}
+                          </label>
+                        </div>
+                      {%- endunless -%}
+                    {%- endfor -%}
+                  {%- else -%}
+                    {%- assign label = mf.value | strip -%}
+                    {%- if label != blank -%}
+                      {%- assign slug = label | handleize -%}
+                      {%- assign token = '||' | append: slug | append: '||' -%}
+                      {%- unless category_seen contains token -%}
+                        {%- assign category_seen = category_seen | append: slug | append: '||' -%}
+                        {%- assign category_fallback_count = category_fallback_count | plus: 1 -%}
+                        <div class="checkbox-item">
+                          <input type="checkbox" name="filter.p.m.custom.collections" value="{{ label | escape }}" id="Filter-category-fallback-{{ category_fallback_count }}" class="custom-checkbox js-category-facet-input">
+                          <label for="Filter-category-fallback-{{ category_fallback_count }}" class="checkbox-label">
+                            <span class="checkbox-box"></span>
+                            {{ label | escape }}
+                          </label>
+                        </div>
+                      {%- endunless -%}
+                    {%- endif -%}
+                  {%- endif -%}
+                {%- endfor -%}
+              {%- endcapture -%}
+              {%- assign category_fallback_inner = category_fallback_inner | strip -%}
+              {%- if category_fallback_inner != blank -%}
+                <div class="filter-section shop-by-category-facet-fallback">
+                  <div class="filter-label">Shop by Category:</div>
+                  <div class="filter-content checkbox-filter">
+                    <div class="checkbox-list">
+                      {{ category_fallback_inner }}
+                    </div>
+                  </div>
+                </div>
+              {%- endif -%}
+            {%- endunless -%}
+
+            {%- for filter in results.filters -%}
+              {% liquid
+                assign total_active_values = total_active_values | plus: filter.active_values.size
+                assign presentation = filter.presentation | default: default_presentation
+                assign filter_label_normalized = filter.label | downcase | strip
+
+                if presentation == 'image'
+                  assign show_more_number = 12
+                  assign visual_layout_class = 'facets-layout facets-layout-grid facets-layout-grid--' | append: presentation
+                else
+                  assign show_more_number = 10
+                  assign visual_layout_class = 'facets-layout facets-layout-list facets-layout-list--' | append: presentation
+                endif
+              %}
+
+              {%- if filter_label_normalized == 'highlights' -%}
+                {%- continue -%}
+              {%- endif -%}
+
+              {% case filter.type %}
+                {% when 'boolean', 'list' %}
+                  <div class="filter-section">
+                    {% assign facet_pn = filter.param_name | downcase %}
+                    {% if facet_pn contains 'custom.collections' %}
+                      <div class="filter-label">Shop by Category:</div>
+                      <div class="filter-content checkbox-filter">
+                        {%- liquid
+                          assign sorted_values = filter.values
+                          if filter.operator == 'AND'
+                            assign active_filter_values = filter.values | where: 'active', true
+                            assign inactive_filter_values = filter.values | where: 'active', false
+                            assign sorted_values = active_filter_values | concat: inactive_filter_values
+                          endif
+                        -%}
+                        <div class="checkbox-list">
+                          {%- for value in sorted_values -%}
+                            {% liquid
+                              assign input_id = 'Filter-' | append: filter.param_name | escape | append: '-' | append: forloop.index
+                              assign is_disabled = false
+                              if value.count == 0 and value.active == false
+                                assign is_disabled = true
+                              endif
+                            %}
+                            <div class="checkbox-item">
+                              <input
+                                type="checkbox"
+                                name="{{ value.param_name }}"
+                                value="{{ value.value }}"
+                                id="{{ input_id }}"
+                                {% if value.active %}checked{% endif %}
+                                {% if is_disabled %}disabled{% endif %}
+                                class="custom-checkbox"
+                              >
+                              <label for="{{ input_id }}" class="checkbox-label{% if is_disabled %} disabled{% endif %}">
+                                <span class="checkbox-box">
+                                  {% if value.active %}
+                                  {% endif %}
+                                </span>
+                                {{ value.label | escape }}
+                              </label>
+                            </div>
+                          {%- endfor -%}
+                        </div>
+                      </div>
+                    {% else %}
+                      <div class="filter-label">{{ filter.label | escape }}:</div>
+                    
+                    {% if filter.label contains 'Size' %}
+                      <div class="filter-content size-filter">
+                        {%- liquid
+                          assign sorted_values = filter.values
+                          if filter.operator == 'AND'
+                            assign active_filter_values = filter.values | where: 'active', true
+                            assign inactive_filter_values = filter.values | where: 'active', false
+                            assign sorted_values = active_filter_values | concat: inactive_filter_values
+                          endif
+                        -%}
+                        <div class="size-grid">
+                          {%- for value in sorted_values -%}
+                            {% liquid
+                              assign input_id = 'Filter-' | append: filter.param_name | escape | append: '-' | append: forloop.index
+                              assign is_disabled = false
+                              if value.count == 0 and value.active == false
+                                assign is_disabled = true
+                              endif
+                            %}
+                            <div class="size-item">
+                              <input
+                                type="checkbox"
+                                name="{{ value.param_name }}"
+                                value="{{ value.value }}"
+                                id="{{ input_id }}"
+                                {% if value.active %}checked{% endif %}
+                                {% if is_disabled %}disabled{% endif %}
+                                class="visually-hidden"
+                              >
+                              <label for="{{ input_id }}" 
+                                     class="size-label{% if value.active %} active{% endif %}{% if is_disabled %} disabled{% endif %}">
+                                {{ value.label | escape }}
+                              </label>
+                            </div>
+                          {%- endfor -%}
+                        </div>
+                      </div>
+                    
+                    {% elsif filter.label contains 'Color' %}
+                      <div class="filter-content color-filter">
+                        <div class="color-label">{{ filter.active_values.first.label | default: 'Plain Khaki' }}</div>
+                        {%- liquid
+                          assign sorted_values = filter.values
+                          if filter.operator == 'AND'
+                            assign active_filter_values = filter.values | where: 'active', true
+                            assign inactive_filter_values = filter.values | where: 'active', false
+                            assign sorted_values = active_filter_values | concat: inactive_filter_values
+                          endif
+                        -%}
+                        <div class="color-swatches">
+                          {%- for value in sorted_values -%}
+                            {% liquid
+                              assign input_id = 'Filter-' | append: filter.param_name | escape | append: '-' | append: forloop.index
+                              assign is_disabled = false
+                              if value.count == 0 and value.active == false
+                                assign is_disabled = true
+                              endif
+                            %}
+                            <div class="color-item">
+                              <input
+                                type="checkbox"
+                                name="{{ value.param_name }}"
+                                value="{{ value.value }}"
+                                id="{{ input_id }}"
+                                {% if value.active %}checked{% endif %}
+                                {% if is_disabled %}disabled{% endif %}
+                                class="visually-hidden"
+                              >
+                              <label for="{{ input_id }}" 
+                                     class="color-swatch{% if value.active %} active{% endif %}{% if is_disabled %} disabled{% endif %}"
+                                     data-color="{{ value.label | handleize }}"
+                                     data-color-name="{{ value.label | escape }}">
+                                <span class="swatch-color"></span>
+                              </label>
+                            </div>
+                          {%- endfor -%}
+                        </div>
+                      </div>
+                    
+                    {% else %}
+                      <div class="filter-content checkbox-filter">
+                        {%- liquid
+                          assign sorted_values = filter.values
+                          if filter.operator == 'AND'
+                            assign active_filter_values = filter.values | where: 'active', true
+                            assign inactive_filter_values = filter.values | where: 'active', false
+                            assign sorted_values = active_filter_values | concat: inactive_filter_values
+                          endif
+                        -%}
+                        <div class="checkbox-list">
+                          {%- for value in sorted_values -%}
+                            {% liquid
+                              assign input_id = 'Filter-' | append: filter.param_name | escape | append: '-' | append: forloop.index
+                              assign is_disabled = false
+                              if value.count == 0 and value.active == false
+                                assign is_disabled = true
+                              endif
+                            %}
+                            <div class="checkbox-item">
+                              <input
+                                type="checkbox"
+                                name="{{ value.param_name }}"
+                                value="{{ value.value }}"
+                                id="{{ input_id }}"
+                                {% if value.active %}checked{% endif %}
+                                {% if is_disabled %}disabled{% endif %}
+                                class="custom-checkbox"
+                              >
+                              <label for="{{ input_id }}" class="checkbox-label{% if is_disabled %} disabled{% endif %}">
+                                <span class="checkbox-box">
+                                  {% if value.active %}
+                                  {% endif %}
+                                </span>
+                                {{ value.label | escape }}
+                              </label>
+                            </div>
+                          {%- endfor -%}
+                        </div>
+                      </div>
+                    {% endif %}
+                    {% endif %}
+                  </div>
+
+                {% when 'price_range' %}
+                  <div class="filter-section">
+                    <div class="filter-label">{{ filter.label | escape }}:</div>
+                    <div class="filter-content price-filter">
+                      <price-range class="facets__price">
+                        {% render 'price-facet', filter: filter, id_prefix: 'Filter-', filter_type: filter_type %}
+                      </price-range>
+                    </div>
+                  </div>
+              {% endcase %}
+            {%- endfor -%}
+          </div>
+        {% endif %}
+
+        {% if results.current_vendor or results.current_type %}
+          <input type="hidden" name="q" value="{{ results.current_vendor }}{{ results.current_type }}">
+        {% endif %}
+
+        {%- if filter_type == 'horizontal' -%}
+          {%- if enable_sorting -%}
+            <div class="facet-filters sorting caption">
+              <div class="facet-filters__field">
+                <h2 class="facet-filters__label caption-large text-body">
+                  <label for="SortBy">{{ 'products.facets.sort_by_label' | t }}</label>
+                </h2>
+                <div class="select">
+                  {%- assign sort_by = results.sort_by | default: 'created-descending' -%}
+                  <select
+                    name="sort_by"
+                    class="facet-filters__sort select__select caption-large"
+                    id="SortBy"
+                    aria-describedby="a11y-refresh-page-message"
+                  >
+                    {%- for option in results.sort_options -%}
+                      {%- if option.value == 'created-descending' -%}
+                        <option value="{{ option.value | escape }}" selected="selected">
+                          New Arrivals
+                        </option>
+                      {%- else -%}
+                        <option value="{{ option.value | escape }}">
+                          {{ option.name | escape }}
+                        </option>
+                      {%- endif -%}
+                    {%- endfor -%}
+                  </select>
+                  <span class="svg-wrapper">
+                    {{- 'icon-caret.svg' | inline_asset_content -}}
+                  </span>
+                </div>
+              </div>
+            </div>
+          {%- endif -%}
+          <div class="product-count light" role="status">
+            <h2 class="product-count__text text-body">
+              <span id="ProductCountDesktop">
+                {%- if results.results_count -%}
+                  {{ 'templates.search.results_with_count' | t: terms: results.terms, count: results.results_count }}
+                {%- elsif results.products_count == results.all_products_count -%}
+                  {{ 'products.facets.product_count_simple' | t: count: results.products_count }}
+                {%- else -%}
+                  {{
+                    'products.facets.product_count'
+                    | t: product_count: results.products_count, count: results.all_products_count
+                  }}
+                {%- endif -%}
+              </span>
+            </h2>
+            {%- render 'loading-spinner' -%}
+          </div>
+        {%- endif -%}
+      </form>
+    </facet-filters-form>
+
+<style>
+  .facets__form-vertical {
+    max-width: 280px;
+    border: 1px solid #931932;
+    border-radius: 8px;
+    padding: 20px;
+    background: white;
+  }
+
+  .filter-header {
+    margin-bottom: 20px;
+  }
+
+  .filter-icon {
+    color: #666;
+  }
+
+  .filter-section {
+    margin-bottom: 30px;
+  }
+
+  .filter-label {
+    font-family: 'Grotesk Medium', sans-serif;
+    font-size: 16px;
+    color: #262626;
+    margin-bottom: 15px;
+  }
+
+  .filter-content {
+    padding-left: 0;
+  }
+
+  .checkbox-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .checkbox-item {
+    display: flex;
+    align-items: center;
+  }
+
+  .custom-checkbox {
+    display: none !important;
+  }
+
+  .checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Poppins Regular';
+    font-size: 14px;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+
+  .checkbox-label:hover {
+    color: #000;
+  }
+
+  .checkbox-label.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .checkbox-box {
+    width: 18px;
+    height: 18px;
+    border: 1px solid #ccc;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    transition: all 0.2s ease;
+  }
+
+  .custom-checkbox:checked + .checkbox-label .checkbox-box {
+    background: #931932;
+    outline: 1px solid #931932;
+    outline-offset: 1px;
+  }
+
+  .custom-checkbox:checked + .checkbox-label {
+  color: #931932;
+}
+
+
+  .size-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .size-item {
+    position: relative;
+  }
+
+  .size-label {
+    display: block;
+    padding: 8px 4px;
+    text-align: center;
+    background: #f5f4f4;
+    border: 1px solid transparent;
+    cursor: pointer;
+    font-family: 'Grotesk Regular', sans-serif;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .size-label:hover:not(.disabled) {
+    background: #e8e8e8;
+  }
+
+  .size-label.active {
+    background: #262626;
+    color: white;
+    border-color: #000;
+  }
+
+  .size-label.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .color-filter .color-label {
+    font-family: 'Grotesk Regular', sans-serif;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+  }
+
+  .color-swatches {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .color-swatch {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    border: 1px solid #e0e0e0;
+    transition: all 0.2s ease;
+    display: block;
+  }
+
+  .color-swatch:hover:not(.disabled) {
+    transform: scale(1.1);
+  }
+
+  .color-swatch.active::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 3px;
+    background: var(--swatch-color, currentColor);
+    border-radius: 2px;
+  }
+
+  .color-swatch.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .swatch-color {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    display: block;
+  }
+
+  .availability-filter .checkbox-list {
+    gap: 8px;
+  }
+
+  .price-filter {
+    margin-top: 10px;
+  }
+
+  .visually-hidden {
+    position: absolute !important;
+    overflow: hidden;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    clip: rect(0 0 0 0);
+    word-wrap: normal !important;
+  }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+const colorMap = {
+  'armygr': '#4B5320',
+  'army-gr': '#4B5320',
+  'army-green': '#4B5320',
+  'acid-blue': '#00BFFF',
+  'acidblue': '#00BFFF',
+  'avery-cream': '#F5F5DC',
+  'avery-dgray': '#696969',
+  'avery-darkgray': '#696969',
+  'deep-blue': '#191970',
+  'deepblue': '#191970',
+  'slimfit-darkbl': '#000080',
+  'slimfit-darkblue': '#000080',
+  'skinnyfit-black': '#000000',
+  'skinnyfit-blk': '#000000',
+  'black': '#000000',
+  'white': '#FFFFFF',
+  'red': '#FF0000',
+  'blue': '#0000FF',
+  'green': '#008000',
+  'yellow': '#FFFF00',
+  'pink': '#FFC0CB',
+  'purple': '#800080',
+  'orange': '#FFA500',
+  'brown': '#A52A2A',
+  'gray': '#808080',
+  'grey': '#808080',
+  'navy': '#000080',
+  'lime': '#00FF00',
+  'cyan': '#00FFFF',
+  'magenta': '#FF00FF',
+  'maroon': '#800000',
+  'olive': '#808000',
+  'silver': '#C0C0C0',
+  'teal': '#008080',
+  'beige': '#F5F5DC',
+  'cream': '#FFFDD0',
+  'ivory': '#FFFFF0',
+  'khaki': '#F0E68C',
+  'tan': '#D2B48C',
+  'coral': '#FF7F50',
+  'salmon': '#FA8072',
+  'gold': '#FFD700',
+  'indigo': '#4B0082',
+  'violet': '#8B00FF',
+  'turquoise': '#40E0D0',
+  'mint': '#98FB98',
+  'lavender': '#B19CD9', 
+  'plain-khaki': '#8b7355',
+  'light-blue': '#ADD8E6',
+  'light-green': '#90EE90',
+  'light-pink': '#FFB6C1',
+  'light-gray': '#D3D3D3',
+  'light-grey': '#D3D3D3',
+  'dark-blue': '#00008B',
+  'dark-green': '#006400',
+  'dark-red': '#8B0000',
+  'dark-gray': '#A9A9A9',
+  'dark-grey': '#A9A9A9',
+  'rose': '#FF007F',
+  'peach': '#FFCBA4',
+  'lilac': '#C8A2C8',
+  'powder-blue': '#B0E0E6',
+  'forest-green': '#228B22',
+  'burgundy': '#800020',
+  'charcoal': '#36454F',
+  'slate': '#708090',
+  'mauve': '#E0B0FF',
+  'plum': '#DDA0DD',
+  'sage': '#9CAF88',
+  'dusty-rose': '#DCAE96',
+  'champagne': '#F7E7CE',
+  'taupe': '#483C32'
+};
+  
+  function getColorFromName(colorName) {
+    const normalized = colorName.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+    
+    if (colorMap[normalized]) {
+      return colorMap[normalized];
+    }
+    
+    for (const [key, value] of Object.entries(colorMap)) {
+      if (normalized.includes(key) || key.includes(normalized)) {
+        return value;
+      }
+    }
+    
+    if (colorName.startsWith('#')) {
+      return colorName;
+    }
+    
+    if (colorName.toLowerCase().includes('rgb')) {
+      return colorName;
+    }
+    
+    return '#CCCCCC';
+  }
+  
+  function initializeColorSwatches() {
+    const colorSwatches = document.querySelectorAll('.color-swatch');
+    colorSwatches.forEach(swatch => {
+      const colorName = swatch.getAttribute('data-color-name') || swatch.getAttribute('data-color');
+      const colorHex = getColorFromName(colorName);
+      const swatchColor = swatch.querySelector('.swatch-color');
+      
+      if (swatchColor) {
+        swatchColor.style.backgroundColor = colorHex;
+      }
+      
+      swatch.style.setProperty('--swatch-color', colorHex);
+    });
+  }
+  
+  initializeColorSwatches();
+  
+  const colorInputs = document.querySelectorAll('.color-filter input[type="checkbox"]');
+  const colorLabel = document.querySelector('.color-filter .color-label');
+  
+  colorInputs.forEach(input => {
+    input.addEventListener('change', function() {
+      if (this.checked) {
+        colorInputs.forEach(otherInput => {
+          if (otherInput !== this) {
+            otherInput.checked = false;
+            otherInput.nextElementSibling.classList.remove('active');
+          }
+        });
+        
+        this.nextElementSibling.classList.add('active');
+        if (colorLabel) {
+          colorLabel.textContent = this.value;
+        }
+      } else {
+        this.nextElementSibling.classList.remove('active');
+        if (colorLabel) {
+          colorLabel.textContent = 'Plain Khaki';
+        }
+      }
+    });
+  });
+
+  const sizeInputs = document.querySelectorAll('.size-filter input[type="checkbox"]');
+  
+  sizeInputs.forEach(input => {
+    input.addEventListener('change', function() {
+      if (this.checked) {
+        this.nextElementSibling.classList.add('active');
+      } else {
+        this.nextElementSibling.classList.remove('active');
+      }
+    });
+  });
+
+  const checkboxInputs = document.querySelectorAll('.checkbox-filter input[type="checkbox"]');
+  
+  checkboxInputs.forEach(input => {
+    input.addEventListener('change', function() {
+    });
+  });
+});
+</script>
+  {%- endif -%}
+  <menu-drawer
+    class="mobile-facets__wrapper{% if filter_type == 'horizontal' or filter_type == 'vertical' %} medium-hide large-up-hide{% endif %}"
+    data-breakpoint="mobile"
+  >
+    <details class="mobile-facets__disclosure disclosure-has-popup">
+      <summary class="mobile-facets__open-wrapper focus-offset">
+        <span class="mobile-facets__open{% if filter_type == 'drawer' and enable_filtering == false %} medium-hide large-up-hide{% endif %}">
+          <span class="svg-wrapper">
+            {{- 'icon-filter.svg' | inline_asset_content -}}
+          </span>
+          <span class="mobile-facets__open-label button-label medium-hide large-up-hide">
+            {%- if enable_filtering and enable_sorting -%}
+              {{ 'products.facets.filter_and_sort' | t }}
+            {%- elsif enable_filtering -%}
+              {{ 'products.facets.filter_button' | t }}
+            {%- elsif enable_sorting -%}
+              {{ 'products.facets.sort_button' | t }}
+            {%- endif -%}
+          </span>
+          <span class="mobile-facets__open-label button-label small-hide">
+            {%- if enable_filtering -%}
+              {{ 'products.facets.filter_button' | t }}
+            {%- endif -%}
+          </span>
+        </span>
+        <span tabindex="0" class="mobile-facets__close">
+          <span class="svg-wrapper">
+            {{- 'icon-close.svg' | inline_asset_content -}}
+          </span>
+        </span>
+      </summary>
+      <facet-filters-form>
+        <form id="FacetFiltersFormMobile" class="mobile-facets">
+          <div class="mobile-facets__inner gradient">
+            <div class="mobile-facets__header">
+              <div class="mobile-facets__header-inner">
+                <h2 class="mobile-facets__heading medium-hide large-up-hide">
+                  {%- if enable_filtering and enable_sorting -%}
+                    {{ 'products.facets.filter_and_sort' | t }}
+                  {%- elsif enable_filtering -%}
+                    {{ 'products.facets.filter_button' | t }}
+                  {%- elsif enable_sorting -%}
+                    {{ 'products.facets.sort_button' | t }}
+                  {%- endif -%}
+                </h2>
+                <h2 class="mobile-facets__heading small-hide">
+                  {%- if enable_filtering -%}
+                    {{ 'products.facets.filter_button' | t }}
+                  {%- endif -%}
+                </h2>
+                <p class="mobile-facets__count">
+                  {%- if results.results_count -%}
+                    {{ 'templates.search.results_with_count' | t: terms: results.terms, count: results.results_count }}
+                  {%- elsif results.products_count == results.all_products_count -%}
+                    {{ 'products.facets.product_count_simple' | t: count: results.products_count }}
+                  {%- else -%}
+                    {{
+                      'products.facets.product_count'
+                      | t: product_count: results.products_count, count: results.all_products_count
+                    }}
+                  {%- endif -%}
+                </p>
+              </div>
+            </div>
+            <div
+              id="FacetsWrapperMobile"
+              class="mobile-facets__main has-submenu gradient"
+            >
+              {%- if enable_filtering -%}
+                {%- unless has_shopify_collections_facet -%}
+                  {%- capture category_fallback_mobile_inner -%}
+                    {%- liquid
+                      assign category_seen_m = '||'
+                      assign category_fallback_m_count = 0
+                    -%}
+                    {%- for product in results.products -%}
+                      {%- assign mf = product.metafields.custom.collections -%}
+                      {%- if mf == blank or mf.value == blank -%}{% continue %}{%- endif -%}
+                      {%- assign mt = mf.type | default: '' -%}
+                      {%- if mt contains 'list.collection' or mt == 'list.collection_reference' -%}
+                        {%- for col_ref in mf.value -%}
+                          {%- if col_ref.handle == blank -%}{% continue %}{%- endif -%}
+                          {%- assign token = '||' | append: col_ref.handle | append: '||' -%}
+                          {%- unless category_seen_m contains token -%}
+                            {%- assign category_seen_m = category_seen_m | append: col_ref.handle | append: '||' -%}
+                            {%- assign category_fallback_m_count = category_fallback_m_count | plus: 1 -%}
+                            <li class="mobile-facets__item list-menu__item">
+                              <label for="Filter-category-fallback-mobile-{{ category_fallback_m_count }}" class="facets__label mobile-facets__label">
+                                <input class="mobile-facets__checkbox js-category-facet-input" type="checkbox" name="filter.p.m.custom.collections" value="{{ col_ref.handle | escape }}" id="Filter-category-fallback-mobile-{{ category_fallback_m_count }}">
+                                <span class="mobile-facets__highlight"></span>
+                                {{- 'square.svg' | inline_asset_content -}}
+                                {{- 'icon-checkmark.svg' | inline_asset_content -}}
+                                <span class="facet-checkbox__text" aria-hidden="true">
+                                  <span class="facet-checkbox__text-label">{{ col_ref.title | escape }}</span>
+                                </span>
+                                <span class="visually-hidden">{{ col_ref.title | escape }}</span>
+                              </label>
+                            </li>
+                          {%- endunless -%}
+                        {%- endfor -%}
+                      {%- elsif mt == 'collection_reference' -%}
+                        {%- assign col_ref = mf.value -%}
+                        {%- if col_ref.handle != blank -%}
+                          {%- assign token = '||' | append: col_ref.handle | append: '||' -%}
+                          {%- unless category_seen_m contains token -%}
+                            {%- assign category_seen_m = category_seen_m | append: col_ref.handle | append: '||' -%}
+                            {%- assign category_fallback_m_count = category_fallback_m_count | plus: 1 -%}
+                            <li class="mobile-facets__item list-menu__item">
+                              <label for="Filter-category-fallback-mobile-{{ category_fallback_m_count }}" class="facets__label mobile-facets__label">
+                                <input class="mobile-facets__checkbox js-category-facet-input" type="checkbox" name="filter.p.m.custom.collections" value="{{ col_ref.handle | escape }}" id="Filter-category-fallback-mobile-{{ category_fallback_m_count }}">
+                                <span class="mobile-facets__highlight"></span>
+                                {{- 'square.svg' | inline_asset_content -}}
+                                {{- 'icon-checkmark.svg' | inline_asset_content -}}
+                                <span class="facet-checkbox__text" aria-hidden="true">
+                                  <span class="facet-checkbox__text-label">{{ col_ref.title | escape }}</span>
+                                </span>
+                                <span class="visually-hidden">{{ col_ref.title | escape }}</span>
+                              </label>
+                            </li>
+                          {%- endunless -%}
+                        {%- endif -%}
+                      {%- elsif mt contains 'list.' -%}
+                        {%- for text_item in mf.value -%}
+                          {%- assign label = text_item | strip -%}
+                          {%- if label == blank -%}{% continue %}{%- endif -%}
+                          {%- assign slug = label | handleize -%}
+                          {%- assign token = '||' | append: slug | append: '||' -%}
+                          {%- unless category_seen_m contains token -%}
+                            {%- assign category_seen_m = category_seen_m | append: slug | append: '||' -%}
+                            {%- assign category_fallback_m_count = category_fallback_m_count | plus: 1 -%}
+                            <li class="mobile-facets__item list-menu__item">
+                              <label for="Filter-category-fallback-mobile-{{ category_fallback_m_count }}" class="facets__label mobile-facets__label">
+                                <input class="mobile-facets__checkbox js-category-facet-input" type="checkbox" name="filter.p.m.custom.collections" value="{{ label | escape }}" id="Filter-category-fallback-mobile-{{ category_fallback_m_count }}">
+                                <span class="mobile-facets__highlight"></span>
+                                {{- 'square.svg' | inline_asset_content -}}
+                                {{- 'icon-checkmark.svg' | inline_asset_content -}}
+                                <span class="facet-checkbox__text" aria-hidden="true">
+                                  <span class="facet-checkbox__text-label">{{ label | escape }}</span>
+                                </span>
+                                <span class="visually-hidden">{{ label | escape }}</span>
+                              </label>
+                            </li>
+                          {%- endunless -%}
+                        {%- endfor -%}
+                      {%- else -%}
+                        {%- assign label = mf.value | strip -%}
+                        {%- if label != blank -%}
+                          {%- assign slug = label | handleize -%}
+                          {%- assign token = '||' | append: slug | append: '||' -%}
+                          {%- unless category_seen_m contains token -%}
+                            {%- assign category_seen_m = category_seen_m | append: slug | append: '||' -%}
+                            {%- assign category_fallback_m_count = category_fallback_m_count | plus: 1 -%}
+                            <li class="mobile-facets__item list-menu__item">
+                              <label for="Filter-category-fallback-mobile-{{ category_fallback_m_count }}" class="facets__label mobile-facets__label">
+                                <input class="mobile-facets__checkbox js-category-facet-input" type="checkbox" name="filter.p.m.custom.collections" value="{{ label | escape }}" id="Filter-category-fallback-mobile-{{ category_fallback_m_count }}">
+                                <span class="mobile-facets__highlight"></span>
+                                {{- 'square.svg' | inline_asset_content -}}
+                                {{- 'icon-checkmark.svg' | inline_asset_content -}}
+                                <span class="facet-checkbox__text" aria-hidden="true">
+                                  <span class="facet-checkbox__text-label">{{ label | escape }}</span>
+                                </span>
+                                <span class="visually-hidden">{{ label | escape }}</span>
+                              </label>
+                            </li>
+                          {%- endunless -%}
+                        {%- endif -%}
+                      {%- endif -%}
+                    {%- endfor -%}
+                  {%- endcapture -%}
+                  {%- assign category_fallback_mobile_inner = category_fallback_mobile_inner | strip -%}
+                  {%- if category_fallback_mobile_inner != blank -%}
+                    <details id="Details-Mobile-category-fallback-{{ section.id }}" class="mobile-facets__details js-filter" data-index="mobile-category-fallback">
+                      <summary class="mobile-facets__summary focus-inset">
+                        <div>
+                          <span>Shop by Category</span>
+                          <span class="mobile-facets__arrow">
+                            {{- 'icon-arrow.svg' | inline_asset_content -}}
+                          </span>
+                        </div>
+                      </summary>
+                      <div id="FacetMobile-category-fallback-{{ section.id }}" class="mobile-facets__submenu gradient">
+                        <button class="mobile-facets__close-button link link--text focus-inset" aria-expanded="true" type="button">
+                          {{- 'icon-arrow.svg' | inline_asset_content -}}
+                          <span>Shop by Category</span>
+                        </button>
+                        <ul class="facets-layout facets-layout-list facets-layout-list--text mobile-facets__list list-unstyled" role="list">
+                          {{ category_fallback_mobile_inner }}
+                        </ul>
+                        <div class="mobile-facets__footer gradient">
+                          <button type="button" class="button button--primary" onclick="this.closest('.mobile-facets__wrapper').querySelector('summary').click()">
+                            {{ 'products.facets.apply' | t }}
+                          </button>
+                        </div>
+                      </div>
+                    </details>
+                  {%- endif -%}
+                {%- endunless -%}
+                {%- for filter in results.filters -%}
+                  {% liquid
+                    assign presentation = filter.presentation | default: default_presentation
+                    assign filter_label_normalized = filter.label | downcase | strip
+                    if presentation == 'image'
+                      assign visual_layout_class = 'facets-layout facets-layout-grid facets-layout-grid--' | append: presentation
+                    else
+                      assign visual_layout_class = 'facets-layout facets-layout-list facets-layout-list--' | append: presentation
+                    endif
+                    assign mobile_filter_title = filter.label
+                    assign mpn = filter.param_name | downcase
+                    if mpn contains 'custom.collections'
+                      assign mobile_filter_title = 'Shop by Category'
+                    endif
+                  %}
+
+                  {%- if filter_label_normalized == 'highlights' -%}
+                    {%- continue -%}
+                  {%- endif -%}
+
+                  {% case filter.type %}
+                    {% when 'boolean', 'list' %}
+                      <details
+                        id="Details-Mobile-{{ filter.param_name | escape }}-{{ section.id }}"
+                        class="mobile-facets__details js-filter"
+                        data-index="mobile-{{ forloop.index }}"
+                      >
+                        <summary class="mobile-facets__summary focus-inset">
+                          <div>
+                            <span>{{ mobile_filter_title | escape }}</span>
+                            <span class="mobile-facets__arrow">
+                              {{- 'icon-arrow.svg' | inline_asset_content -}}
+                            </span>
+                          </div>
+                        </summary>
+                        <div
+                          id="FacetMobile-{{ forloop.index }}-{{ section.id }}"
+                          class="mobile-facets__submenu gradient"
+                        >
+                          <button
+                            class="mobile-facets__close-button link link--text focus-inset"
+                            aria-expanded="true"
+                            type="button"
+                          >
+                            {{- 'icon-arrow.svg' | inline_asset_content -}}
+                            <span>{{ mobile_filter_title | escape }}</span>
+                            {%- if filter.operator == 'AND' -%}
+                              <span class="facets__and-helptext">
+                                {{ 'products.facets.filter_and_operator_subtitle' | t }}
+                              </span>
+                            {%- endif -%}
+                          </button>
+                          <ul class="{{ visual_layout_class }} mobile-facets__list list-unstyled" role="list">
+                            {%- liquid
+                              assign sorted_values = filter.values
+                              if filter.operator == 'AND'
+                                assign active_filter_values = filter.values | where: 'active', true
+                                assign inactive_filter_values = filter.values | where: 'active', false
+                                assign sorted_values = active_filter_values | concat: inactive_filter_values
+                              endif
+                            -%}
+                            {%- for value in sorted_values -%}
+                              {% liquid
+                                assign input_id = 'Filter-' | append: filter.param_name | escape | append: '-mobile-' | append: forloop.index
+                                assign is_disabled = false
+                                if value.count == 0 and value.active == false
+                                  assign is_disabled = true
+                                endif
+                              %}
+
+                              {%- capture label_class -%}
+                              facets__label mobile-facets__label{% if is_disabled %} disabled{% endif %}{% if value.active %} active{% endif %}
+                              {%- endcapture -%}
+
+                              {%- capture text_value -%}
+                                <span class="facet-checkbox__text" aria-hidden="true">
+                                  <span class="facet-checkbox__text-label">{{- value.label | escape }}</span> ({{- value.count -}})
+                                </span>
+                                <span class="visually-hidden">
+                                  {{- value.label | escape }} (
+                                  {%- if value.count == '1' -%}
+                                    {{- 'products.facets.product_count_simple.one' | t: count: value.count -}}
+                                  {%- else -%}
+                                    {{- 'products.facets.product_count_simple.other' | t: count: value.count -}}
+                                  {%- endif -%}
+                                  )
+                                </span>
+                              {%- endcapture -%}
+
+                              <li class="mobile-facets__item list-menu__item">
+                                {% if presentation == 'swatch' %}
+                                  <div class="{{ label_class }}">
+                                    <div class="swatch-input-wrapper">
+                                      {% render 'swatch-input',
+                                        id: input_id,
+                                        type: 'checkbox',
+                                        name: value.param_name,
+                                        value: value.value,
+                                        product_form_id: 'FacetFiltersFormMobile',
+                                        swatch: value.swatch,
+                                        checked: value.active,
+                                        disabled: is_disabled
+                                      %}
+                                    </div>
+
+                                    {{ text_value }}
+                                  </div>
+                                {% else %}
+                                  <label for="{{ input_id }}" class="{{ label_class }}">
+                                    <input
+                                      class="mobile-facets__checkbox"
+                                      type="checkbox"
+                                      name="{{ value.param_name }}"
+                                      value="{{ value.value }}"
+                                      id="{{ input_id }}"
+                                      {% if value.active %}
+                                        checked
+                                      {% endif %}
+                                      {% if is_disabled %}
+                                        disabled
+                                      {% endif %}
+                                    >
+
+                                    {%- if presentation == 'image' -%}
+                                      <div class="facets__image-wrapper">
+                                        {%- if value.image -%}
+                                          {{
+                                            value.image
+                                            | image_url: width: 300
+                                            | image_tag: class: 'facets__image', alt: value.alt
+                                          }}
+                                        {%- endif -%}
+                                      </div>
+                                    {%- else -%}
+                                      <span class="mobile-facets__highlight"></span>
+                                      {{- 'square.svg' | inline_asset_content -}}
+                                      {{- 'icon-checkmark.svg' | inline_asset_content -}}
+                                    {%- endif %}
+
+                                    {{ text_value }}
+                                  </label>
+                                {% endif %}
+                              </li>
+                            {%- endfor -%}
+                          </ul>
+
+                          <div class="mobile-facets__footer gradient">
+                            <facet-remove class="mobile-facets__clear-wrapper">
+                              <a href="{{ filter.url_to_remove }}" class="mobile-facets__clear underlined-link">
+                                {{- 'products.facets.clear' | t -}}
+                              </a>
+                            </facet-remove>
+                            <button
+                              type="button"
+                              class="button button--primary"
+                              onclick="this.closest('.mobile-facets__wrapper').querySelector('summary').click()"
+                            >
+                              {{ 'products.facets.apply' | t }}
+                            </button>
+                          </div>
+                        </div>
+                      </details>
+                    {% when 'price_range' %}
+                      <details
+                        id="Details-Mobile-{{ filter.param_name | escape }}-{{ section.id }}"
+                        class="mobile-facets__details js-filter"
+                        data-index="mobile-{{ forloop.index }}"
+                      >
+                        <summary class="mobile-facets__summary focus-inset">
+                          <div>
+                            <span>{{ filter.label | escape }}</span>
+                            <span class="mobile-facets__arrow">
+                              {{- 'icon-arrow.svg' | inline_asset_content -}}
+                            </span>
+                          </div>
+                        </summary>
+                        <div
+                          id="FacetMobile-{{ forloop.index }}-{{ section.id }}"
+                          class="mobile-facets__submenu gradient"
+                        >
+                          <button
+                            class="mobile-facets__close-button link link--text focus-inset"
+                            aria-expanded="true"
+                            type="button"
+                          >
+                            {{- 'icon-arrow.svg' | inline_asset_content -}}
+                            {{ filter.label | escape }}
+                          </button>
+
+                          {%- assign max_price_amount = filter.range_max | money | strip_html | escape -%}
+                          <p class="mobile-facets__info">
+                            {{ 'products.facets.max_price' | t: price: max_price_amount }}
+                          </p>
+
+                          <price-range class="facets__price">
+                            {% render 'price-facet', filter: filter, id_prefix: 'Mobile-Filter-' %}
+                          </price-range>
+                          <div class="mobile-facets__footer">
+                            <facet-remove class="mobile-facets__clear-wrapper">
+                              <a href="{{ filter.url_to_remove }}" class="mobile-facets__clear underlined-link">
+                                {{- 'products.facets.clear' | t -}}
+                              </a>
+                            </facet-remove>
+                            <button
+                              type="button"
+                              class="button button--primary"
+                              onclick="this.closest('.mobile-facets__wrapper').querySelector('summary').click()"
+                            >
+                              {{ 'products.facets.apply' | t }}
+                            </button>
+                          </div>
+                        </div>
+                      </details>
+                  {% endcase %}
+                {%- endfor -%}
+              {%- endif -%}
+
+              {%- if enable_sorting -%}
+                <div
+                  id="Details-Mobile-SortBy-{{ section.id }}"
+                  class="mobile-facets__details js-filter{% if filter_type == 'drawer' %} medium-hide large-up-hide{% endif %}"
+                  data-index="mobile-{{ forloop.index }}"
+                >
+                  <div class="mobile-facets__summary">
+                    <div class="mobile-facets__sort">
+                      <label for="SortBy-mobile">{{ 'products.facets.sort_by_label' | t }}</label>
+                      <div class="select">
+                        <select
+                          name="sort_by"
+                          class="select__select"
+                          id="SortBy-mobile"
+                          aria-describedby="a11y-refresh-page-message"
+                        >
+                          {%- for option in results.sort_options -%}
+                            {%- if option.value == 'created-descending' -%}
+                              <option value="{{ option.value | escape }}" selected="selected">
+                                New Arrivals
+                              </option>
+                            {%- else -%}
+                              <option value="{{ option.value | escape }}">
+                                {{ option.name | escape }}
+                              </option>
+                            {%- endif -%}
+                          {%- endfor -%}
+                        </select>
+                        <span class="svg-wrapper">
+                          {{- 'icon-caret.svg' | inline_asset_content -}}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {%- endif -%}
+
+              <div class="mobile-facets__footer">
+                <facet-remove class="mobile-facets__clear-wrapper">
+                  <a href="{{ results_url }}" class="mobile-facets__clear underlined-link">
+                    {{- 'products.facets.clear_all' | t -}}
+                  </a>
+                </facet-remove>
+                <button
+                  type="button"
+                  class="button button--primary"
+                  onclick="this.closest('.mobile-facets__wrapper').querySelector('summary').click()"
+                >
+                  {{ 'products.facets.apply' | t }}
+                </button>
+              </div>
+            </div>
+
+            {% if results.current_vendor or results.current_type %}
+              <input type="hidden" name="q" value="{{ results.current_vendor }}{{ results.current_type }}">
+            {% endif %}
+
+            {%- if results.terms -%}
+              <input type="hidden" name="q" value="{{ results.terms | escape }}">
+              <input name="options[prefix]" type="hidden" value="last">
+            {%- endif -%}
+          </div>
+        </form>
+      </facet-filters-form>
+    </details>
+  </menu-drawer>
+
+  <div class="active-facets active-facets-mobile medium-hide large-up-hide">
+    {%- for filter in results.filters -%}
+      {%- liquid
+        assign active_chip_label = filter.label
+        assign active_filter_label_normalized = filter.label | downcase | strip
+        assign apn = filter.param_name | downcase
+        if apn contains 'custom.collections'
+          assign active_chip_label = 'Shop by Category'
+        endif
+      -%}
+
+      {%- if active_filter_label_normalized == 'highlights' -%}
+        {%- continue -%}
+      {%- endif -%}
+
+      {%- for value in filter.active_values -%}
+        <facet-remove>
+          <a href="{{ value.url_to_remove }}" class="active-facets__button active-facets__button--light">
+            <span class="active-facets__button-inner button button--tertiary">
+              {{ active_chip_label | escape }}: {{ value.label | escape }}
+              <span class="svg-wrapper">
+                {{- 'icon-close-small.svg' | inline_asset_content -}}
+              </span>
+              <span class="visually-hidden">{{ 'products.facets.clear_filter' | t }}</span>
+            </span>
+          </a>
+        </facet-remove>
+      {%- endfor -%}
+
+      {%- if filter.type == 'price_range' -%}
+        {% assign min = filter.min_value.value %}
+        {% assign max = filter.max_value.value %}
+        {%- if min != null or max != null -%}
+          <facet-remove>
+            <a href="{{ filter.url_to_remove }}" class="active-facets__button active-facets__button--light">
+              <span class="active-facets__button-inner button button--tertiary">
+                {{ min | default: 0 | money }} - {{ max | default: filter.range_max | money }}
+                <span class="svg-wrapper">
+                  {{- 'icon-close-small.svg' | inline_asset_content -}}
+                </span>
+                <span class="visually-hidden">{{ 'products.facets.clear_filter' | t }}</span>
+              </span>
+            </a>
+          </facet-remove>
+        {%- endif -%}
+      {%- endif -%}
+    {%- endfor -%}
+    <facet-remove class="active-facets__button-wrapper">
+      <a href="{{ results_url }}" class="active-facets__button-remove underlined-link">
+        <span>{{ 'products.facets.clear_all' | t }}</span>
+      </a>
+    </facet-remove>
+  </div>
+  {%- if enable_sorting and filter_type == 'drawer' -%}
+    <facet-filters-form class="facets small-hide">
+      <form id="FacetSortDrawerForm" class="facets__form">
+        <div class="facet-filters sorting caption small-hide">
+          <div class="facet-filters__field">
+            <h2 class="facet-filters__label caption-large text-body">
+              <label for="SortBy">{{ 'products.facets.sort_by_label' | t }}</label>
+            </h2>
+            <div class="select">
+              {%- assign sort_by = results.sort_by | default: 'created-descending' -%}
+              <select
+                name="sort_by"
+                class="facet-filters__sort select__select caption-large"
+                id="SortBy"
+                aria-describedby="a11y-refresh-page-message"
+              >
+               {%- for option in results.sort_options -%}
+                {%- if option.value == 'created-descending' -%}
+                  <option value="{{ option.value | escape }}" selected="selected">
+                    New Arrivals
+                  </option>
+                {%- else -%}
+                  <option value="{{ option.value | escape }}">
+                    {{ option.name | escape }}
+                  </option>
+                {%- endif -%}
+              {%- endfor -%}
+              </select>
+              <span class="svg-wrapper">
+                {{- 'icon-caret.svg' | inline_asset_content -}}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {% if results.current_vendor or results.current_type %}
+          <input type="hidden" name="q" value="{{ results.current_vendor }}{{ results.current_type }}">
+        {% endif %}
+
+        {%- if results.terms -%}
+          <input type="hidden" name="q" value="{{ results.terms | escape }}">
+          <input name="options[prefix]" type="hidden" value="last">
+        {%- endif -%}
+      </form>
+    </facet-filters-form>
+  {%- endif -%}
+  <div
+    class="product-count light{% if filter_type == 'vertical' or filter_type == 'horizontal' %} medium-hide large-up-hide{% endif %}"
+    role="status"
+  >
+    <h2 class="product-count__text text-body">
+      <span id="ProductCount">
+        {%- if results.results_count -%}
+          {{ 'templates.search.results_with_count' | t: terms: results.terms, count: results.results_count }}
+        {%- elsif results.products_count == results.all_products_count -%}
+          {{ 'products.facets.product_count_simple' | t: count: results.products_count }}
+        {%- else -%}
+          {{
+            'products.facets.product_count'
+            | t: product_count: results.products_count, count: results.all_products_count
+          }}
+        {%- endif -%}
+      </span>
+    </h2>
+    {%- render 'loading-spinner' -%}
+  </div>
+  {%- if filter_type == 'drawer' -%}
+    <facet-filters-form class="facets facets-pill small-hide">
+      <form id="FacetFiltersPillsForm" class="facets__form">
+        <div class="active-facets active-facets-desktop">
+          {%- for filter in results.filters -%}
+            {%- liquid
+              assign pill_filter_label = filter.label
+              assign pill_filter_label_normalized = filter.label | downcase | strip
+              assign ppn = filter.param_name | downcase
+              if ppn contains 'custom.collections'
+                assign pill_filter_label = 'Shop by Category'
+              endif
+            -%}
+
+            {%- if pill_filter_label_normalized == 'highlights' -%}
+              {%- continue -%}
+            {%- endif -%}
+
+            {%- for value in filter.active_values -%}
+              <facet-remove>
+                <a href="{{ value.url_to_remove }}" class="active-facets__button active-facets__button--light">
+                  <span class="active-facets__button-inner button button--tertiary">
+                    {{ pill_filter_label | escape }}: {{ value.label | escape }}
+                    <span class="svg-wrapper">
+                      {{- 'icon-close-small.svg' | inline_asset_content -}}
+                    </span>
+                    <span class="visually-hidden">{{ 'products.facets.clear_filter' | t }}</span>
+                  </span>
+                </a>
+              </facet-remove>
+            {%- endfor -%}
+
+            {%- if filter.type == 'price_range' -%}
+              {% assign min = filter.min_value.value %}
+              {% assign max = filter.max_value.value %}
+              {%- if min != null or max != null -%}
+                <facet-remove>
+                  <a href="{{ filter.url_to_remove }}" class="active-facets__button active-facets__button--light">
+                    <span class="active-facets__button-inner button button--tertiary">
+                      {{ min | default: 0 | money }} - {{ max | default: filter.range_max | money }}
+                      <span class="svg-wrapper">
+                        {{- 'icon-close-small.svg' | inline_asset_content -}}
+                      </span>
+                      <span class="visually-hidden">{{ 'products.facets.clear_filter' | t }}</span>
+                    </span>
+                  </a>
+                </facet-remove>
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+          <facet-remove class="active-facets__button-wrapper">
+            <a href="{{ results_url }}" class="active-facets__button-remove underlined-link">
+              <span>{{ 'products.facets.clear_all' | t }}</span>
+            </a>
+          </facet-remove>
+        </div>
+      </form>
+    </facet-filters-form>
+  {%- endif -%}
+</div>

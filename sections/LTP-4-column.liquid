@@ -1,0 +1,487 @@
+{% schema %}
+{
+  "name": "Custom Image Grid",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Section Padding Top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Section Padding Bottom",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "column_offset_up",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Column Offset Up",
+      "default": 30,
+      "info": "Negative margin for even columns"
+    },
+    {
+      "type": "range",
+      "id": "column_offset_down",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Column Offset Down",
+      "default": 50,
+      "info": "Positive margin for odd columns"
+    },
+    {
+      "type": "header",
+      "content": "Text Settings"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 12,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "label": "Text Size",
+      "default": 18
+    },
+    {
+      "type": "header",
+      "content": "Mobile Settings"
+    },
+    {
+      "type": "range",
+      "id": "mobile_image_height",
+      "min": 300,
+      "max": 600,
+      "step": 50,
+      "unit": "px",
+      "label": "Mobile Image Height",
+      "default": 450
+    },
+    {
+      "type": "header",
+      "content": "Slider Settings"
+    },
+    {
+      "type": "color",
+      "id": "active_dot_color",
+      "label": "Active Dot Color",
+      "default": "#8E191B"
+    },
+    {
+      "type": "color",
+      "id": "inactive_dot_color",
+      "label": "Inactive Dot Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dots",
+      "label": "Show Navigation Dots",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay Slider",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "min": 1000,
+      "max": 8000,
+      "step": 500,
+      "unit": "ms",
+      "label": "Autoplay Speed",
+      "default": 3000
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image_item",
+      "name": "Image Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Title goes here"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Image Grid",
+      "category": "Image",
+      "blocks": [
+        {
+          "type": "image_item",
+          "settings": {
+            "title": "Fits for Real Bodies"
+          }
+        },
+        {
+          "type": "image_item",
+          "settings": {
+            "title": "Flow in Every Steps"
+          }
+        },
+        {
+          "type": "image_item",
+          "settings": {
+            "title": "Fits for Real Bodies"
+          }
+        },
+        {
+          "type": "image_item",
+          "settings": {
+            "title": "Moments That Matter"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  .image-grid-section {
+    background-color: {{ section.settings.background_color }};
+    padding-top: {{ section.settings.section_padding_top }}px;
+    padding-bottom: {{ section.settings.section_padding_bottom }}px;
+  }
+  
+  .image-grid-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+  
+  .image-grid-desktop {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -15px;
+    align-items: flex-start;
+  }
+  
+  .image-grid-item {
+    width: 25%;
+    padding: 0 15px;
+    margin-bottom: 30px;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .image-grid-item:nth-child(odd) {
+    margin-top: {{ section.settings.column_offset_down }}px;
+  }
+  
+  .image-grid-item:nth-child(even) {
+    margin-top: -{{ section.settings.column_offset_up }}px;
+  }
+  
+  .image-grid-item a {
+    display: block;
+    text-decoration: none;
+    position: relative;
+  }
+  
+  .image-grid-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+  
+  .image-grid-item:hover img {
+    transform: scale(1.03);
+  }
+  
+  .image-grid-text {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: {{ section.settings.text_color }};
+    font-family: 'Grotesk Regular';
+    font-size: {{ section.settings.text_size }}px;
+    font-weight: 400;
+    padding: 0 20px;
+  }
+  
+  .image-grid-mobile {
+    display: none;
+  }
+  
+  .mobile-slider-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .mobile-slides {
+    position: relative;
+    width: 100%;
+    height: {{ section.settings.mobile_image_height }}px;
+  }
+  
+  .mobile-slides img {
+    width: 100%;
+    height: 120%;
+    object-fit: cover;
+    display: block;
+  }
+  
+  .mobile-slide-text {
+    position: absolute;
+    bottom: 50px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: {{ section.settings.text_color }};
+    font-family: 'Grotesk Regular';
+    font-size: {{ section.settings.text_size }}px;
+    font-weight: 400;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+    z-index: 5;
+    padding: 0 20px;
+  }
+  
+  .mobile-nav-dots {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    z-index: 10;
+    padding: 8px 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.1));
+    border-radius: 20px;
+    margin: 0 20px;
+  }
+  
+  .mobile-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: {{ section.settings.inactive_dot_color }};
+    opacity: 0.8;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+  
+  .mobile-dot.active {
+    background-color: {{ section.settings.active_dot_color }};
+    opacity: 1;
+    transform: scale(1.4);
+    border-color: rgba(0,0,0,0.5);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+  }
+  
+  @media (max-width: 767px) {
+    .image-grid-desktop {
+      display: none;
+    }
+    
+    .image-grid-mobile {
+      display: block;
+    }
+    .image-grid-mobile img {
+      display: block !important;
+    }
+    
+    .image-grid-container {
+      padding: 0;
+    }
+  }
+</style>
+
+<div class="image-grid-section">
+  <div class="image-grid-container">
+    <div class="image-grid-desktop">
+      {% for block in section.blocks %}
+        <div class="image-grid-item" {{ block.shopify_attributes }}>
+          <a href="{{ block.settings.link }}">
+            <img src="{{ block.settings.image | img_url: '800x' }}" alt="{{ block.settings.title }}">
+            <div class="image-grid-text">
+              {{ block.settings.title }}
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+    
+    <div class="image-grid-mobile">
+      <div class="mobile-slider-container">
+        {% for block in section.blocks %}
+          <div class="mobile-slides" {% if forloop.first %}style="display: block;"{% else %}style="display: none;"{% endif %}>
+            <a href="{{ block.settings.link }}">
+              <img src="{{ block.settings.image | img_url: '800x' }}" alt="{{ block.settings.title }}">
+              <div class="mobile-slide-text">
+                {{ block.settings.title }}
+              </div>
+            </a>
+          </div>
+        {% endfor %}
+        
+        {% if section.settings.show_dots %}
+          <div class="mobile-nav-dots">
+            {% for block in section.blocks %}
+              <div class="mobile-dot {% if forloop.first %}active{% endif %}" data-index="{{ forloop.index0 }}"></div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const mobileSlider = document.querySelector('.mobile-slider-container');
+  if (!mobileSlider) return;
+  
+  const slides = document.querySelectorAll('.mobile-slides');
+  const dots = document.querySelectorAll('.mobile-dot');
+  let currentSlide = 0;
+  let autoplayTimer;
+  
+  function showSlide(index) {
+    slides.forEach(slide => slide.style.display = 'none');
+    dots.forEach(dot => dot.classList.remove('active'));
+    
+    if (slides[index]) {
+      slides[index].style.display = 'block';
+    }
+    
+    dots.forEach((dot, dotIndex) => {
+      if (dotIndex === index) {
+        dot.classList.add('active');
+      }
+    });
+    
+    currentSlide = index;
+  }
+  
+  function nextSlide() {
+    const next = (currentSlide + 1) % slides.length;
+    showSlide(next);
+  }
+  
+  dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+      showSlide(index);
+      resetAutoplay();
+    });
+  });
+  
+  let startX = 0;
+  let startY = 0;
+  let isDragging = false;
+  
+  mobileSlider.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+    isDragging = true;
+  });
+  
+  mobileSlider.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    
+    const currentX = e.touches[0].clientX;
+    const currentY = e.touches[0].clientY;
+    const diffX = Math.abs(currentX - startX);
+    const diffY = Math.abs(currentY - startY);
+    
+    if (diffX > diffY && diffX > 10) {
+      e.preventDefault();
+    }
+  });
+  
+  mobileSlider.addEventListener('touchend', (e) => {
+    if (!isDragging) return;
+    isDragging = false;
+    
+    const endX = e.changedTouches[0].clientX;
+    const diffX = startX - endX;
+    
+    if (Math.abs(diffX) > 50) {
+      if (diffX > 0) {
+        nextSlide();
+      } else {
+        const prev = (currentSlide - 1 + slides.length) % slides.length;
+        showSlide(prev);
+      }
+      resetAutoplay();
+    }
+  });
+  
+  {% if section.settings.autoplay %}
+    function startAutoplay() {
+      autoplayTimer = setInterval(nextSlide, {{ section.settings.autoplay_speed }});
+    }
+    
+    function stopAutoplay() {
+      if (autoplayTimer) {
+        clearInterval(autoplayTimer);
+      }
+    }
+    
+    function resetAutoplay() {
+      stopAutoplay();
+      startAutoplay();
+    }
+    
+    startAutoplay();
+    
+    mobileSlider.addEventListener('mouseenter', stopAutoplay);
+    mobileSlider.addEventListener('mouseleave', startAutoplay);
+  {% endif %}
+});
+</script>

@@ -1,0 +1,202 @@
+{% stylesheet %}
+  .hero-section {
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    padding: 20px;
+  }
+
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 600px;
+    max-width: 1200px;
+    margin: 0 28px;
+    margin-top: 150px;
+  }
+
+  .hero-rating {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .hero-rating-number {
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+  }
+
+  .hero-rating-stars {
+    display: flex;
+    align-items: center;
+  }
+
+  .hero-rating-text {
+    font-size: 16px;
+    color: #fff;
+  }
+
+  .hero-heading {
+    font-size: 64px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 0px;
+    text-transform: uppercase;
+    line-height: 1.2;
+    margin-top: 0px;
+  }
+
+  .hero-description {
+    font-size: 18px;
+    color: #fff;
+    margin-bottom: 40px;
+    max-width: 600px;
+    line-height: 1.6;
+    margin-top: 0px;
+  }
+
+  .hero-button {
+    display: inline-block;
+    padding: 18px 50px;
+    background-color: #931932;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: 400;
+    transition: opacity 0.3s ease;
+    font-family: 'Poppins Regular';
+  }
+
+  .hero-button:hover {
+    opacity: 0.9;
+  }
+
+  @media (max-width: 768px) {
+    .hero-section {
+      background-image: var(--mobile-bg) !important;
+    }
+
+    .hero-content {
+      min-height: 500px;
+      padding-top: 50px;
+    }
+
+    .hero-rating {
+      margin-bottom: 20px;
+      gap: 8px;
+    }
+
+    .hero-rating-number {
+      font-size: 16px;
+    }
+
+    .hero-rating-text {
+      font-size: 14px;
+    }
+
+    .hero-heading {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+
+    .hero-description {
+      font-size: 16px;
+      margin-bottom: 30px;
+    }
+
+    .hero-button {
+      padding: 15px 40px;
+      font-size: 16px;
+    }
+  }
+{% endstylesheet %}
+
+<div class="hero-section" style="background-image: url('{{ section.settings.background_image | img_url: '2000x' }}'); --mobile-bg: url('{{ section.settings.background_image_mobile | img_url: '800x' }}');">
+  <div class="hero-content">
+    <div class="hero-rating">
+      <span class="hero-rating-number">{{ section.settings.rating }}</span>
+      <div class="hero-rating-stars">
+        {{ section.settings.star_svg }}
+      </div>
+      <span class="hero-rating-text">{{ section.settings.rating_text }}</span>
+    </div>
+
+    <h1 class="hero-heading">{{ section.settings.heading }}</h1>
+
+    <p class="hero-description">{{ section.settings.description }}</p>
+
+    <a href="{{ section.settings.button_link }}" class="hero-button">
+      {{ section.settings.button_text }}
+    </a>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Hero Section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image (Desktop)"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image_mobile",
+      "label": "Background Image (Mobile)"
+    },
+    {
+      "type": "text",
+      "id": "rating",
+      "label": "Rating Number",
+      "default": "4.9"
+    },
+    {
+      "type": "html",
+      "id": "star_svg",
+      "label": "Star SVG",
+      "default": "<svg width='120' height='20' viewBox='0 0 120 20' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z' fill='#FF6B00'/><path d='M34 0L36.2451 6.90983H43.5106L37.6327 11.1803L39.8779 18.0902L34 13.8197L28.1221 18.0902L30.3673 11.1803L24.4894 6.90983H31.7549L34 0Z' fill='#FF6B00'/><path d='M58 0L60.2451 6.90983H67.5106L61.6327 11.1803L63.8779 18.0902L58 13.8197L52.1221 18.0902L54.3673 11.1803L48.4894 6.90983H55.7549L58 0Z' fill='#FF6B00'/><path d='M82 0L84.2451 6.90983H91.5106L85.6327 11.1803L87.8779 18.0902L82 13.8197L76.1221 18.0902L78.3673 11.1803L72.4894 6.90983H79.7549L82 0Z' fill='#FF6B00'/><path d='M106 0L108.245 6.90983H115.511L109.633 11.1803L111.878 18.0902L106 13.8197L100.122 18.0902L102.367 11.1803L96.4894 6.90983H103.755L106 0Z' fill='#FF6B00'/></svg>"
+    },
+    {
+      "type": "text",
+      "id": "rating_text",
+      "label": "Rating Text",
+      "default": "Trusted by idea-makers, quality-seekers, and professionals."
+    },
+    {
+      "type": "html",
+      "id": "heading",
+      "label": "Heading",
+      "default": "QUALITY STATIONERY FOR<br>MINDFUL CREATIVITY"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Japanese stationery and tools designed for clarity, focus, and self-expression. Personalize your pieces with engraving to make them truly yours."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Shop Best Sellers"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Section"
+    }
+  ]
+}
+{% endschema %}

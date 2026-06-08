@@ -1,0 +1,198 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "banner": {
+      "type": "main-collection-banner",
+      "disabled": true,
+      "settings": {
+        "show_collection_description": true,
+        "show_collection_image": true,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "custom_liquid_Q4TXRQ": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "{% if collection %}\n  <nav class=\"breadcrumb\" aria-label=\"Breadcrumb\">\n    <a href=\"{{ routes.root_url }}\">Home</a> &gt; \n    <span>{{ collection.title }}</span>\n  </nav>\n\n  <style>\n    .breadcrumb {\n      font-family: 'Grotesk Regular', sans-serif;\n      font-size: 14px;\n      color: #666;\n      margin-left: 50px;\n    }\n\n    .breadcrumb a {\n      text-decoration: none;\n      color: #333;\n    }\n\n    .breadcrumb a:hover {\n      text-decoration: underline;\n    }\n\n    .breadcrumb span {\n      color: #999;\n    }\n    @media screen and (max-width: 768px) {\n    .breadcrumb {\n    display: none;\n}\n}\n  </style>\n{% endif %}",
+        "color_scheme": "",
+        "padding_top": 16,
+        "padding_bottom": 16
+      }
+    },
+    "image_banner_nL4Xy7": {
+      "type": "image-banner",
+      "blocks": {
+        "heading_98RexM": {
+          "type": "heading",
+          "settings": {
+            "heading": "KAIZU PANTS",
+            "heading_size": "h1"
+          }
+        },
+        "text_Y4BtrQ": {
+          "type": "text",
+          "settings": {
+            "text": "<p>All-day comfort. Premium feel. Clean-cut look. Designed for the man who moves.</p>",
+            "text_style": "body"
+          }
+        }
+      },
+      "block_order": [
+        "heading_98RexM",
+        "text_Y4BtrQ"
+      ],
+      "custom_css": [
+        "h2 {font-family: \"Grotesk Regular\";}",
+        "@media screen and (max-width: 768px) {.banner__content {background: transparent; }}"
+      ],
+      "name": "t:sections.image-banner.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/banner.png",
+        "image_2": "shopify://shop_images/black.png",
+        "image_overlay_opacity": 0,
+        "image_behavior": "none",
+        "full_width": false,
+        "content_width": 1350,
+        "border_radius": 0,
+        "desktop_image_height": "medium",
+        "desktop_content_position": "bottom-center",
+        "desktop_content_alignment": "center",
+        "show_text_box": false,
+        "color_scheme": "",
+        "mobile_image_height": "adapt",
+        "stack_images_on_mobile": false,
+        "swap_mobile_position": false,
+        "mobile_content_alignment": "center",
+        "mobile_content_position": "bottom",
+        "show_text_below": false
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "settings": {
+        "products_per_page": 16,
+        "columns_desktop": 3,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "image_ratio": "portrait",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": true,
+        "quick_add": "none",
+        "enable_filtering": true,
+        "filter_type": "vertical",
+        "enable_sorting": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "ltp_custom_faq_zddGM7": {
+      "type": "LTP-Custom-FAQ",
+      "blocks": {
+        "faq_ADVmTC": {
+          "type": "faq",
+          "settings": {
+            "title": "What makes KAIZU different from other local or fast fashion brands? ",
+            "content": "<p>We design real men’s fit. Every piece is tailored to Filipino men with active lifestyles, all while conquering the demands of Philippine heat and hustle. KAIZU also delivers premium quality without the premium price.</p>"
+          }
+        },
+        "faq_qxXqdi": {
+          "type": "faq",
+          "settings": {
+            "title": "I have big legs or a broader build. Will your pants and tops fit me right?",
+            "content": "<p>Our products are made to fit perfectly to athletic and broader builds without making you feel squeezed or sagged. Same goes for our polos and long sleeves. Our pieces are made to enhance your frame, not hide it. </p>"
+          }
+        },
+        "faq_gDX7DX": {
+          "type": "faq",
+          "settings": {
+            "title": "How to order?",
+            "content": "<p>For multiple items, simply watch our short tutorial video here: <a href=\"https://www.facebook.com/reel/667942205963554\" target=\"_blank\" title=\"https://www.facebook.com/reel/667942205963554\">Watch video</a> — it will guide you step by step.</p><p>For single-item orders, you may message us directly. We’ve prepared saved replies (with a quick guide video included) so you can check out easily.</p>"
+          }
+        },
+        "faq_WQECDa": {
+          "type": "faq",
+          "settings": {
+            "title": "What if the size doesn’t fit? Is the return process a hassle?",
+            "content": "<p>Not at all! We make exchanges simple and customer-first. If it doesn’t fit, just reach out and we’ll handle it. No drama. </p>"
+          }
+        },
+        "faq_9GYg6n": {
+          "type": "faq",
+          "settings": {
+            "title": "How do I know what size fits me best?",
+            "content": "<p>Check out our detailed size guide on each product page. You are also free to DM us if you need help deciding!</p>"
+          }
+        },
+        "faq_TdCpbF": {
+          "type": "faq",
+          "settings": {
+            "title": "Do you have a physical store?",
+            "content": "<p>We’re currently available online only, but our fit guides, responsive team, and easy exchanges make sure you get the right fit, every time.</p>"
+          }
+        },
+        "faq_GVLbAi": {
+          "type": "faq",
+          "settings": {
+            "title": "Will KAIZU styles go out of fashion quickly?",
+            "content": "<p>Our staples are timeless. KAIZU pieces are designed with clean lines, neutral tones, and smart tailoring that stays relevant. </p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_ADVmTC",
+        "faq_qxXqdi",
+        "faq_gDX7DX",
+        "faq_WQECDa",
+        "faq_9GYg6n",
+        "faq_TdCpbF",
+        "faq_GVLbAi"
+      ],
+      "name": "FAQ with Image",
+      "settings": {
+        "container_width": 1380,
+        "column_gap": 40,
+        "padding_top": 40,
+        "padding_right": 0,
+        "padding_bottom": 40,
+        "padding_left": 0,
+        "mobile_padding_top": 32,
+        "mobile_padding_right": 20,
+        "mobile_padding_bottom": 32,
+        "mobile_padding_left": 20,
+        "image": "shopify://shop_images/faqs_image.png",
+        "image_border_radius": 0,
+        "heading": "Frequently Asked Questions",
+        "heading_size": 32,
+        "mobile_heading_size": 24,
+        "heading_color": "#000000",
+        "accordion_header_bg": "#ffffff",
+        "accordion_border_color": "#e0e0e0",
+        "accordion_border_radius": 0,
+        "accordion_title_size": 16,
+        "accordion_title_color": "#000000",
+        "accordion_content_size": 14,
+        "accordion_content_color": "#333333",
+        "accordion_icon_bg": "#8e191b",
+        "accordion_icon_color": "#ffffff"
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "custom_liquid_Q4TXRQ",
+    "image_banner_nL4Xy7",
+    "product-grid",
+    "ltp_custom_faq_zddGM7"
+  ]
+}

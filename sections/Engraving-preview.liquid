@@ -1,0 +1,1350 @@
+<style>
+  .engraving-preview-section {
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .back-button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    color: #333;
+    text-decoration: none;
+    margin-bottom: 30px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: 'Poppins Regular';
+  }
+
+  .back-button svg {
+    width: 24px;
+    height: 24px;
+    fill: #8b1538;
+  }
+
+  .engraving-container {
+    display: flex;
+    gap: 40px;
+    align-items: start;
+  }
+
+  .preview-section {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    flex: 0 0 35%;
+    width: auto;
+    min-width: 0;
+  }
+
+  .product-info {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+    align-items: center;
+    width: 100%;
+  }
+
+  .product-image {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  .product-details h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #333;
+    font-weight: 400;
+    line-height: 1.4;
+    font-family: 'Poppins Regular';
+  }
+
+  .product-price {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    font-family: 'Poppins Semibold';
+  }
+
+  .preview-box {
+    border: 2px solid #8b1538;
+    border-radius: 8px;
+    padding: 80px 40px;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .preview-text {
+    font-size: 48px;
+    color: #000;
+    text-align: center;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    line-height: 1.1;
+    position: relative;
+    z-index: 2;
+  }
+
+  .preview-label {
+    text-align: center;
+    margin-top: 20px;
+    color: #8b1538;
+    font-weight: 700;
+    font-size: 18px;
+    font-family: 'Poppins Bold';
+  }
+
+  .preview-note {
+    margin-top: 15px;
+    padding: 15px;
+    border-radius: 6px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #000000;
+    font-family: 'Poppins Regular';
+  }
+
+  .preview-note strong {
+    color: #8b1538;
+  }
+
+  .customization-section {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    border: 2px solid #8b1538;
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .customization-tabs {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #e0e0e0;
+  }
+
+  .tab-button {
+    font-size: 12px;
+    font-weight: 500;
+    color: #333;
+    background: none;
+    border: none;
+    padding: 12px 8px;
+    text-align: center;
+    font-family: 'Poppins Medium';
+    pointer-events: none;
+    line-height: 1.2;
+  }
+
+  .engraving-item {
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .engraving-item:last-of-type {
+    border-bottom: none;
+  }
+
+  .engraving-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+
+  .engraving-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #000;
+    font-family: 'Poppins Semibold';
+    transition: color 0.3s;
+  }
+
+  .engraving-title.active {
+    color: #931932;
+  }
+
+  .engraving-price-delete {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .engraving-price {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    font-family: 'Poppins Bold';
+  }
+
+  .delete-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    color: #999;
+  }
+
+  .delete-button:hover {
+    color: #8b1538;
+  }
+
+  .delete-button svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .input-row {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) repeat(4, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+
+  .input-row > * {
+    min-width: 0;
+  }
+
+  .input-group,
+  .select-wrapper {
+    min-width: 0;
+  }
+
+  .input-group {
+    position: relative;
+  }
+
+  .custom-input {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s;
+    font-family: 'Poppins Regular';
+  }
+
+  .custom-input:focus {
+    border-color: #8b1538;
+  }
+
+  .char-counter {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 12px;
+    color: #999;
+    pointer-events: none;
+    font-family: 'Poppins Regular';
+  }
+
+  .custom-select {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 12px 32px 12px 12px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    font-size: 12px;
+    outline: none;
+    appearance: none;
+    background: white;
+    cursor: pointer;
+    transition: border-color 0.3s;
+    font-family: 'Poppins Regular';
+  }
+
+  .custom-select:focus {
+    border-color: #8b1538;
+  }
+
+  .custom-select:disabled {
+    background: #f5f5f5;
+    cursor: not-allowed;
+    color: #999;
+  }
+
+  .select-wrapper {
+    position: relative;
+  }
+
+  .select-wrapper::after {
+    content: '';
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 10px;
+    background-image: url("data:image/svg+xml,%3Csvg width='18' height='10' viewBox='0 0 18 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9 3.88147L1.447 0.105467C1.009 -0.113533 0.475 0.0174677 0.188 0.415468C-0.0979996 0.812468 -0.0529996 1.36147 0.292 1.70747L8.292 9.70747C8.683 10.0985 9.315 10.0985 9.706 9.70747L17.706 1.70747C17.9 1.51347 18 1.25647 18 0.999468C18 0.795468 17.937 0.590468 17.811 0.415468C17.524 0.0174684 16.991 -0.113532 16.552 0.105468L9 3.88147Z' fill='%231A1A1A'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    pointer-events: none;
+  }
+
+  .no-colors-text {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    font-size: 14px;
+    background: #f5f5f5;
+    color: #999;
+    text-align: center;
+    font-family: 'Poppins Regular';
+  }
+
+  .add-button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: none;
+    border: none;
+    color: #333;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 10px 0;
+    margin-top: 10px;
+    font-family: 'Poppins Regular';
+  }
+
+  .add-button svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .notes-textarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    font-size: 14px;
+    resize: vertical;
+    min-height: 160px;
+    outline: none;
+    margin-top: 20px;
+    font-family: 'Poppins Regular';
+  }
+
+  .notes-textarea:focus {
+    border-color: #8b1538;
+  }
+
+  .add-to-cart-button {
+    width: 100%;
+    padding: 16px;
+    background: #8b1538;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background 0.3s;
+    font-family: 'Poppins Semibold';
+  }
+
+  .add-to-cart-button:hover {
+    background: #6d1028;
+  }
+
+  .add-to-cart-button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+
+  .error-message {
+    background: #ffebee;
+    color: #c62828;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-family: 'Poppins Regular';
+  }
+
+  .loading-content {
+    text-align: center;
+    padding: 40px;
+    font-family: 'Poppins Regular';
+  }
+
+  @media (max-width: 1100px) {
+    .customization-tabs {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+    .input-row {
+      grid-template-columns: 1fr 1fr;
+    }
+    .input-row .input-group {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .engraving-preview-section {
+      padding: 15px;
+    }
+
+    .engraving-container {
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .product-info {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .preview-box {
+      padding: 60px 20px;
+      min-height: 200px;
+    }
+
+    .preview-text {
+      font-size: 36px;
+    }
+
+    .customization-section {
+      padding: 20px;
+    }
+
+    .customization-tabs {
+      gap: 8px;
+      overflow-x: auto;
+    }
+
+    .tab-button {
+      font-size: 11px;
+      white-space: nowrap;
+      padding: 10px 6px;
+    }
+
+    .input-row {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .engraving-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .preview-section {
+      order: 1;
+      flex: none;
+      width: 100%;
+    }
+
+    .customization-section {
+      order: 2;
+      width: 100%;
+    }
+  }
+
+  .loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.9);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+
+  .loading-overlay.active {
+    display: flex;
+  }
+
+  .spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #8b1538;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  {% if section.settings.font_1 != blank %}
+  @font-face {
+    font-family: 'CustomFont1';
+    src: url('{{ section.settings.font_1 }}');
+  }
+  {% endif %}
+  {% if section.settings.font_2 != blank %}
+  @font-face {
+    font-family: 'CustomFont2';
+    src: url('{{ section.settings.font_2 }}');
+  }
+  {% endif %}
+  {% if section.settings.font_3 != blank %}
+  @font-face {
+    font-family: 'CustomFont3';
+    src: url('{{ section.settings.font_3 }}');
+  }
+  {% endif %}
+  {% if section.settings.font_4 != blank %}
+  @font-face {
+    font-family: 'CustomFont4';
+    src: url('{{ section.settings.font_4 }}');
+  }
+  {% endif %}
+  {% if section.settings.font_5 != blank %}
+  @font-face {
+    font-family: 'CustomFont5';
+    src: url('{{ section.settings.font_5 }}');
+  }
+  {% endif %}
+  {% if section.settings.font_6 != blank %}
+  @font-face {
+    font-family: 'CustomFont6';
+    src: url('{{ section.settings.font_6 }}');
+  }
+  {% endif %}
+  {% if section.settings.font_7 != blank %}
+  @font-face {
+    font-family: 'CustomFont7';
+    src: url('{{ section.settings.font_7 }}');
+  }
+  {% endif %}
+  {% if section.settings.font_8 != blank %}
+  @font-face {
+    font-family: 'CustomFont8';
+    src: url('{{ section.settings.font_8 }}');
+  }
+  {% endif %}
+  {% if section.settings.font_9 != blank %}
+  @font-face {
+    font-family: 'CustomFont9';
+    src: url('{{ section.settings.font_9 }}');
+  }
+  {% endif %}
+  {% if section.settings.font_10 != blank %}
+  @font-face {
+    font-family: 'CustomFont10';
+    src: url('{{ section.settings.font_10 }}');
+  }
+  {% endif %}
+</style>
+
+<div class="engraving-preview-section">
+  <button class="back-button" onclick="window.history.back()">
+<svg width="16" height="29" viewBox="0 0 16 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M9.61991 14.1481L15.5559 2.27463C15.9002 1.58608 15.6942 0.74662 15.0685 0.295448C14.4445 -0.154152 13.5814 -0.0834101 13.0375 0.458939L0.46128 13.0352C-0.153382 13.6498 -0.153382 14.6433 0.461281 15.258L13.0375 27.8342C13.3425 28.1392 13.7465 28.2964 14.1505 28.2964C14.4712 28.2964 14.7934 28.2173 15.0686 27.9993C15.6942 27.5481 15.9002 26.7102 15.5559 26.0201L9.61991 14.1481Z" fill="#931932"/>
+</svg>
+    Back
+  </button>
+
+  <div id="mainContent">
+    <div class="loading-content">Loading product...</div>
+  </div>
+</div>
+
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="spinner"></div>
+</div>
+
+<script>
+  (function() {
+    const productData = JSON.parse(sessionStorage.getItem('customizeProduct'));
+
+    if (!productData) {
+      document.getElementById('mainContent').innerHTML = '<div class="error-message">No product data found. Please select a product first.</div>';
+      return;
+    }
+
+    const engravingPrice = {{ section.settings.engraving_price | default: 25 }};
+
+    const fonts = [
+      {% if section.settings.font_name_1 != blank %}
+      { name: {{ section.settings.font_name_1 | json }}, family: 'CustomFont1' },
+      {% endif %}
+      {% if section.settings.font_name_2 != blank %}
+      { name: {{ section.settings.font_name_2 | json }}, family: 'CustomFont2' },
+      {% endif %}
+      {% if section.settings.font_name_3 != blank %}
+      { name: {{ section.settings.font_name_3 | json }}, family: 'CustomFont3' },
+      {% endif %}
+      {% if section.settings.font_name_4 != blank %}
+      { name: {{ section.settings.font_name_4 | json }}, family: 'CustomFont4' },
+      {% endif %}
+      {% if section.settings.font_name_5 != blank %}
+      { name: {{ section.settings.font_name_5 | json }}, family: 'CustomFont5' },
+      {% endif %}
+      {% if section.settings.font_name_6 != blank %}
+      { name: {{ section.settings.font_name_6 | json }}, family: 'CustomFont6' },
+      {% endif %}
+      {% if section.settings.font_name_7 != blank %}
+      { name: {{ section.settings.font_name_7 | json }}, family: 'CustomFont7' },
+      {% endif %}
+      {% if section.settings.font_name_8 != blank %}
+      { name: {{ section.settings.font_name_8 | json }}, family: 'CustomFont8' },
+      {% endif %}
+      {% if section.settings.font_name_9 != blank %}
+      { name: {{ section.settings.font_name_9 | json }}, family: 'CustomFont9' },
+      {% endif %}
+      {% if section.settings.font_name_10 != blank %}
+      { name: {{ section.settings.font_name_10 | json }}, family: 'CustomFont10' }
+      {% endif %}
+    ].filter(f => f && f.name);
+
+    if (fonts.length === 0) {
+      fonts.push({ name: 'Default', family: 'inherit' });
+    }
+
+    const placementOptions = ['Right Handed', 'Left Handed'];
+
+    const giftBoxOptions = [
+  { name: 'No box', price: 0 },
+  { name: 'Black', price: 25 },
+  { name: 'Black with ribbon', price: 30 },
+  { name: 'Gold', price: 25 },
+  { name: 'Gold with ribbon', price: 30 },
+  { name: 'Rose Gold', price: 25 },
+  { name: 'Rose Gold with Ribbon', price: 30 },
+  { name: 'Silver', price: 25 },
+  { name: 'Silver with Ribbon', price: 30 },
+  { name: 'Red', price: 25 },
+  { name: 'Red with Ribbon', price: 30 }
+];
+
+    function giftBoxPriceByName(name) {
+      const o = giftBoxOptions.find(g => g.name === name);
+      return o ? o.price : 0;
+    }
+
+    function giftBoxLabelForSelect(opt) {
+      if (opt.price === 0) return opt.name;
+      return opt.name + ' — ₱' + opt.price;
+    }
+
+    function isSetProduct() {
+      if (!productData.tags || productData.tags.length === 0) {
+        return false;
+      }
+
+      const setTags = productData.tags.filter(tag => {
+        const lowerTag = tag.toLowerCase();
+        return /\d+\s*set/.test(lowerTag) || /set\s*\d+/.test(lowerTag);
+      });
+
+      return setTags.length > 0;
+    }
+
+    function getSetQuantity() {
+      if (!productData.tags || productData.tags.length === 0) {
+        return 1;
+      }
+
+      for (let tag of productData.tags) {
+        const lowerTag = tag.toLowerCase();
+        const match = lowerTag.match(/(\d+)\s*set|set\s*(\d+)/);
+        if (match) {
+          const quantity = parseInt(match[1] || match[2]);
+          return quantity;
+        }
+      }
+
+      return 1;
+    }
+
+    function isColorValue(value) {
+      if (!value) return false;
+      const lowerValue = value.toString().toLowerCase().trim();
+
+      const colorNames = [
+        'black', 'white', 'red', 'blue', 'green', 'yellow', 'orange', 'purple',
+        'pink', 'brown', 'gray', 'grey', 'silver', 'gold', 'beige', 'cream',
+        'navy', 'teal', 'cyan', 'magenta', 'maroon', 'olive', 'lime', 'aqua',
+        'fuchsia', 'violet', 'indigo', 'tan', 'khaki', 'coral', 'salmon', 'peach',
+        'mint', 'lavender', 'plum', 'burgundy', 'crimson', 'scarlet', 'rose',
+        'charcoal', 'slate', 'ivory', 'champagne', 'gunmetal', 'pearl', 'bronze',
+        'copper', 'steel', 'graphite', 'obsidian', 'onyx', 'smoke', 'ash', 'coal'
+      ];
+
+      for (let colorName of colorNames) {
+        if (lowerValue.includes(colorName)) {
+          return true;
+        }
+      }
+
+      return false;
+    }
+
+    function extractColors() {
+      if (!productData.allVariants || productData.allVariants.length === 0) {
+        return [];
+      }
+
+      const colorSet = new Set();
+      const isSet = isSetProduct();
+
+      if (isSet && productData.options && productData.options.length > 0) {
+        const selectedDesign = productData.options[0];
+
+        productData.allVariants.forEach(variant => {
+          if (!variant) return;
+
+          if (variant.option1 === selectedDesign) {
+            if (isColorValue(variant.option1)) colorSet.add(variant.option1);
+            if (isColorValue(variant.option2)) colorSet.add(variant.option2);
+            if (isColorValue(variant.option3)) colorSet.add(variant.option3);
+          }
+        });
+      } else {
+        productData.allVariants.forEach(variant => {
+          if (!variant) return;
+
+          if (isColorValue(variant.option1)) {
+            colorSet.add(variant.option1);
+          }
+          if (isColorValue(variant.option2)) {
+            colorSet.add(variant.option2);
+          }
+          if (isColorValue(variant.option3)) {
+            colorSet.add(variant.option3);
+          }
+        });
+      }
+
+      return Array.from(colorSet);
+    }
+
+    function getAvailableColors() {
+      const usedColors = engravings.map(e => e.color).filter(Boolean);
+      return availableColors.filter(color => !usedColors.includes(color));
+    }
+
+    const availableColors = extractColors();
+    const maxEngravings = getSetQuantity();
+
+    let engravings = [
+      {
+        id: 1,
+        text: '',
+        color: availableColors.length > 0 ? availableColors[0] : '',
+        font: fonts[0].name,
+        placement: placementOptions[0],
+        giftBox: giftBoxOptions[0].name
+      }
+    ];
+    let activeEngravingId = 1;
+
+    function renderPage() {
+      const productVariantId = productData.variantId;
+      const backgroundImage = {{ section.settings.background_image | img_url: 'master' | json }};
+      const productPrice = (productData.price / 100).toFixed(2);
+
+      const html = `
+        <div class="engraving-container">
+          <div class="preview-section">
+            <div class="product-info">
+              <img src="${productData.image}" alt="${productData.title}" class="product-image">
+              <div class="product-details">
+                <h3>${productData.title}</h3>
+                <div class="product-price">₱${productPrice}</div>
+              </div>
+            </div>
+
+            <div class="preview-box" id="previewBox" style="background-image: url('${backgroundImage}')">
+              <div class="preview-text" id="previewText">Preview</div>
+            </div>
+
+            <div class="preview-label">Product 1</div>
+
+            <div class="preview-note">
+              <strong>Note:</strong> The preview reflects font appearance only. Final placement, engraving outcome, and color will vary depending on the specific pen model and material.
+            </div>
+          </div>
+
+          <div class="customization-section">
+            <div class="customization-tabs">
+              <div class="tab-button">Personalize</div>
+              <div class="tab-button">Colors</div>
+              <div class="tab-button">Fonts</div>
+              <div class="tab-button">Placement</div>
+              <div class="tab-button">Gift Box</div>
+            </div>
+
+            <div id="engravingList"></div>
+
+            <button class="add-button" id="addEngravingBtn">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+              </svg>
+              Add
+            </button>
+
+            <textarea class="notes-textarea" placeholder="Add additional notes" id="additionalNotes"></textarea>
+
+            <button class="add-to-cart-button" id="addToCartBtn">Add to Cart</button>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('mainContent').innerHTML = html;
+
+      const addEngravingBtn = document.getElementById('addEngravingBtn');
+      if (addEngravingBtn) {
+        addEngravingBtn.addEventListener('click', () => addEngraving());
+      }
+
+      const addToCartBtn = document.getElementById('addToCartBtn');
+      if (addToCartBtn) {
+        addToCartBtn.addEventListener('click', () => addToCart(productVariantId));
+      }
+
+      renderEngravings();
+    }
+
+    function renderEngravings() {
+      const container = document.getElementById('engravingList');
+      if (!container) return;
+
+      container.innerHTML = '';
+
+      engravings.forEach((engraving, index) => {
+        const item = document.createElement('div');
+        item.className = 'engraving-item';
+
+        const deleteBtn = engravings.length > 1 ? `
+          <button class="delete-button" data-id="${engraving.id}">
+            <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 0L5 1H0V3H1V18C1 18.5222 1.19133 19.0546 1.56836 19.4316C1.94539 19.8087 2.47778 20 3 20H13C13.5222 20 14.0546 19.8087 14.4316 19.4316C14.8087 19.0546 15 18.5222 15 18V3H16V1H11L10 0H6ZM3 3H13V18H3V3ZM5 5V16H7V5H5ZM9 5V16H11V5H9Z" fill="#1A1A1A"/>
+            </svg>
+          </button>
+        ` : '';
+
+        const isActive = engraving.id === activeEngravingId;
+
+        let colorField = '';
+        if (availableColors.length > 0) {
+          const availableForSelection = availableColors.filter(color =>
+            color === engraving.color || !engravings.some(e => e.color === color && e.id !== engraving.id)
+          );
+
+          if (availableForSelection.length > 0) {
+            colorField = `
+              <div class="select-wrapper">
+                <select class="custom-select" data-id="${engraving.id}" data-field="color">
+                  ${availableForSelection.map(c => `<option value="${c}" ${engraving.color === c ? 'selected' : ''}>${c}</option>`).join('')}
+                </select>
+              </div>
+            `;
+          } else {
+            colorField = `<div class="no-colors-text">No colors available</div>`;
+          }
+        } else {
+          colorField = `<div class="no-colors-text">No colors</div>`;
+        }
+
+        const placementField = `
+          <div class="select-wrapper">
+            <select class="custom-select" data-id="${engraving.id}" data-field="placement">
+              ${placementOptions.map(p => `<option value="${p}" ${engraving.placement === p ? 'selected' : ''}>${p}</option>`).join('')}
+            </select>
+          </div>
+        `;
+
+        const giftBoxField = `
+          <div class="select-wrapper">
+            <select class="custom-select" data-id="${engraving.id}" data-field="giftBox">
+              ${giftBoxOptions.map(g => `<option value="${g.name}" ${engraving.giftBox === g.name ? 'selected' : ''}>${giftBoxLabelForSelect(g)}</option>`).join('')}
+            </select>
+          </div>
+        `;
+
+        item.innerHTML = `
+          <div class="engraving-header">
+            <div class="engraving-title ${isActive ? 'active' : ''}">Product ${index + 1}</div>
+            <div class="engraving-price-delete">
+              <div class="engraving-price">₱${engravingPrice.toFixed(2)}</div>
+              ${deleteBtn}
+            </div>
+          </div>
+          <div class="input-row">
+            <div class="input-group">
+              <input
+                type="text"
+                class="custom-input"
+                placeholder="Personalize Here…"
+                value="${engraving.text}"
+                maxlength="40"
+                data-id="${engraving.id}"
+                data-field="text"
+              >
+              <span class="char-counter">${engraving.text.length}/40</span>
+            </div>
+            ${colorField}
+            <div class="select-wrapper">
+              <select class="custom-select" data-id="${engraving.id}" data-field="font">
+                ${fonts.map(f => `<option value="${f.name}" ${engraving.font === f.name ? 'selected' : ''}>${f.name}</option>`).join('')}
+              </select>
+            </div>
+            ${placementField}
+            ${giftBoxField}
+          </div>
+        `;
+        container.appendChild(item);
+      });
+
+      container.querySelectorAll('.custom-input').forEach(input => {
+        input.addEventListener('input', function(e) {
+          const id = parseInt(this.dataset.id);
+          const engraving = engravings.find(e => e.id === id);
+          if (engraving) {
+            engraving.text = this.value;
+            const counter = this.parentElement.querySelector('.char-counter');
+            if (counter) {
+              counter.textContent = `${this.value.length}/40`;
+            }
+            updatePreview();
+          }
+        });
+
+        input.addEventListener('focus', function() {
+          const id = parseInt(this.dataset.id);
+          setActiveEngraving(id);
+        });
+      });
+
+      container.querySelectorAll('.custom-select').forEach(select => {
+        select.addEventListener('change', function() {
+          const id = parseInt(this.dataset.id);
+          const field = this.dataset.field;
+          const engraving = engravings.find(e => e.id === id);
+          if (engraving) {
+            engraving[field] = this.value;
+            if (field === 'color') {
+              renderEngravings();
+            }
+            updatePreview();
+          }
+        });
+
+        select.addEventListener('focus', function() {
+          const id = parseInt(this.dataset.id);
+          setActiveEngraving(id);
+        });
+      });
+
+      container.querySelectorAll('.delete-button').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const id = parseInt(this.dataset.id);
+          deleteEngraving(id);
+        });
+      });
+
+      const addBtn = document.getElementById('addEngravingBtn');
+      if (addBtn) {
+        const remainingColors = getAvailableColors();
+        if (engravings.length >= maxEngravings || (availableColors.length > 0 && remainingColors.length === 0)) {
+          addBtn.style.display = 'none';
+        } else {
+          addBtn.style.display = 'flex';
+        }
+      }
+
+      updatePreview();
+    }
+
+    function setActiveEngraving(id) {
+      activeEngravingId = id;
+
+      document.querySelectorAll('.engraving-title').forEach(title => {
+        title.classList.remove('active');
+      });
+
+      const engravingIndex = engravings.findIndex(e => e.id === id);
+      const titles = document.querySelectorAll('.engraving-title');
+      if (titles[engravingIndex]) {
+        titles[engravingIndex].classList.add('active');
+      }
+
+      updatePreview();
+    }
+
+    function deleteEngraving(id) {
+      if (engravings.length > 1) {
+        engravings = engravings.filter(e => e.id !== id);
+        if (activeEngravingId === id) {
+          activeEngravingId = engravings[0].id;
+        }
+        renderEngravings();
+      }
+    }
+
+    function addEngraving() {
+      const remainingColors = getAvailableColors();
+
+      if (engravings.length >= maxEngravings) {
+        alert(`Maximum ${maxEngravings} item${maxEngravings > 1 ? 's' : ''} allowed for this product.`);
+        return;
+      }
+
+      if (availableColors.length > 0 && remainingColors.length === 0) {
+        alert('All available colors have been used. Please remove an item to add a new one with a different color.');
+        return;
+      }
+
+      const newId = Math.max(...engravings.map(e => e.id)) + 1;
+      engravings.push({
+        id: newId,
+        text: '',
+        color: remainingColors.length > 0 ? remainingColors[0] : '',
+        font: fonts[0].name,
+        placement: placementOptions[0],
+        giftBox: giftBoxOptions[0].name
+      });
+      activeEngravingId = newId;
+      renderEngravings();
+    }
+
+    function updatePreview() {
+      const activeEngraving = engravings.find(e => e.id === activeEngravingId);
+      if (!activeEngraving) return;
+
+      const previewText = document.getElementById('previewText');
+      const previewLabel = document.querySelector('.preview-label');
+
+      if (!previewText) return;
+
+      const font = fonts.find(f => f.name === activeEngraving.font);
+
+      previewText.textContent = activeEngraving.text || 'Preview';
+      previewText.style.fontFamily = font ? font.family : 'inherit';
+
+      if (previewLabel) {
+        const index = engravings.findIndex(e => e.id === activeEngravingId);
+        previewLabel.textContent = `Product ${index + 1}`;
+      }
+    }
+
+    async function getGiftBoxVariantId(price) {
+      const handle = 'gift-box-fee';
+      try {
+        const res = await fetch(`/products/${handle}.js`);
+        const product = await res.json();
+        const priceInCents = Math.round(price * 100);
+        const variant = product.variants.find(v => {
+          return parseInt(v.price) === priceInCents || parseFloat(v.price) === price;
+        });
+        if (!variant) {
+          console.warn('Gift box variant not found for price:', price, 'cents:', priceInCents);
+          console.warn('Available variants:', product.variants.map(v => ({ id: v.id, price: v.price, title: v.title })));
+        }
+        return variant ? variant.id : null;
+      } catch (e) {
+        console.error('Gift box fetch error:', e);
+        return null;
+      }
+    }
+
+    async function addToCart(productVariantId) {
+      if (!productVariantId) {
+        alert('Product not found. Please try again.');
+        return;
+      }
+
+      const loadingOverlay = document.getElementById('loadingOverlay');
+      if (loadingOverlay) loadingOverlay.classList.add('active');
+
+      const properties = {};
+
+      engravings.forEach((engraving, index) => {
+        const i = index + 1;
+        if (engraving.text) properties['Engraving ' + i + ' Text'] = engraving.text;
+        if (engraving.color) properties['Engraving ' + i + ' Color'] = engraving.color;
+        properties['Engraving ' + i + ' Font'] = engraving.font;
+        properties['Engraving ' + i + ' Placement'] = engraving.placement;
+        const gbPrice = giftBoxPriceByName(engraving.giftBox);
+        properties['Engraving ' + i + ' Gift Box'] = gbPrice > 0
+          ? engraving.giftBox + ' — ₱' + gbPrice.toFixed(2)
+          : engraving.giftBox;
+      });
+
+      const notes = document.getElementById('additionalNotes');
+      if (notes && notes.value) properties['Additional Notes'] = notes.value;
+
+      const totalEngravingCount = engravings.length;
+      const totalEngravingPrice = totalEngravingCount * engravingPrice;
+      const totalGiftBoxPrice = engravings.reduce((sum, e) => sum + giftBoxPriceByName(e.giftBox), 0);
+      const combinedCustomization = totalEngravingPrice + totalGiftBoxPrice;
+
+      properties['__Engraving Count'] = String(totalEngravingCount);
+      properties['__Engraving Fee Per Item'] = '₱' + engravingPrice.toFixed(2);
+      properties['__Total Engraving Fee'] = '₱' + totalEngravingPrice.toFixed(2);
+      properties['__Total Gift Box Fee'] = '₱' + totalGiftBoxPrice.toFixed(2);
+      properties['__Combined Customization Fee'] = '₱' + combinedCustomization.toFixed(2);
+
+      try {
+        const items = [{
+          id: productVariantId,
+          quantity: 1,
+          properties: properties
+        }];
+
+        const giftBoxEngravings = engravings.filter(e => giftBoxPriceByName(e.giftBox) > 0);
+
+        if (giftBoxEngravings.length > 0) {
+          const pricesNeeded = [...new Set(giftBoxEngravings.map(e => giftBoxPriceByName(e.giftBox)))];
+          const variantMap = {};
+
+          await Promise.all(pricesNeeded.map(async (price) => {
+            const variantId = await getGiftBoxVariantId(price);
+            if (variantId) variantMap[price] = variantId;
+          }));
+
+          giftBoxEngravings.forEach((engraving, i) => {
+            const gbPrice = giftBoxPriceByName(engraving.giftBox);
+            const variantId = variantMap[gbPrice];
+            if (variantId) {
+              items.push({
+                id: variantId,
+                quantity: 1,
+                properties: {
+                  'Box Type': engraving.giftBox,
+                  'For': 'Product ' + (engravings.indexOf(engraving) + 1),
+                  '_linked_to': productData.title
+                }
+              });
+            }
+          });
+        }
+
+        const response = await fetch('/cart/add.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ items })
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          sessionStorage.removeItem('customizeProduct');
+          window.location.href = '/cart';
+        } else {
+          alert('Error adding to cart: ' + (result.description || result.message || 'Please try again.'));
+        }
+      } catch (error) {
+        alert('Error adding to cart. Please try again.');
+      } finally {
+        if (loadingOverlay) loadingOverlay.classList.remove('active');
+      }
+    }
+
+    renderPage();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Engraving Preview",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "number",
+      "id": "engraving_price",
+      "label": "Engraving Price (per item)",
+      "default": 25
+    },
+    {
+      "type": "header",
+      "content": "Font 1"
+    },
+    {
+      "type": "text",
+      "id": "font_name_1",
+      "label": "Font 1 Name",
+      "default": "Praise"
+    },
+    {
+      "type": "url",
+      "id": "font_1",
+      "label": "Font 1 File URL"
+    },
+    {
+      "type": "header",
+      "content": "Font 2"
+    },
+    {
+      "type": "text",
+      "id": "font_name_2",
+      "label": "Font 2 Name",
+      "default": "Glacial"
+    },
+    {
+      "type": "url",
+      "id": "font_2",
+      "label": "Font 2 File URL"
+    },
+    {
+      "type": "header",
+      "content": "Font 3"
+    },
+    {
+      "type": "text",
+      "id": "font_name_3",
+      "label": "Font 3 Name",
+      "default": "Font 3"
+    },
+    {
+      "type": "url",
+      "id": "font_3",
+      "label": "Font 3 File URL"
+    },
+    {
+      "type": "header",
+      "content": "Font 4"
+    },
+    {
+      "type": "text",
+      "id": "font_name_4",
+      "label": "Font 4 Name",
+      "default": "Font 4"
+    },
+    {
+      "type": "url",
+      "id": "font_4",
+      "label": "Font 4 File URL"
+    },
+    {
+      "type": "header",
+      "content": "Font 5"
+    },
+    {
+      "type": "text",
+      "id": "font_name_5",
+      "label": "Font 5 Name",
+      "default": "Font 5"
+    },
+    {
+      "type": "url",
+      "id": "font_5",
+      "label": "Font 5 File URL"
+    },
+    {
+      "type": "header",
+      "content": "Font 6"
+    },
+    {
+      "type": "text",
+      "id": "font_name_6",
+      "label": "Font 6 Name",
+      "default": "Font 6"
+    },
+    {
+      "type": "url",
+      "id": "font_6",
+      "label": "Font 6 File URL"
+    },
+    {
+      "type": "header",
+      "content": "Font 7"
+    },
+    {
+      "type": "text",
+      "id": "font_name_7",
+      "label": "Font 7 Name",
+      "default": "Font 7"
+    },
+    {
+      "type": "url",
+      "id": "font_7",
+      "label": "Font 7 File URL"
+    },
+    {
+      "type": "header",
+      "content": "Font 8"
+    },
+    {
+      "type": "text",
+      "id": "font_name_8",
+      "label": "Font 8 Name",
+      "default": "Font 8"
+    },
+    {
+      "type": "url",
+      "id": "font_8",
+      "label": "Font 8 File URL"
+    },
+    {
+      "type": "header",
+      "content": "Font 9"
+    },
+    {
+      "type": "text",
+      "id": "font_name_9",
+      "label": "Font 9 Name",
+      "default": "Font 9"
+    },
+    {
+      "type": "url",
+      "id": "font_9",
+      "label": "Font 9 File URL"
+    },
+    {
+      "type": "header",
+      "content": "Font 10"
+    },
+    {
+      "type": "text",
+      "id": "font_name_10",
+      "label": "Font 10 Name",
+      "default": "Font 10"
+    },
+    {
+      "type": "url",
+      "id": "font_10",
+      "label": "Font 10 File URL"
+    },
+    {
+      "type": "text",
+      "id": "gift_box_product_handle",
+      "label": "Gift Box Fee Product Handle",
+      "info": "Handle of a hidden product with variants priced at ₱25 and ₱30"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Engraving Preview"
+    }
+  ]
+}
+{% endschema %}

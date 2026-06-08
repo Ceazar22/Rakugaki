@@ -1,0 +1,287 @@
+{% stylesheet %}
+  .quality-section {
+    width: 100%;
+    padding: 60px 60px;
+  }
+
+  .quality-heading {
+    text-align: center;
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 50px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .quality-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+
+  .quality-item {
+    text-align: center;
+  }
+
+  .quality-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    display: block;
+    margin-bottom: 30px;
+  }
+
+  .quality-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .quality-description {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+  }
+
+  .quality-carousel {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .quality-section {
+      padding: 40px 0;
+    }
+
+    .quality-heading {
+      font-size: 28px;
+      margin-bottom: 30px;
+      padding: 0 20px;
+    }
+
+    .quality-grid {
+      display: none;
+    }
+
+    .quality-carousel {
+      display: block;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .quality-carousel-track {
+      display: flex;
+      transition: transform 0.3s ease;
+      padding: 0 20px;
+    }
+
+    .quality-carousel-item {
+      min-width: 80%;
+      margin-right: 20px;
+      text-align: center;
+    }
+
+    .quality-carousel-item .quality-image {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .quality-carousel-item .quality-title {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .quality-carousel-item .quality-description {
+      font-size: 14px;
+      padding: 0 10px;
+    }
+  }
+{% endstylesheet %}
+
+<div class="quality-section">
+  <h2 class="quality-heading">{{ section.settings.heading }}</h2>
+  
+  <div class="quality-grid">
+    {% for block in section.blocks %}
+      <div class="quality-item">
+        {% if block.settings.image %}
+          <img 
+            src="{{ block.settings.image | img_url: '600x' }}" 
+            alt="{{ block.settings.title }}"
+            class="quality-image"
+            loading="lazy"
+          >
+        {% else %}
+          <div class="quality-image" style="background: #f0f0f0; aspect-ratio: 1;"></div>
+        {% endif %}
+        <h3 class="quality-title">{{ block.settings.title }}</h3>
+        <p class="quality-description">{{ block.settings.description }}</p>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="quality-carousel">
+    <div class="quality-carousel-track" id="qualityCarouselTrack">
+      {% for block in section.blocks %}
+        <div class="quality-carousel-item">
+          {% if block.settings.image %}
+            <img 
+              src="{{ block.settings.image | img_url: '600x' }}" 
+              alt="{{ block.settings.title }}"
+              class="quality-image"
+              loading="lazy"
+            >
+          {% else %}
+            <div class="quality-image" style="background: #f0f0f0; aspect-ratio: 1;"></div>
+          {% endif %}
+          <h3 class="quality-title">{{ block.settings.title }}</h3>
+          <p class="quality-description">{{ block.settings.description }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<script>
+  if (window.innerWidth <= 768) {
+    const track = document.getElementById('qualityCarouselTrack');
+    let startX = 0;
+    let currentX = 0;
+    let isDragging = false;
+    let currentIndex = 0;
+    const items = track.querySelectorAll('.quality-carousel-item');
+    const itemWidth = items[0].offsetWidth + 20;
+
+    track.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+      isDragging = true;
+    });
+
+    track.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      currentX = e.touches[0].clientX;
+      const diff = currentX - startX;
+      track.style.transform = `translateX(${-currentIndex * itemWidth + diff}px)`;
+    });
+
+    track.addEventListener('touchend', () => {
+      if (!isDragging) return;
+      const diff = currentX - startX;
+      
+      if (diff < -50 && currentIndex < items.length - 1) {
+        currentIndex++;
+      } else if (diff > 50 && currentIndex > 0) {
+        currentIndex--;
+      }
+      
+      track.style.transform = `translateX(${-currentIndex * itemWidth}px)`;
+      isDragging = false;
+    });
+
+    let mouseStartX = 0;
+    let mouseCurrentX = 0;
+    let isMouseDragging = false;
+
+    track.addEventListener('mousedown', (e) => {
+      mouseStartX = e.clientX;
+      isMouseDragging = true;
+    });
+
+    track.addEventListener('mousemove', (e) => {
+      if (!isMouseDragging) return;
+      mouseCurrentX = e.clientX;
+      const diff = mouseCurrentX - mouseStartX;
+      track.style.transform = `translateX(${-currentIndex * itemWidth + diff}px)`;
+    });
+
+    track.addEventListener('mouseup', () => {
+      if (!isMouseDragging) return;
+      const diff = mouseCurrentX - mouseStartX;
+      
+      if (diff < -50 && currentIndex < items.length - 1) {
+        currentIndex++;
+      } else if (diff > 50 && currentIndex > 0) {
+        currentIndex--;
+      }
+      
+      track.style.transform = `translateX(${-currentIndex * itemWidth}px)`;
+      isMouseDragging = false;
+    });
+
+    track.addEventListener('mouseleave', () => {
+      if (isMouseDragging) {
+        track.style.transform = `translateX(${-currentIndex * itemWidth}px)`;
+        isMouseDragging = false;
+      }
+    });
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Quality Features",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "QUALITY STATIONERY, MEANINGFUL OPTIONS"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Feature Title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Feature description goes here."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Quality Features",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "title": "TRUSTED JAPANESE QUALITY",
+            "description": "Our selection features Japanese brands trusted worldwide for quality."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "SELECTED WITH INTENTION",
+            "description": "We offer products we personally vouch for, from stationery essentials to limited edition pieces."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "MAKE IT PERSONAL, MAKE IT MEMORABLE",
+            "description": "Make it uniquely yours—or giftready—with optional engraving and custom gift boxes."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

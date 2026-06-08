@@ -1,0 +1,527 @@
+<div class="product-features-section" style="background-color: {{ section.settings.background_color }};">
+  <div class="product-features-container">
+    
+
+    <div class="features-columns-wrapper">
+      <div class="features-column features-left">
+        {% for block in section.blocks %}
+          {% if block.type == 'feature_left' %}
+            <div class="feature-box feature-right-icon" {{ block.shopify_attributes }}>
+              <div class="feature-content">
+                <h3 class="feature-title" 
+                    style="font-size: {{ section.settings.title_font_size }}px; color: {{ section.settings.title_color }}; text-align: right;">
+                  {{ block.settings.title }}
+                </h3>
+                <p class="feature-description" 
+                   style="font-size: {{ section.settings.description_font_size }}px; color: {{ section.settings.description_color }};">
+                  {{ block.settings.description }}
+                </p>
+              </div>
+              <div class="feature-icon">
+                {% if block.settings.icon %}
+                  {{ block.settings.icon | replace: '<img', '<svg' | replace: '</img>', '</svg>' }}
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+
+      <div class="image-column">
+        {% if section.settings.main_image %}
+          <img src="{{ section.settings.main_image | img_url: 'master' }}" 
+               alt="{{ section.settings.main_image.alt | default: 'Product Image' }}" 
+               class="main-product-image">
+        {% endif %}
+      </div>
+
+      <div class="features-column features-right">
+        {% for block in section.blocks %}
+          {% if block.type == 'feature_right' %}
+            <div class="feature-box feature-left-icon" {{ block.shopify_attributes }}>
+              <div class="feature-icon">
+                {% if block.settings.icon %}
+                  {{ block.settings.icon | replace: '<img', '<svg' | replace: '</img>', '</svg>' }}
+                {% endif %}
+              </div>
+              <div class="feature-content">
+                <h3 class="feature-title" 
+                    style="font-size: {{ section.settings.title_font_size }}px; color: {{ section.settings.title_color }};">
+                  {{ block.settings.title }}
+                </h3>
+                <p class="feature-description" 
+                   style="font-size: {{ section.settings.description_font_size }}px; color: {{ section.settings.description_color }};">
+                  {{ block.settings.description }}
+                </p>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    {% if section.settings.button_text != blank %}
+      <div class="cta-button-wrapper">
+        <a href="{{ section.settings.button_link | default: '#' }}" 
+           class="cta-button"
+           style="background-color: {{ section.settings.button_bg_color }}; color: {{ section.settings.button_text_color }};">
+          {{ section.settings.button_text }}
+        </a>
+      </div>
+    {% endif %}
+
+  </div>
+</div>
+
+<style>
+  .product-features-section {
+    padding: 60px 20px;
+    min-height: 500px;
+  }
+
+  .product-features-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 40px;
+    align-items: center;
+    position: relative;
+  }
+
+  .features-column {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .feature-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 0;
+  }
+
+  .feature-right-icon {
+    flex-direction: row;
+  }
+
+  .feature-left-icon {
+    flex-direction: row;
+  }
+
+  .feature-content {
+    flex: 1;
+  }
+
+  .feature-title {
+    font-family: 'Grotesk Medium', sans-serif;
+    font-weight: 500;
+    margin: 0 0 8px 0;
+    line-height: 1.3;
+  }
+
+  .feature-description {
+    font-family: 'Grotesk Regular', sans-serif;
+    font-weight: 400;
+    margin: 0;
+    line-height: 1.5;
+    opacity: 0.8;
+    text-align: justify;
+  }
+
+  .feature-icon {
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .feature-icon svg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .image-column {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .main-product-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+
+  .cta-button-wrapper {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+  }
+
+  .cta-button {
+    padding: 15px 40px;
+    border: none;
+    border-radius: 0px;
+    font-family: 'Grotesk Regular', sans-serif;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: inline-block;
+  }
+
+  .cta-button:hover {
+    transform: translateY(-5px);
+    background: #670e10 !important;
+    border: 1px solid #670e10 !important;
+  }
+
+  .features-columns-wrapper {
+    display: contents;
+  }
+
+  @media (max-width: 768px) {
+    .product-features-section {
+      padding: 40px 15px;
+    }
+    .feature-description {
+      padding-right: 10px;
+      text-align: left;
+    }
+
+    .product-features-container {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .image-column {
+      order: -1;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .main-product-image {
+      max-width: 200%;
+      margin-left: 220px;
+    }
+
+    .features-columns-wrapper {
+      display: grid;
+      grid-template-columns: 50% 50% !important;
+      gap: 20px;
+      width: 100%;
+      align-items: start;
+    }
+
+    .features-left {
+      grid-column: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      align-items: stretch;
+      margin-left: -8px;
+    }
+
+    .features-right {
+      grid-column: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      align-items: stretch;
+      margin-left: -10px;
+    }
+
+    .features-column {
+      gap: 25px;
+    }
+
+    .feature-box {
+      flex-direction: column;
+      text-align: left;
+      align-items: flex-start;
+      min-height: 120px;
+      display: flex;
+      justify-content: flex-start;
+    }
+
+    .feature-right-icon,
+    .feature-left-icon {
+      flex-direction: column;
+      align-items: flex-start;
+      min-height: 120px;
+    }
+
+    .features-right .feature-box:nth-child(3) {
+      margin-top: 0px;
+    }
+
+    .feature-icon {
+      margin-bottom: 10px;
+      align-self: flex-start;
+      order: 1;
+      width: 50px;
+      height: 50px;
+    }
+
+    .feature-content {
+      text-align: left;
+      order: 2;
+      width: 100%;
+      flex-grow: 1;
+    }
+
+    .feature-title {
+      text-align: left !important;
+      margin-bottom: 8px;
+    }
+
+    .feature-description {
+      padding-right: 10px;
+    }
+
+    .cta-button-wrapper {
+      display: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .features-columns-wrapper {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .feature-box {
+      flex-direction: column;
+      text-align: left;
+      align-items: flex-start;
+      padding-left: 10px;
+      min-height: auto;
+    }
+
+    .feature-right-icon,
+    .feature-left-icon {
+      flex-direction: column;
+      align-items: flex-start;
+      min-height: auto;
+    }
+
+    .features-right .feature-box:nth-child(3) {
+      margin-top: 20px;
+    }
+
+    .feature-icon {
+      margin-bottom: 10px;
+      align-self: flex-start;
+      width: 50px;
+      height: 50px;
+    }
+
+    .feature-content {
+      text-align: left;
+      width: 100%;
+    }
+
+    .feature-title {
+      text-align: left !important;
+      margin-bottom: 8px;
+    }
+
+    .feature-description {
+      padding-right: 10px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Custom 3 Column",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#f8f8f8"
+    },
+    {
+      "type": "image_picker",
+      "id": "main_image",
+      "label": "Main Product Image"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size",
+      "min": 14,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Title Font Size",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Color",
+      "default": "#333333"
+    },
+    {
+      "type": "range",
+      "id": "description_font_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Description Font Size",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description Color",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Call to Action Button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Shop Pants"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button Background Color",
+      "default": "#8B4513"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature_left",
+      "name": "Left Feature",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Feature Title",
+          "default": "High-Quality"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Feature Description",
+          "default": "Made of cotton ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum"
+        },
+        {
+          "type": "html",
+          "id": "icon",
+          "label": "Feature Icon (SVG code)"
+        }
+      ]
+    },
+    {
+      "type": "feature_right",
+      "name": "Right Feature",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Feature Title",
+          "default": "Non Iron"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Feature Description",
+          "default": "Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet"
+        },
+        {
+          "type": "html",
+          "id": "icon",
+          "label": "Feature Icon (SVG code)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom 3 Column",
+      "blocks": [
+        {
+          "type": "feature_left",
+          "settings": {
+            "title": "High-Quality",
+            "description": "Made of cotton ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum"
+          }
+        },
+        {
+          "type": "feature_left",
+          "settings": {
+            "title": "Stretchable",
+            "description": "Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet"
+          }
+        },
+        {
+          "type": "feature_left",
+          "settings": {
+            "title": "Timeless Design",
+            "description": "Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet"
+          }
+        },
+        {
+          "type": "feature_right",
+          "settings": {
+            "title": "Non Iron",
+            "description": "Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet"
+          }
+        },
+        {
+          "type": "feature_right",
+          "settings": {
+            "title": "Wrinkle Free",
+            "description": "Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet"
+          }
+        },
+        {
+          "type": "feature_right",
+          "settings": {
+            "title": "Durable",
+            "description": "Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,377 @@
+{% assign compatible_products = product.metafields.custom.compatible_products.value %}
+
+{% if compatible_products and compatible_products.size > 0 %}
+<style>
+  .compatible-products-section {
+    margin: 40px 0;
+  }
+  .compatible-products-title {
+    font-size: 20px !important;
+    font-weight: 400;
+    margin-bottom: 20px;
+    color: #000;
+    font-family: 'Poppins Medium' !important;
+  }
+  .compatible-products-wrapper {
+    border: 1px solid #E8E8E8;
+    border-radius: 12px;
+    padding: 20px;
+    background: #fff;
+  }
+  .compatible-product-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+    gap: 16px;
+  }
+  .compatible-product-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex: 1;
+  }
+  .compatible-product-thumb {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+    background: #F5F5F5;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .compatible-product-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .compatible-product-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+  }
+  .compatible-product-name {
+    font-size: 16px !important;
+    font-weight: 400;
+    color: #000;
+    margin: 0;
+    font-family: 'Poppins Regular' !important;
+  }
+  .compatible-product-amount {
+    font-size: 16px;
+    color: #000;
+    margin: 0;
+    font-family: 'Poppins Regular' !important;
+  }
+  .compatible-product-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .compatible-option-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .compatible-option-label {
+    font-size: 12px;
+    color: #666;
+    font-family: 'Poppins Regular' !important;
+  }
+  .compatible-option-select {
+    padding: 8px 32px 8px 12px;
+    border: 1px solid #000;
+    border-radius: 25px;
+    background: #fff;
+    font-size: 13px;
+    cursor: pointer;
+    appearance: none;
+    font-family: 'Poppins Regular' !important;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='black' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    min-width: 100px;
+  }
+  .compatible-option-select:focus {
+    outline: none;
+    border-color: #000;
+  }
+  .compatible-product-right {
+    flex-shrink: 0;
+    align-self: center;
+  }
+  .compatible-add-button {
+    padding: 12px 32px;
+    background: #000;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    font-size: 14px !important;
+    font-weight: 400;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    font-family: 'Poppins Regular' !important;
+    white-space: nowrap;
+  }
+  .compatible-add-button:hover {
+    background: #333;
+  }
+  .compatible-add-button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+  .compatible-product-separator {
+    height: 1px;
+    background: #E8E8E8;
+    margin: 0;
+  }
+  @media (max-width: 768px) {
+    .compatible-product-card {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .compatible-product-left {
+      width: 100%;
+    }
+    .compatible-product-thumb {
+      width: 70px;
+      height: 70px;
+    }
+    .compatible-product-right {
+      width: 100%;
+    }
+    .compatible-add-button {
+      width: 100%;
+      padding: 10px 24px;
+    }
+    .compatible-products-wrapper {
+      padding: 16px;
+    }
+    .compatible-option-select {
+      font-size: 12px;
+    }
+  }
+</style>
+
+<div class="compatible-products-section">
+  <h2 class="compatible-products-title">Compatible Products</h2>
+  <div class="compatible-products-wrapper">
+    {% for p in compatible_products %}
+      {% unless forloop.first %}
+        <div class="compatible-product-separator"></div>
+      {% endunless %}
+
+      {% assign first_variant = p.variants.first %}
+      {% assign has_variants = false %}
+      {% if p.variants.size > 1 %}
+        {% assign has_variants = true %}
+      {% endif %}
+      {% assign only_default = false %}
+      {% if p.options.size == 1 and p.options.first == 'Title' %}
+        {% assign only_default = true %}
+      {% endif %}
+
+      <div class="compatible-product-card"
+           data-product-id="{{ p.id }}"
+           data-variants="{{ p.variants | json | escape }}">
+        <div class="compatible-product-left">
+          <div class="compatible-product-thumb">
+            {% if p.featured_image %}
+              <img src="{{ p.featured_image | img_url: '160x160', crop: 'center' }}" alt="{{ p.title | escape }}" loading="lazy">
+            {% endif %}
+          </div>
+          <div class="compatible-product-info">
+            <h3 class="compatible-product-name">
+              <a href="{{ p.url }}" style="color:inherit;text-decoration:none;">{{ p.title }}</a>
+            </h3>
+            <p class="compatible-product-amount" data-price>
+              {% if p.price_varies %}
+                {{ p.price_min | money }}
+              {% else %}
+                {{ p.price | money }}
+              {% endif %}
+            </p>
+
+            {% if has_variants and only_default == false %}
+              <div class="compatible-product-options">
+                {% for option in p.options %}
+                  <div class="compatible-option-group">
+                    <span class="compatible-option-label">{{ option }}</span>
+                    <select
+                      class="compatible-option-select"
+                      data-option-index="{{ forloop.index0 }}"
+                      onchange="compatibleUpdateVariant(this)">
+                      {% assign option_index = forloop.index %}
+                      {% for variant in p.variants %}
+                        {% if option_index == 1 %}
+                          {% assign option_val = variant.option1 %}
+                        {% elsif option_index == 2 %}
+                          {% assign option_val = variant.option2 %}
+                        {% elsif option_index == 3 %}
+                          {% assign option_val = variant.option3 %}
+                        {% endif %}
+                        {% assign already_added = false %}
+                        {% for prev_variant in p.variants limit: forloop.index0 %}
+                          {% if option_index == 1 and prev_variant.option1 == option_val %}
+                            {% assign already_added = true %}
+                          {% elsif option_index == 2 and prev_variant.option2 == option_val %}
+                            {% assign already_added = true %}
+                          {% elsif option_index == 3 and prev_variant.option3 == option_val %}
+                            {% assign already_added = true %}
+                          {% endif %}
+                        {% endfor %}
+                        {% unless already_added %}
+                          <option value="{{ option_val }}">{{ option_val }}</option>
+                        {% endunless %}
+                      {% endfor %}
+                    </select>
+                  </div>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="compatible-product-right">
+          {% if first_variant.available %}
+            <button
+              class="compatible-add-button"
+              data-variant-id="{{ first_variant.id }}"
+              data-product-id="{{ p.id }}"
+              onclick="addCompatibleToCart(this)">
+              Add to Cart
+            </button>
+          {% else %}
+            <button class="compatible-add-button" disabled>Sold Out</button>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+if (typeof window.compatibleUpdateVariant === 'undefined') {
+  window.compatibleUpdateVariant = function(changedSelect) {
+    var card = changedSelect.closest('.compatible-product-card');
+    var allSelects = card.querySelectorAll('.compatible-option-select');
+    var variants = JSON.parse(card.dataset.variants.replace(/&quot;/g, '"'));
+
+    var selectedOptions = Array.from(allSelects).map(function(s) {
+      return s.value;
+    });
+
+    var matched = variants.find(function(v) {
+      return selectedOptions.every(function(val, i) {
+        return v['option' + (i + 1)] === val;
+      });
+    });
+
+    var button = card.querySelector('.compatible-add-button');
+    var priceEl = card.querySelector('[data-price]');
+
+    if (matched) {
+      button.dataset.variantId = matched.id;
+      if (matched.available) {
+        button.disabled = false;
+        button.textContent = 'Add to Cart';
+      } else {
+        button.disabled = true;
+        button.textContent = 'Sold Out';
+      }
+      if (priceEl) {
+        priceEl.textContent = '₱' + (matched.price / 100).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      }
+    } else {
+      button.disabled = true;
+      button.textContent = 'Unavailable';
+    }
+  };
+}
+
+if (typeof window.addCompatibleToCart === 'undefined') {
+  window.addCompatibleToCart = async function(button) {
+    var variantId = button.dataset.variantId;
+    if (!variantId) return;
+
+    button.disabled = true;
+    button.textContent = 'Adding...';
+
+    try {
+      var addResponse = await fetch('/cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items: [{ id: parseInt(variantId), quantity: 1 }] })
+      });
+
+      if (!addResponse.ok) {
+        var errData = await addResponse.json();
+        throw new Error(errData.description || 'Add failed');
+      }
+
+      var cartData = await fetch('/cart.js').then(function(r) { return r.json(); });
+
+      var cartBubble = document.getElementById('CartBubble');
+      if (cartBubble) {
+        cartBubble.textContent = cartData.item_count;
+        cartBubble.classList.remove('hidden');
+        cartBubble.style.display = '';
+      }
+      document.querySelectorAll('.cart-badge, [data-cart-count]').forEach(function(el) {
+        el.textContent = cartData.item_count;
+        el.classList.remove('hidden');
+      });
+
+      await refreshCompatibleCartModal();
+      openCompatibleCartModal();
+
+      button.textContent = 'Added ✓';
+      setTimeout(function() {
+        button.disabled = false;
+        button.textContent = 'Add to Cart';
+      }, 2000);
+    } catch (error) {
+      console.error('Cart error:', error);
+      button.disabled = false;
+      button.textContent = 'Add to Cart';
+      alert(error.message || 'Failed to add to cart. Please try again.');
+    }
+  };
+
+  window.refreshCompatibleCartModal = async function() {
+    var cartModal = document.getElementById('cart-modal');
+    if (!cartModal) return;
+    try {
+      var response = await fetch(window.location.pathname + '?section_id=cart-modal');
+      var html = await response.text();
+      var parser = new DOMParser();
+      var doc = parser.parseFromString(html, 'text/html');
+      var newContent = doc.querySelector('#cart-modal [slot="content"]');
+      var currentContent = cartModal.querySelector('[slot="content"]');
+      if (newContent && currentContent) {
+        currentContent.innerHTML = newContent.innerHTML;
+      }
+    } catch (error) {
+      console.error('Failed to refresh cart modal:', error);
+    }
+  };
+
+  window.openCompatibleCartModal = function() {
+    var cartModal = document.getElementById('cart-modal');
+    if (cartModal) {
+      if (typeof cartModal.show === 'function') {
+        cartModal.show();
+      } else if (typeof cartModal.open === 'function') {
+        cartModal.open();
+      } else {
+        cartModal.setAttribute('open', '');
+        cartModal.classList.add('open');
+      }
+      var modalTrigger = document.querySelector('modal-trigger[target="#cart-modal"]');
+      if (modalTrigger) modalTrigger.click();
+    }
+    document.dispatchEvent(new CustomEvent('cart:open', { bubbles: true }));
+  };
+}
+</script>
+{% endif %}

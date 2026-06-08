@@ -1,0 +1,381 @@
+{% schema %}
+{
+  "name": "Tab Accordion",
+  "settings": [
+    {
+      "type": "range",
+      "id": "padding_left",
+      "label": "Left Padding (px)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_right",
+      "label": "Right Padding (px)",
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "default": 100,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top Padding (px)",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "default": 50,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom Padding (px)",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "default": 50,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Tab",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_title",
+          "label": "Tab Title",
+          "default": "Category 1"
+        },
+        {
+          "type": "text",
+          "id": "tab_subtitle",
+          "label": "Tab Subtitle",
+          "default": "Video Tutorials"
+        }
+      ]
+    },
+    {
+      "type": "accordion",
+      "name": "Accordion Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_id",
+          "label": "Assign to Tab",
+          "info": "Enter the tab title exactly as it appears"
+        },
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Question here?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Answer here</p>"
+        },
+        {
+          "type": "html",
+          "id": "plus_icon",
+          "label": "Plus Icon SVG",
+          "default": "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M12 5V19M5 12H19' stroke='#931932' stroke-width='2' stroke-linecap='round'/></svg>"
+        },
+        {
+          "type": "html",
+          "id": "minus_icon",
+          "label": "Minus Icon SVG",
+          "default": "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M5 12H19' stroke='#931932' stroke-width='2' stroke-linecap='round'/></svg>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Tab Accordion",
+      "blocks": [
+        {
+          "type": "tab",
+          "settings": {
+            "tab_title": "Category 1",
+            "tab_subtitle": "Video Tutorials"
+          }
+        },
+        {
+          "type": "accordion",
+          "settings": {
+            "tab_id": "Category 1",
+            "question": "What makes Rakugaki Central different from other stationery stores?",
+            "answer": "<p>We curate authentic Japanese stationery focused on quality, precision, and long-lasting performance. Every product is hand-selected to ensure a smooth and intentional writing experience.</p>"
+          }
+        },
+        {
+          "type": "accordion",
+          "settings": {
+            "tab_id": "Category 1",
+            "question": "Are your products authentic Japanese brands?",
+            "answer": "<p>Yes, all our products are authentic Japanese brands.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+.tab-accordion-section {
+  width: 100%;
+  padding: {{ section.settings.padding_top }}px {{ section.settings.padding_right }}px {{ section.settings.padding_bottom }}px {{ section.settings.padding_left }}px;
+}
+
+.tab-accordion-container {
+  display: flex;
+  gap: 40px;
+  max-width: 100%;
+}
+
+.tab-list {
+  flex: 0 0 250px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.tab-item {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tab-item.active .tab-title {
+  color: #931932;
+  font-family: 'Poppins Regular';
+}
+
+.tab-item:not(.active) .tab-title {
+  color: #1A1A1A;
+  font-family: 'Poppins Regular';
+}
+
+.tab-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 5px 0;
+}
+
+.tab-subtitle {
+  font-size: 14px;
+  color: #6C6C6C;
+  margin: 0;
+}
+
+.accordion-content {
+  flex: 1;
+  display: none;
+}
+
+.accordion-content.active {
+  display: block;
+}
+
+.accordion-item {
+  border-bottom: 1px solid #A9A9A9;
+}
+
+.accordion-item.open {
+  border-bottom: none;
+}
+
+.accordion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  cursor: pointer;
+  gap: 20px;
+}
+
+.accordion-question {
+  color: #931932;
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0;
+  flex: 1;
+  font-family: 'Poppins Regular'
+}
+
+.accordion-icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.accordion-icon .minus-icon {
+  display: none;
+}
+
+.accordion-item.open .accordion-icon .plus-icon {
+  display: none;
+}
+
+.accordion-item.open .accordion-icon .minus-icon {
+  display: block;
+}
+
+.accordion-answer {
+  padding: 0 0 20px 0;
+  display: none;
+  color: #6C6C6C;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.accordion-item.open .accordion-answer {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .tab-accordion-section {
+    padding: 30px 20px;
+  }
+
+  .tab-accordion-container {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .tab-list {
+    flex: 1;
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 15px;
+    padding-bottom: 10px;
+  }
+
+  .tab-item {
+    flex-shrink: 0;
+    min-width: 150px;
+  }
+
+  .accordion-question {
+    font-size: 18px;
+  }
+
+  .accordion-answer {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .accordion-question {
+    font-size: 16px;
+  }
+
+  .accordion-answer {
+    font-size: 14px;
+  }
+
+  .tab-title {
+    font-size: 16px;
+  }
+
+  .tab-subtitle {
+    font-size: 13px;
+  }
+}
+
+@media screen and (min-width: 1700px) and (max-width: 2000px) {
+.tab-accordion-section {
+ padding: 50px 200px 50px 65px !important;
+}
+.tab-list {
+padding: 30px;
+}
+}
+</style>
+
+<div class="tab-accordion-section">
+  <div class="tab-accordion-container">
+    <div class="tab-list">
+      {% assign tabs = section.blocks | where: "type", "tab" %}
+      {% for tab in tabs %}
+        <div class="tab-item {% if forloop.first %}active{% endif %}" data-tab="{{ tab.settings.tab_title }}">
+          <h3 class="tab-title">{{ tab.settings.tab_title }}</h3>
+          <p class="tab-subtitle">{{ tab.settings.tab_subtitle }}</p>
+        </div>
+      {% endfor %}
+    </div>
+
+    {% for tab in tabs %}
+      <div class="accordion-content {% if forloop.first %}active{% endif %}" data-content="{{ tab.settings.tab_title }}">
+        {% assign accordions = section.blocks | where: "type", "accordion" %}
+        {% for accordion in accordions %}
+          {% if accordion.settings.tab_id == tab.settings.tab_title %}
+            <div class="accordion-item">
+              <div class="accordion-header">
+                <h4 class="accordion-question">{{ accordion.settings.question }}</h4>
+                <div class="accordion-icon">
+                  <div class="accordion-icon">
+                  <span class="plus-icon">{{ 'plusicon.svg' | inline_asset_content }}</span>
+                  <span class="minus-icon"><svg width="12" height="3" viewBox="0 0 12 3" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="12" height="3" rx="1.5" fill="#931932"/>
+                    </svg></span>
+                </div>
+                </div>
+              </div>
+              <div class="accordion-answer">
+                {{ accordion.settings.answer }}
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const tabItems = document.querySelectorAll('.tab-item');
+  const accordionContents = document.querySelectorAll('.accordion-content');
+  const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+  tabItems.forEach(tab => {
+    tab.addEventListener('click', function() {
+      const tabName = this.getAttribute('data-tab');
+
+      tabItems.forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+
+      accordionContents.forEach(content => {
+        if (content.getAttribute('data-content') === tabName) {
+          content.classList.add('active');
+        } else {
+          content.classList.remove('active');
+        }
+      });
+    });
+  });
+
+  accordionHeaders.forEach(header => {
+    header.addEventListener('click', function() {
+      const accordionItem = this.parentElement;
+      const isOpen = accordionItem.classList.contains('open');
+
+      accordionItem.classList.toggle('open');
+    });
+  });
+});
+</script>

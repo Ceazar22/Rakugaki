@@ -1,0 +1,97 @@
+{% stylesheet %}
+  .about-section {
+    width: 100%;
+    padding: 80px 100px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    margin-bottom: -100px;
+  }
+
+  .about-content {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .about-heading {
+    text-align: center;
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .about-description {
+    text-align: left;
+    font-size: 16px;
+    line-height: 1.8;
+    color: #333;
+  }
+
+  .about-description p {
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 768px) {
+    .about-section {
+      padding: 60px 30px;
+      background-image: var(--mobile-bg) !important;
+    }
+
+    .about-heading {
+      font-size: 32px;
+      margin-bottom: 30px;
+    }
+
+    .about-description {
+      font-size: 14px;
+      line-height: 1.7;
+    }
+  }
+{% endstylesheet %}
+
+<div class="about-section" style="background-image: url('{{ section.settings.background_image | img_url: '2000x' }}'); --mobile-bg: url('{{ section.settings.background_image_mobile | img_url: '800x' }}');">
+  <div class="about-content">
+    <h2 class="about-heading">{{ section.settings.heading }}</h2>
+    <div class="about-description">
+      {{ section.settings.description }}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "About Section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image (Desktop)"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image_mobile",
+      "label": "Background Image (Mobile)"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "ABOUT US"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Your about text goes here.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Section"
+    }
+  ]
+}
+{% endschema %}

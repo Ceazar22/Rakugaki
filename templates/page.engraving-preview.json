@@ -1,0 +1,54 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "engraving_preview_RJ8JQt": {
+      "type": "Engraving-preview",
+      "name": "Engraving Preview",
+      "settings": {
+        "background_image": "shopify://shop_images/Frame_1000009916.png",
+        "engraving_price": 25,
+        "font_name_1": "Champtone serif",
+        "font_1": "https://cdn.shopify.com/s/files/1/0615/1104/1109/files/Champtone_serif_demo.ttf?v=1765838687",
+        "font_name_2": "Arial Rounded Bold",
+        "font_2": "https://cdn.shopify.com/s/files/1/0615/1104/1109/files/Arial_Rounded_Bold.ttf?v=1765838688",
+        "font_name_3": "Mr Darcy W01 Regular.",
+        "font_3": "https://cdn.shopify.com/s/files/1/0615/1104/1109/files/Mr_Darcy_W01_Regular.ttf?v=1765838688",
+        "font_name_4": "MTCORSVA",
+        "font_4": "https://cdn.shopify.com/s/files/1/0615/1104/1109/files/MTCORSVA.TTF?v=1765838688",
+        "font_name_5": "Fineday Style One",
+        "font_5": "https://cdn.shopify.com/s/files/1/0615/1104/1109/files/Fineday-StyleOne.ttf?v=1765838689",
+        "font_name_6": "Brush Script",
+        "font_6": "https://cdn.shopify.com/s/files/1/0615/1104/1109/files/Brush_Script.ttf?v=1765838689",
+        "font_name_7": "Juana Regular",
+        "font_7": "https://cdn.shopify.com/s/files/1/0615/1104/1109/files/juana-regular.ttf?v=1765838689",
+        "font_name_8": "Khamden Script",
+        "font_8": "https://cdn.shopify.com/s/files/1/0615/1104/1109/files/khamden-script.otf?v=1765838691",
+        "font_name_9": "Copperplate",
+        "font_9": "https://cdn.shopify.com/s/files/1/0615/1104/1109/files/Copperplate.ttc?v=1765838691",
+        "font_name_10": "AmericanTypewriter",
+        "font_10": "https://cdn.shopify.com/s/files/1/0615/1104/1109/files/AmericanTypewriter.ttc?v=1765838692",
+        "gift_box_product_handle": "gift-box-fee"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "engraving_preview_RJ8JQt"
+  ]
+}

@@ -1,0 +1,354 @@
+<style>
+  .sticky-atc-wrapper {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: white;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    transform: translateY(100%);
+    transition: transform 0.3s ease-in-out;
+    border-top: 1px solid #e0e0e0;
+  }
+
+  .sticky-atc-wrapper.visible {
+    transform: translateY(0);
+  }
+
+  .sticky-atc-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .sticky-atc-image {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+  }
+
+  .sticky-atc-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+
+  .sticky-atc-info {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .sticky-atc-details {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .sticky-atc-title {
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0 0 5px 0;
+    color: #000;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .sticky-atc-price-review {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .sticky-atc-price {
+    font-size: 16px;
+    font-weight: 600;
+    color: #000;
+  }
+
+  .sticky-atc-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .sticky-atc-quantity {
+    display: flex;
+    align-items: center;
+    border: 1px solid #d0d0d0;
+    border-radius: 4px;
+    height: 44px;
+  }
+
+  .sticky-atc-quantity button {
+    background: transparent;
+    border: none;
+    width: 40px;
+    height: 100%;
+    cursor: pointer;
+    font-size: 18px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sticky-atc-quantity input {
+    width: 50px;
+    text-align: center;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .sticky-atc-button {
+    background: #8E191B;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 4px;
+    white-space: nowrap;
+    text-transform: uppercase;
+    transition: background 0.3s;
+  }
+
+  .sticky-atc-button:hover {
+    background: #6d1416;
+  }
+
+  @media (max-width: 768px) {
+    .sticky-atc-container {
+      flex-direction: column;
+      padding: 12px 15px;
+      gap: 12px;
+    }
+
+    .sticky-atc-image {
+      display: none;
+    }
+
+    .sticky-atc-info {
+      width: 100%;
+      flex-direction: column;
+      gap: 10px;
+      align-items: stretch;
+    }
+
+    .sticky-atc-details {
+      text-align: center;
+    }
+
+    .sticky-atc-title {
+      font-size: 14px;
+      white-space: normal;
+      overflow: visible;
+      text-overflow: initial;
+    }
+
+    .sticky-atc-price-review {
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .sticky-atc-actions {
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    .sticky-atc-quantity {
+      flex: 0 0 auto;
+    }
+
+    .sticky-atc-button {
+      flex: 1;
+      padding: 12px 20px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .sticky-atc-price-review .product-rating-custom {
+      display: none;
+    }
+  }
+</style>
+
+<div class="sticky-atc-wrapper" id="stickyATC">
+  <div class="sticky-atc-container">
+    <div class="sticky-atc-image">
+      {% if product.featured_image %}
+        <img src="{{ product.featured_image | image_url: width: 160 }}" alt="{{ product.title }}">
+      {% endif %}
+    </div>
+
+    <div class="sticky-atc-info">
+      <div class="sticky-atc-details">
+        <h3 class="sticky-atc-title">{{ product.title }}</h3>
+        <div class="sticky-atc-price-review">
+          <div class="sticky-atc-price">
+            {{ product.selected_or_first_available_variant.price | money }}
+          </div>
+          
+          {%- liquid
+            assign current_product = product
+            
+            assign judgeme_rating_1 = current_product.metafields.reviews.rating.value
+            assign judgeme_count_1 = current_product.metafields.reviews.rating_count
+            
+            assign judgeme_rating_2 = current_product.metafields.judgeme.rating.value
+            assign judgeme_count_2 = current_product.metafields.judgeme.reviews_count.value
+            
+            assign judgeme_rating_3 = current_product.metafields.judgeme.rating
+            assign judgeme_count_3 = current_product.metafields.judgeme.reviews_count
+            
+            assign judgeme_rating_4 = current_product.metafields['judge.me'].rating
+            assign judgeme_count_4 = current_product.metafields['judge.me'].reviews_count
+          -%}
+          {%- liquid
+            if judgeme_rating_1 != blank and judgeme_count_1 != blank
+              assign rating_value = judgeme_rating_1 | plus: 0
+              assign count_value = judgeme_count_1 | plus: 0
+              assign has_reviews = true
+            elsif judgeme_rating_2 != blank and judgeme_count_2 != blank
+              assign rating_value = judgeme_rating_2 | plus: 0
+              assign count_value = judgeme_count_2 | plus: 0
+              assign has_reviews = true
+            elsif judgeme_rating_3 != blank and judgeme_count_3 != blank
+              assign rating_value = judgeme_rating_3 | plus: 0
+              assign count_value = judgeme_count_3 | plus: 0
+              assign has_reviews = true
+            elsif judgeme_rating_4 != blank and judgeme_count_4 != blank
+              assign rating_value = judgeme_rating_4 | plus: 0
+              assign count_value = judgeme_count_4 | plus: 0
+              assign has_reviews = true
+            else
+              assign rating_value = 5
+              assign count_value = 66
+              assign has_reviews = false
+            endif
+            
+            assign star_svg = '<svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="#8E191B" d="M7.75584 0.300569L8.8809 3.63152C9.14834 4.42333 9.88676 4.95982 10.7225 4.9695L14.2376 5.01019C14.6601 5.01511 14.835 5.55353 14.4961 5.80552L11.676 7.90451C11.0055 8.40352 10.7234 9.27161 10.9724 10.0694L12.02 13.4253C12.1457 13.8287 11.6882 14.1611 11.3433 13.9167L8.47585 11.8832C7.79407 11.3996 6.88124 11.3996 6.19939 11.883L3.33155 13.9162C2.98718 14.1605 2.52912 13.8276 2.65484 13.4248L3.70238 10.0689C3.95142 9.27106 3.66932 8.40297 2.99886 7.90396L0.178682 5.80497C-0.160219 5.55298 0.0146976 5.01457 0.43723 5.00965L3.95236 4.96895C4.78806 4.95928 5.52648 4.42278 5.79392 3.63097L6.91898 0.300023C7.05454 -0.100099 7.62083 -0.100099 7.75584 0.300569Z"/></svg>'
+          -%}
+          {% if has_reviews %}
+          <div class="product-rating-custom">
+            <div class="star-rating-custom">
+              {% for i in (1..5) %}
+                <span class="star" style="color: {% if i <= rating_value %}#8E191B{% else %}#cccccc{% endif %} !important;">
+                  {{ star_svg }}
+                </span>
+              {% endfor %}
+            </div>
+            
+            {% if rating_value > 0 %}
+              <span class="rating-number">{{ rating_value | round: 1 }}</span>
+            {% endif %}
+            
+            <span class="rating-count-custom">
+              {% if count_value == 1 %}
+                {{ count_value }} review
+              {% else %}
+                {{ count_value }} reviews
+              {% endif %}
+            </span>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="sticky-atc-actions">
+        <div class="sticky-atc-quantity">
+          <button type="button" class="sticky-qty-minus" aria-label="Decrease quantity">−</button>
+          <input type="number" class="sticky-qty-input" value="1" min="1" readonly>
+          <button type="button" class="sticky-qty-plus" aria-label="Increase quantity">+</button>
+        </div>
+        <button type="button" class="sticky-atc-button" id="stickyATCButton">
+          Add to Basket
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const stickyATC = document.getElementById('stickyATC');
+    const stickyButton = document.getElementById('stickyATCButton');
+    const stickyQtyInput = document.querySelector('.sticky-qty-input');
+    const stickyQtyPlus = document.querySelector('.sticky-qty-plus');
+    const stickyQtyMinus = document.querySelector('.sticky-qty-minus');
+    
+    const mainProductForm = document.querySelector('form[action*="/cart/add"]');
+    const mainATCButton = mainProductForm ? mainProductForm.querySelector('[name="add"]') : null;
+    const mainQtyInput = mainProductForm ? mainProductForm.querySelector('[name="quantity"]') : null;
+    
+    let productInfoBottom = 0;
+    
+    function calculateProductInfoPosition() {
+      const productInfo = document.querySelector('.product-info-container') || 
+                         document.querySelector('.product__info-wrapper') ||
+                         document.querySelector('.product-form') ||
+                         document.querySelector('[class*="product-info"]');
+      
+      if (productInfo) {
+        const rect = productInfo.getBoundingClientRect();
+        productInfoBottom = rect.bottom + window.scrollY;
+      }
+    }
+    
+    function handleScroll() {
+      const scrollPosition = window.scrollY + window.innerHeight;
+      
+      if (scrollPosition > productInfoBottom + 100) {
+        stickyATC.classList.add('visible');
+      } else {
+        stickyATC.classList.remove('visible');
+      }
+    }
+    
+    calculateProductInfoPosition();
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', calculateProductInfoPosition);
+    
+    if (mainQtyInput) {
+      stickyQtyPlus.addEventListener('click', function() {
+        let currentQty = parseInt(stickyQtyInput.value);
+        stickyQtyInput.value = currentQty + 1;
+        mainQtyInput.value = currentQty + 1;
+        
+        mainQtyInput.dispatchEvent(new Event('change', { bubbles: true }));
+      });
+      
+      stickyQtyMinus.addEventListener('click', function() {
+        let currentQty = parseInt(stickyQtyInput.value);
+        if (currentQty > 1) {
+          stickyQtyInput.value = currentQty - 1;
+          mainQtyInput.value = currentQty - 1;
+          
+          mainQtyInput.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      });
+      
+      mainQtyInput.addEventListener('change', function() {
+        stickyQtyInput.value = this.value;
+      });
+      
+      mainQtyInput.addEventListener('input', function() {
+        stickyQtyInput.value = this.value;
+      });
+    }
+    
+    if (stickyButton && mainATCButton) {
+      stickyButton.addEventListener('click', function() {
+        mainATCButton.click();
+      });
+    }
+  });
+</script>

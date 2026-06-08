@@ -1,0 +1,282 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "custom_liquid_TQYC7T": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<style>\n\n  .custom-rating-display {\n    display: inline-flex;\n    align-items: center;\n    gap: 8px;\nmargin-bottom: -50px !important;\n\n  }\n\n  .custom-rating-number {\n\n    font-size: 20px;\n\n    font-weight: 400;\n\n    color: #000;\n\n    line-height: 1;\n     \n     font-family: 'Poppins Medium';\n\n  }\n\n  .custom-rating-stars {\n\n    display: flex;\n\n    align-items: center;\n\n    gap: 4px;\n\n\n  }\n\n  .custom-rating-star {\n\n    width: 20px;\n\n    height: 20px;\n\n    flex-shrink: 0;\n\n  }\n\n  .custom-rating-star svg {\n\n    width: 100%;\n\n    height: 100%;\n\n    display: block;\n\n  }\n\n  @media (max-width: 768px) {\n\n    .custom-rating-number {\n\n      font-size: 16px;\n\n    }\n\n    .custom-rating-stars {\n\n      gap: 3px;\n\n    }\n\n    .custom-rating-star {\n\n      width: 16px;\n\n      height: 16px;\n\n    }\n\n  }\n\n</style>\n\n<div class=\"custom-rating-display\">\n\n  <span class=\"custom-rating-number\">5.0</span>\n\n  <div class=\"custom-rating-stars\">\n\n    <span class=\"custom-rating-star\">\n\n      <svg width=\"14\" height=\"14\" viewBox=\"0 0 14 14\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M7.29108 0.282558L8.76842 4.65652L13.3844 4.70996C13.7816 4.71459 13.9461 5.22074 13.6275 5.45763L9.92409 8.21396L11.2997 12.6208C11.4179 13 10.9878 13.3125 10.6635 13.0828L6.89798 10.4122L3.13191 13.0823C2.80818 13.312 2.37757 12.999 2.49575 12.6203L3.87135 8.21345L0.167974 5.45711C-0.150618 5.22022 0.0138169 4.71407 0.411029 4.70945L5.02702 4.65601L6.50436 0.282044C6.6318 -0.0941003 7.16416 -0.0941003 7.29108 0.282558Z\" fill=\"#FF8D3A\"/></svg>\n\n    </span>\n\n    <span class=\"custom-rating-star\">\n\n      <svg width=\"14\" height=\"14\" viewBox=\"0 0 14 14\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M7.29108 0.282558L8.76842 4.65652L13.3844 4.70996C13.7816 4.71459 13.9461 5.22074 13.6275 5.45763L9.92409 8.21396L11.2997 12.6208C11.4179 13 10.9878 13.3125 10.6635 13.0828L6.89798 10.4122L3.13191 13.0823C2.80818 13.312 2.37757 12.999 2.49575 12.6203L3.87135 8.21345L0.167974 5.45711C-0.150618 5.22022 0.0138169 4.71407 0.411029 4.70945L5.02702 4.65601L6.50436 0.282044C6.6318 -0.0941003 7.16416 -0.0941003 7.29108 0.282558Z\" fill=\"#FF8D3A\"/></svg>\n\n    </span>\n\n    <span class=\"custom-rating-star\">\n\n      <svg width=\"14\" height=\"14\" viewBox=\"0 0 14 14\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M7.29108 0.282558L8.76842 4.65652L13.3844 4.70996C13.7816 4.71459 13.9461 5.22074 13.6275 5.45763L9.92409 8.21396L11.2997 12.6208C11.4179 13 10.9878 13.3125 10.6635 13.0828L6.89798 10.4122L3.13191 13.0823C2.80818 13.312 2.37757 12.999 2.49575 12.6203L3.87135 8.21345L0.167974 5.45711C-0.150618 5.22022 0.0138169 4.71407 0.411029 4.70945L5.02702 4.65601L6.50436 0.282044C6.6318 -0.0941003 7.16416 -0.0941003 7.29108 0.282558Z\" fill=\"#FF8D3A\"/></svg>\n\n    </span>\n\n    <span class=\"custom-rating-star\">\n\n      <svg width=\"14\" height=\"14\" viewBox=\"0 0 14 14\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M7.29108 0.282558L8.76842 4.65652L13.3844 4.70996C13.7816 4.71459 13.9461 5.22074 13.6275 5.45763L9.92409 8.21396L11.2997 12.6208C11.4179 13 10.9878 13.3125 10.6635 13.0828L6.89798 10.4122L3.13191 13.0823C2.80818 13.312 2.37757 12.999 2.49575 12.6203L3.87135 8.21345L0.167974 5.45711C-0.150618 5.22022 0.0138169 4.71407 0.411029 4.70945L5.02702 4.65601L6.50436 0.282044C6.6318 -0.0941003 7.16416 -0.0941003 7.29108 0.282558Z\" fill=\"#FF8D3A\"/></svg>\n\n    </span>\n\n    <span class=\"custom-rating-star\">\n\n      <svg width=\"14\" height=\"14\" viewBox=\"0 0 14 14\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M7.29108 0.282558L8.76842 4.65652L13.3844 4.70996C13.7816 4.71459 13.9461 5.22074 13.6275 5.45763L9.92409 8.21396L11.2997 12.6208C11.4179 13 10.9878 13.3125 10.6635 13.0828L6.89798 10.4122L3.13191 13.0823C2.80818 13.312 2.37757 12.999 2.49575 12.6203L3.87135 8.21345L0.167974 5.45711C-0.150618 5.22022 0.0138169 4.71407 0.411029 4.70945L5.02702 4.65601L6.50436 0.282044C6.6318 -0.0941003 7.16416 -0.0941003 7.29108 0.282558Z\" fill=\"#FF8D3A\"/></svg>\n\n    </span>\n\n  </div>\n\n</div>"
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "circle"
+          }
+        },
+        "custom_liquid_Qx89xt": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{% render 'engraving-upload' %}"
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false,
+            "show_gift_card_recipient": true
+          }
+        },
+        "custom_liquid_9fCXqq": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<style>\n  .custom-delivery-info {\n    display: flex;\n    flex-direction: column;\n    gap: 12px;\n  }\n  .custom-delivery-row {\n    display: flex;\n    align-items: center;\n    gap: 12px;\n  }\n  .custom-delivery-icon {\n    width: 32px;\n    height: 32px;\n    flex-shrink: 0;\n  }\n  .custom-delivery-icon svg {\n    width: 100%;\n    height: 100%;\n    display: block;\n  }\n  .custom-delivery-text {\n    font-size: 16px;\n    color: #000;\n    line-height: 1.4;\n     font-family: .custom-delivery-text;\n  }\n  .custom-delivery-date {\n    font-weight: 400;\n    text-decoration: underline;\n  }\n  .custom-returns-days {\n    font-weight: 700;\n    font-family: 'Poppins Bold'\n  }\n  @media (max-width: 768px) {\n    .custom-delivery-info {\n      gap: 10px;\n    }\n    .custom-delivery-icon {\n      width: 28px;\n      height: 28px;\n    }\n    .custom-delivery-text {\n      font-size: 14px;\n    }\n  }\n</style>\n\n<div class=\"custom-delivery-info\">\n  <div class=\"custom-delivery-row\">\n    <div class=\"custom-delivery-icon\">\n      <svg width=\"26\" height=\"20\" viewBox=\"0 0 26 20\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M1.45641 0C0.658125 0 0 0.658125 0 1.45641V15.08C0 15.9352 0.704844 16.64 1.56 16.64H3.68875C3.93656 18.1106 5.22031 19.24 6.76 19.24C8.29969 19.24 9.58344 18.1106 9.83125 16.64H17.7288C17.9766 18.1106 19.2603 19.24 20.8 19.24C22.3397 19.24 23.6234 18.1106 23.8712 16.64H24.44C24.8727 16.64 25.2464 16.4389 25.5227 16.1627C25.7989 15.8864 26 15.5127 26 15.08V10.0892C26 9.50422 25.7827 8.97203 25.5836 8.56375C25.3825 8.1575 25.1794 7.865 25.1794 7.865L25.1733 7.8589L23.0323 4.98672L23.0262 4.98062C22.5652 4.40375 21.8258 3.64 20.8 3.64H16.64C16.4531 3.64 16.2805 3.68266 16.12 3.74766V1.50922C16.12 0.676406 15.4436 0 14.6108 0H1.45641ZM1.45641 1.04H14.6108C14.82 1.04 15.08 1.3 15.08 1.50922V15.6H9.83125C9.58344 14.1294 8.29969 13 6.76 13C5.22031 13 3.93656 14.1294 3.68875 15.6H1.56C1.27156 15.6 1.04 15.3684 1.04 15.08V1.45641C1.04 1.21469 1.21469 1.04 1.45641 1.04ZM7.8 2.08C4.94 2.08 2.6 4.42 2.6 7.28C2.6 10.14 4.94 12.48 7.8 12.48C10.66 12.48 13 10.14 13 7.28C13 4.42 10.66 2.08 7.8 2.08ZM7.8 3.12C10.0872 3.12 11.96 4.99281 11.96 7.28C11.96 9.56719 10.0872 11.44 7.8 11.44C5.51281 11.44 3.64 9.56719 3.64 7.28C3.64 4.99281 5.51281 3.12 7.8 3.12ZM7.28 4.16V7.02L5.40922 8.42359L6.03078 9.2564L8.32 7.54V4.16H7.28ZM16.64 4.68H18.72V9.36C18.72 9.79265 18.9211 10.1664 19.1973 10.4427C19.4736 10.7189 19.8473 10.92 20.28 10.92H24.96V15.08C24.96 15.1673 24.9011 15.3136 24.7873 15.4273C24.6736 15.5411 24.5273 15.6 24.44 15.6H23.8712C23.6234 14.1294 22.3397 13 20.8 13C19.2603 13 17.9766 14.1294 17.7288 15.6H16.12V5.2C16.12 5.11266 16.1789 4.96641 16.2927 4.85266C16.4064 4.73891 16.5527 4.68 16.64 4.68ZM19.76 4.68H20.8C21.2306 4.68 21.842 5.16547 22.2137 5.62859L24.3262 8.46219C24.3262 8.46219 24.4847 8.68969 24.6492 9.02484C24.7812 9.29297 24.8564 9.60578 24.8991 9.88H20.28C20.1927 9.88 20.0464 9.82109 19.9327 9.70734C19.8189 9.59359 19.76 9.44734 19.76 9.36V4.68ZM6.76 14.04C7.91578 14.04 8.84 14.9642 8.84 16.12C8.84 17.2758 7.91578 18.2 6.76 18.2C5.60422 18.2 4.68 17.2758 4.68 16.12C4.68 14.9642 5.60422 14.04 6.76 14.04ZM20.8 14.04C21.9558 14.04 22.88 14.9642 22.88 16.12C22.88 17.2758 21.9558 18.2 20.8 18.2C19.6442 18.2 18.72 17.2758 18.72 16.12C18.72 14.9642 19.6442 14.04 20.8 14.04Z\" fill=\"#1A1A1A\"/></svg>\n    </div>\n    <div class=\"custom-delivery-text\">\n      Estimated Delivery Date: <span class=\"custom-delivery-date\" id=\"deliveryDateRange\">Loading...</span>\n    </div>\n  </div>\n  <div class=\"custom-delivery-row\">\n    <div class=\"custom-delivery-icon\">\n     <svg width=\"26\" height=\"21\" viewBox=\"0 0 26 21\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M2.83727 16.7781L12.5873 20.2312C12.6076 20.2312 12.6279 20.2516 12.6482 20.2516C12.6888 20.2719 12.7498 20.2719 12.7904 20.2719C12.831 20.2719 12.8513 20.2719 12.892 20.2719C12.892 20.2719 12.892 20.2719 12.9123 20.2719C12.9326 20.2719 12.9732 20.2516 12.9935 20.2516L22.7435 16.7984C22.9873 16.7172 23.1498 16.4734 23.1498 16.2297V9.38437L25.181 8.67344C25.3435 8.6125 25.4857 8.47031 25.5466 8.30781C25.6076 8.14531 25.5873 7.94219 25.4857 7.77969L23.0482 3.71719L23.0279 3.69687C23.0279 3.67656 23.0076 3.67656 23.0076 3.65625C23.0076 3.63594 22.9873 3.63594 22.9873 3.61562C22.9873 3.61562 22.9873 3.61562 22.9873 3.59531C22.967 3.575 22.967 3.575 22.9466 3.55469L22.9263 3.53437L22.906 3.51406H22.8857L22.8654 3.49375C22.8451 3.47344 22.8248 3.47344 22.8045 3.47344C22.7841 3.47344 22.7841 3.45312 22.7638 3.45312L13.0138 0C13.0138 0 13.0138 0 12.9935 0H12.9732H12.9529C12.9326 0 12.9326 0 12.9123 0C12.892 0 12.892 0 12.8716 0C12.8513 0 12.8513 0 12.831 0C12.8107 0 12.7904 0 12.7498 0C12.7295 0 12.7295 0 12.7091 0C12.6685 0 12.6279 0.0203122 12.6076 0.0203122L2.85759 3.47344C2.81696 3.49375 2.79665 3.49375 2.75602 3.51406L2.73571 3.53437C2.7154 3.55469 2.69509 3.55469 2.67477 3.575L2.65446 3.59531C2.63415 3.61562 2.61384 3.61562 2.61384 3.63594L2.59352 3.65625C2.57321 3.67656 2.57321 3.69687 2.5529 3.69687C2.5529 3.69687 2.5529 3.71719 2.53259 3.71719L0.0950853 7.77969C-0.0471021 8.00312 -0.0267896 8.2875 0.13571 8.47031C0.257585 8.6125 0.420085 8.69375 0.602898 8.69375C0.663835 8.69375 0.745085 8.67344 0.806023 8.65312L2.43102 8.08437V16.2094C2.43102 16.4734 2.59352 16.6969 2.83727 16.7781ZM24.0638 7.75937L15.492 10.8062L13.6841 7.8L22.256 4.75312L24.0638 7.75937ZM13.3998 1.42187L20.7123 4.02187L13.3998 6.62187V1.42187ZM13.3998 9.66875L14.6998 11.8422C14.8216 12.0453 15.0248 12.1469 15.2279 12.1469C15.2888 12.1469 15.3701 12.1266 15.431 12.1062L21.931 9.81094V15.7828L13.3998 18.8094V9.66875ZM3.64977 4.875L12.181 7.90156V18.7891L3.64977 15.7625V4.875Z\" fill=\"#1A1A1A\"/></svg>\n    </div>\n    <div class=\"custom-delivery-text\">\n      Returns & exchanges <span class=\"custom-returns-days\">14 days</span>\n    </div>\n  </div>\n</div>\n\n<script>\n(function() {\n  function calculateDeliveryDate() {\n    const today = new Date();\n    const minDays = 15;\n    const maxDays = 20;\n    \n    const startDate = new Date(today);\n    startDate.setDate(today.getDate() + minDays);\n    \n    const endDate = new Date(today);\n    endDate.setDate(today.getDate() + maxDays);\n    \n    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];\n    \n    const startMonth = months[startDate.getMonth()];\n    const endMonth = months[endDate.getMonth()];\n    const startDay = startDate.getDate();\n    const endDay = endDate.getDate();\n    \n    let dateRange = '';\n    if (startMonth === endMonth) {\n      dateRange = startMonth + ' ' + startDay + '-' + endDay;\n    } else {\n      dateRange = startMonth + ' ' + startDay + ' - ' + endMonth + ' ' + endDay;\n    }\n    \n    const deliveryElement = document.getElementById('deliveryDateRange');\n    if (deliveryElement) {\n      deliveryElement.textContent = dateRange;\n    }\n  }\n  \n  if (document.readyState === 'loading') {\n    document.addEventListener('DOMContentLoaded', calculateDeliveryDate);\n  } else {\n    calculateDeliveryDate();\n  }\n})();\n</script>"
+          }
+        },
+        "custom_liquid_zL3kAd": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{% render 'pair-it-up', product_id: product.id %}"
+          }
+        },
+        "collapsible_tab_QfKU6V": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Product Details",
+            "icon": "none",
+            "content": "{{ product.metafields.custom.product_details | metafield_tag }}",
+            "page": ""
+          }
+        },
+        "collapsible_tab_QgFKUh": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Optional Engraving Service",
+            "icon": "none",
+            "content": "{{ product.metafields.custom.engraving_details | metafield_tag }}",
+            "page": ""
+          }
+        },
+        "collapsible_tab_gDP3Tz": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Shipping and Delivery",
+            "icon": "none",
+            "content": "<p>Orders are usually processed within 1–3 business days. If your order includes engraving services or gift box services, please ensure all details provided are final and complete to avoid delays in processing.<br/><br/>Delivery time will depend on the courier and your location, and is counted after your order has been shipped out.<br/><br/>J&T Express (PH) average delivery estimates:<br/>• Metro Manila: 1–3 working days<br/>• Luzon: 2–4 working days<br/>• Visayas: 3–7 working days<br/>• Mindanao: 5–10 working days<br/><br/>Please note these are estimates and may vary depending on courier handling, holidays, and weather conditions.<br/><br/></p>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "custom_liquid_TQYC7T",
+        "title",
+        "price",
+        "description",
+        "variant_picker",
+        "custom_liquid_Qx89xt",
+        "quantity_selector",
+        "buy_buttons",
+        "custom_liquid_9fCXqq",
+        "custom_liquid_zL3kAd",
+        "collapsible_tab_QfKU6V",
+        "collapsible_tab_QgFKUh",
+        "collapsible_tab_gDP3Tz"
+      ],
+      "custom_css": [
+        "h2 {color: black;}",
+        ".product-form__buttons {margin-top: -29px;}",
+        "@media screen and (max-width: 768px) {.product-form__buttons {margin-top: 0px; }}"
+      ],
+      "settings": {
+        "enable_sticky_info": true,
+        "color_scheme": "scheme-1",
+        "media_size": "small",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "thumbnail_slider",
+        "mobile_thumbnails": "show",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 52
+      }
+    },
+    "trust_section_rMdgBT": {
+      "type": "Trust-section",
+      "blocks": {
+        "trust_item_Xdm8AH": {
+          "type": "trust_item",
+          "settings": {
+            "icon_svg": "<svg width=\"79\" height=\"64\" viewbox=\"0 0 79 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M42.0102 0.0115138C41.7877 0.0323719 41.5722 0.0671389 41.3497 0.108857C39.5697 0.463467 37.6089 1.88886 35.8289 3.66886L44.3673 9.00886C45.4381 5.44886 46.1543 1.88886 43.8389 0.463467C43.3035 0.0601848 42.6708 -0.0371585 42.0102 0.0115138ZM33.3397 6.33886C32.4219 7.47917 30.9617 9.37737 29.2721 11.658L11.6181 14.8842C10.5473 15.065 9.48352 15.9481 8.94813 17.0189L0.583519 37.4889C0.228909 38.5596 -0.132653 39.6235 0.0481288 40.6942C0.402739 44.6089 3.78891 47.6335 7.70352 47.2789C8.53789 47.1954 9.36532 47.0216 10.1649 46.7296L18.3835 51.9027C19.5308 50.3313 21.8114 47.1746 24.1059 44.0387C28.8688 46.4932 40.9881 52.6189 40.9881 52.6189C44.9027 54.7535 49.5335 55.115 53.8097 54.225L67.8689 51.1935L68.5781 56.3527L78.9035 54.9342L74.2797 23.6035L63.9473 25.0289L64.1281 26.4542L45.4381 14.7035C44.7011 14.2932 43.7972 13.737 42.8794 13.2642C42.9489 13.1182 43.0671 12.8817 43.1297 12.7427L33.3397 6.33886ZM34.2297 11.3242L38.4989 13.9942C36.7189 17.5542 34.0489 22.7135 30.6697 28.2342L29.7588 29.8057L25.6773 28.7627C24.4188 28.568 23.1812 28.714 22.0617 29.1451C22.8544 27.8101 23.647 26.4751 24.4397 25.2027C27.9997 19.5081 31.5597 14.5296 34.2297 11.3242ZM26.2336 15.8925C24.697 18.0896 23.0838 20.4398 21.4081 23.075C17.5631 29.3954 13.9127 36.2303 11.194 41.327C10.6308 42.3769 9.42789 43.545 7.70352 43.7189C6.1043 43.8996 4.3243 42.8289 3.78891 41.2227C3.4343 40.3327 3.60813 39.4427 3.96274 38.7335L11.7989 19.3342C11.9797 18.7989 12.5081 18.4442 13.0435 18.2635L26.2336 15.8925ZM41.2523 16.6434C42.1841 17.1162 43.1506 17.6585 43.6581 17.9089L63.4189 30.3689H64.6635L67.1597 47.6335L52.9197 50.665C49.3597 51.3742 45.6189 51.0127 42.4135 49.4135L23.0073 39.6235C21.2273 38.7335 20.3373 36.7796 21.2273 34.8189C21.9435 33.0389 23.7235 32.1489 25.5035 32.5035L39.9173 36.0635L45.4381 28.0535L42.2397 26.0927L38.3181 31.975L33.437 30.7304C36.7606 25.3 39.4376 20.2938 41.2523 16.6434ZM71.2481 27.6989L74.8081 51.9027L71.6097 52.445L68.0497 28.0535L71.2481 27.6989ZM17.4935 37.1273C17.6395 37.913 17.862 38.6917 18.2097 39.4427C18.9189 40.8681 19.9897 41.7581 20.6989 42.2935C20.6989 42.2935 20.977 42.4395 20.9909 42.4395L17.4935 47.105L13.3981 44.6089C14.4967 42.5646 15.9777 39.8529 17.4935 37.1273ZM7.52274 49.2327C5.56891 54.7535 5.56891 58.3135 5.56891 59.7389L4.3243 61.5189C3.96274 62.0542 4.14352 62.7635 4.67891 63.125C5.03352 63.2989 5.2143 63.2989 5.56891 63.2989C5.92352 63.1181 6.1043 62.9442 6.45891 62.7635L7.52274 60.9835C8.7743 60.4481 11.9727 58.8489 16.0681 54.5727L7.52274 49.2327Z\" fill=\"white\"></path>\n</svg>",
+            "title": "Loved by Creatives",
+            "description": "Thousands of 5-star reviews from students, stationery lovers, and professionals."
+          }
+        },
+        "trust_item_T7pRTD": {
+          "type": "trust_item",
+          "settings": {
+            "icon_svg": "<svg width=\"89\" height=\"66\" viewbox=\"0 0 89 66\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M0 0V3.56H50.0069C50.7161 3.56 51.62 4.46391 51.62 5.17312V53.4H33.6531C32.8048 48.352 28.4174 44.5 23.14 44.5C17.8626 44.5 13.4752 48.352 12.6269 53.4H5.34C4.35266 53.4 3.56 52.6073 3.56 51.62V35.6H0V51.62C0 54.5473 2.41273 56.96 5.34 56.96H12.6269C13.4752 62.008 17.8626 65.86 23.14 65.86C28.4174 65.86 32.8048 62.008 33.6531 56.96H60.6869C61.5352 62.008 65.9226 65.86 71.2 65.86C76.4774 65.86 80.8648 62.008 81.7131 56.96H83.66C85.141 56.96 86.4412 56.2925 87.3869 55.3469C88.3325 54.4012 89 53.101 89 51.62V34.5431C89 32.5406 88.2352 30.705 87.5537 29.3144C86.8723 27.9237 86.1631 26.9225 86.1631 26.9225V26.8669L78.8763 17.0769H78.8206V17.0212C77.2423 15.0466 74.7113 12.46 71.2 12.46H56.96C56.3203 12.46 55.7362 12.5782 55.18 12.7937V5.17312C55.18 2.32234 52.8577 0 50.0069 0H0ZM0 7.12V10.68H32.04V7.12H0ZM0 14.24V17.8H26.7V14.24H0ZM56.96 16.02H64.08V32.04C64.08 33.521 64.7475 34.8213 65.6931 35.7669C66.6387 36.7125 67.939 37.38 69.42 37.38H85.44V51.62C85.44 51.919 85.2175 52.3988 84.8281 52.7881C84.4388 53.1775 83.959 53.4 83.66 53.4H81.7131C80.8648 48.352 76.4774 44.5 71.2 44.5C65.9226 44.5 61.5352 48.352 60.6869 53.4H55.18V17.8C55.18 17.501 55.4025 17.0212 55.7919 16.6319C56.1812 16.2425 56.661 16.02 56.96 16.02ZM67.64 16.02H71.2C72.6671 16.02 74.7113 17.6679 75.9837 19.2463L83.2706 28.9806L83.3262 29.0362C83.361 29.0849 83.8408 29.7663 84.3831 30.8719C84.8351 31.7897 85.0715 32.8813 85.2175 33.82H69.42C69.121 33.82 68.6413 33.5975 68.2519 33.2081C67.8625 32.8187 67.64 32.339 67.64 32.04V16.02ZM0 21.36V24.92H21.36V21.36H0ZM0 28.48V32.04H16.02V28.48H0ZM23.14 48.06C27.0963 48.06 30.26 51.2237 30.26 55.18C30.26 59.1363 27.0963 62.3 23.14 62.3C19.1837 62.3 16.02 59.1363 16.02 55.18C16.02 51.2237 19.1837 48.06 23.14 48.06ZM71.2 48.06C75.1563 48.06 78.32 51.2237 78.32 55.18C78.32 59.1363 75.1563 62.3 71.2 62.3C67.2437 62.3 64.08 59.1363 64.08 55.18C64.08 51.2237 67.2437 48.06 71.2 48.06Z\" fill=\"white\"></path>\n</svg>",
+            "title": "Fast PH Shipping",
+            "description": "Processed within 24–48 hours, nationwide delivery."
+          }
+        },
+        "trust_item_zq8Xrr": {
+          "type": "trust_item",
+          "settings": {
+            "icon_svg": "<svg width=\"70\" height=\"82\" viewbox=\"0 0 70 82\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M21.36 0C17.1047 0 11.8551 0.952578 7.52328 4.17187C3.19149 7.39812 0 12.9676 0 21.36C0 31.595 2.04422 38.7428 4.13711 43.3597C5.18008 45.6612 6.26477 47.3508 7.09219 48.4841L1.89125 66.75V66.7709C1.81477 67.0629 1.78695 67.3549 1.79391 67.64H1.78V78.32C1.78 80.2669 3.39312 81.88 5.34 81.88H65.86C67.8069 81.88 69.42 80.2669 69.42 78.32V67.64H69.413C69.413 67.3549 69.3852 67.0629 69.3087 66.7709L69.3018 66.75L62.2444 41.8578C61.848 40.2655 60.3948 39.16 58.7678 39.16H58.74V12.46H55.18V19.58H42.72V23.14H55.18V39.16H16.02V23.14H28.48V19.58H16.02V12.46H12.46V39.16C10.833 39.16 9.37977 40.2655 8.98344 41.8509L8.39937 43.8881C8.07258 43.2762 7.73883 42.6713 7.38422 41.8926C5.49297 37.7416 3.56 31.1222 3.56 21.36C3.56 13.8367 6.17437 9.61617 9.65094 7.02961C13.1205 4.44305 17.654 3.56 21.36 3.56C27.8681 3.56 30.712 5.8893 32.2347 8.12125C32.8744 9.06687 33.222 9.95688 33.4515 10.7217C31.6784 10.9095 30.26 12.4183 30.26 14.24V28.48C30.26 30.4269 31.8731 32.04 33.82 32.04V35.6H37.38V32.04C39.3269 32.04 40.94 30.4269 40.94 28.48V14.24C40.94 12.2931 39.3269 10.68 37.38 10.68H37.1158C36.8516 9.47016 36.3231 7.80836 35.1759 6.11875C33.0552 3.0107 28.779 0 21.36 0ZM33.82 14.24H37.38V28.48H33.82V14.24ZM12.46 42.72V48.06H16.02V42.72H19.2532L15.7002 64.08H55.4998L55.1522 62.008L51.9468 42.72H55.18V48.06H58.74V42.72H58.7678C58.8026 42.72 58.7956 42.727 58.7956 42.72V42.7478L65.86 67.647C65.867 67.6748 65.9087 67.64 65.8322 67.64H5.36781C5.29133 67.64 5.33305 67.6748 5.34 67.64L12.4252 42.7478L12.4322 42.727C12.4322 42.727 12.4252 42.72 12.46 42.72ZM22.8688 42.72H28.327L26.8391 60.52H19.8998L22.8688 42.72ZM31.9009 42.72H39.2991L40.787 60.52H30.413L31.9009 42.72ZM42.873 42.72H48.3312L51.3002 60.52H44.3609L42.873 42.72ZM5.34 71.2C5.34695 71.2 5.36086 71.2 5.36781 71.2H65.8322C65.8391 71.2 65.8461 71.2 65.86 71.2V78.32H5.34V71.2ZM35.6 72.98C34.6196 72.98 33.82 73.7796 33.82 74.76C33.82 75.7404 34.6196 76.54 35.6 76.54C36.5804 76.54 37.38 75.7404 37.38 74.76C37.38 73.7796 36.5804 72.98 35.6 72.98Z\" fill=\"white\"></path>\n</svg>",
+            "title": "Personalized Engraving",
+            "description": "Make it meaningful with your name, initials, or mantra."
+          }
+        },
+        "trust_item_LCwF6M": {
+          "type": "trust_item",
+          "settings": {
+            "icon_svg": "<svg width=\"82\" height=\"82\" viewbox=\"0 0 82 82\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M40.94 0C18.3505 0 0 18.3505 0 40.94C0 63.5295 18.3505 81.88 40.94 81.88C63.5295 81.88 81.88 63.5295 81.88 40.94C81.88 18.3505 63.5295 0 40.94 0ZM40.94 3.56C61.6055 3.56 78.32 20.2745 78.32 40.94C78.32 61.6055 61.6055 78.32 40.94 78.32C20.2745 78.32 3.56 61.6055 3.56 40.94C3.56 20.2745 20.2745 3.56 40.94 3.56ZM40.94 14.24C40.7218 14.2435 40.5062 14.2871 40.3038 14.3686C33.753 14.7198 28.48 20.0646 28.48 26.7V30.26H21.36C20.8879 30.26 20.4352 30.4476 20.1014 30.7814C19.7676 31.1152 19.58 31.5679 19.58 32.04V60.52C19.58 60.9921 19.7676 61.4448 20.1014 61.7786C20.4352 62.1124 20.8879 62.3 21.36 62.3H60.52C60.9921 62.3 61.4448 62.1124 61.7786 61.7786C62.1124 61.4448 62.3 60.9921 62.3 60.52V32.04C62.3 31.5679 62.1124 31.1152 61.7786 30.7814C61.4448 30.4476 60.9921 30.26 60.52 30.26H53.4V26.7C53.4 19.8393 47.8007 14.24 40.94 14.24ZM40.94 17.8C45.8771 17.8 49.84 21.7629 49.84 26.7V30.26H32.04V26.7C32.04 21.7629 36.0029 17.8 40.94 17.8ZM23.14 33.82H58.74V37.38H23.14V33.82ZM23.14 40.94H35.6V44.5H23.14V40.94ZM39.16 40.94H42.72V51.62H39.16V40.94ZM46.28 40.94H58.74V44.5H46.28V40.94ZM23.14 48.06H35.6V51.62H23.14V48.06ZM46.28 48.06H58.74V51.62H46.28V48.06ZM23.14 55.18H58.74V58.74H23.14V55.18Z\" fill=\"white\"></path>\n</svg>",
+            "title": "Secure & Guaranteed",
+            "description": "Safe checkout + 7-day replacement support."
+          }
+        }
+      },
+      "block_order": [
+        "trust_item_Xdm8AH",
+        "trust_item_T7pRTD",
+        "trust_item_zq8Xrr",
+        "trust_item_LCwF6M"
+      ],
+      "name": "Trust Section",
+      "settings": {
+        "heading": ""
+      }
+    },
+    "image_with_text_wPapLz": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_ki8yRX": {
+          "type": "heading",
+          "settings": {
+            "heading": "Personalize products with custom laser engraving",
+            "heading_size": "h1"
+          }
+        },
+        "text_bTWgbP": {
+          "type": "text",
+          "settings": {
+            "text": "<p>At Rakugaki Central, personalization is at the heart of what we do. Our high-precision laser engraving lets you add your name, initials to any compatible pen—making it uniquely yours. Each engraving is clean, permanent, and crafted with care, adding identity, elegance, and intention to your writing tools.</p>",
+            "text_style": "body"
+          }
+        }
+      },
+      "block_order": [
+        "heading_ki8yRX",
+        "text_bTWgbP"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/Rectangle_109_87a52f81-0768-4738-8822-ca8b056adfe7.png",
+        "mobile_image": "shopify://shop_images/Rectangle_109_87a52f81-0768-4738-8822-ca8b056adfe7.png",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "text_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "padding_top": 56,
+        "padding_bottom": 88
+      }
+    },
+    "gift_section_GccAfC": {
+      "type": "Gift-section",
+      "name": "Gift Section",
+      "settings": {
+        "full_width": true,
+        "bg_image_desktop": "shopify://shop_images/g1_13310e2c-b453-4850-ab1a-3f8ef7705624.png",
+        "bg_image_mobile": "shopify://shop_images/g2_f49af84d-3d9d-493c-ba65-c9240fbb0297.png",
+        "heading": "GIVE A GIFT THAT FEELS PERSONAL AND THOUGHTFUL",
+        "description": "<p>Finding a meaningful gift shouldn't be complicated. Our premium pens, notebooks, and writing tools are crafted for people who appreciate quality, intention, and the joy of writing—making them the ideal present for graduations, promotions, birthdays, and special moments.</p>",
+        "button_text": "",
+        "button_url": "",
+        "button_bg_color": "#8b1538",
+        "button_text_color": "#ffffff"
+      }
+    },
+    "1765746891fabd758e": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_wFkGmn": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "sample_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_wFkGmn"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "settings": {
+        "heading": "RELATED PRODUCTS",
+        "heading_size": "h2",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "padding_top": 36,
+        "padding_bottom": 28
+      }
+    }
+  },
+  "order": [
+    "main",
+    "trust_section_rMdgBT",
+    "image_with_text_wPapLz",
+    "gift_section_GccAfC",
+    "1765746891fabd758e",
+    "related-products"
+  ]
+}

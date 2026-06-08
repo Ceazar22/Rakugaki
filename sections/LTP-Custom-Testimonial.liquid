@@ -1,0 +1,578 @@
+{% schema %}
+{
+  "name": "Testimonial with Image",
+  "class": "testimonial-with-image",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "Customer Testimonials"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows",
+      "label": "Show navigation arrows",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Enable autoplay",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Autoplay speed (seconds)",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "default": 5
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "star_icon",
+          "label": "Star Icon"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Precision Fit & Rugged Comfort"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>Tailored comfort meets rugged durability—our pants deliver both. The engineered taper fit hugs thighs without restricting movement, while the anti-wrinkle finish and breathable materials keep you looking sharp all day.</p>"
+        },
+        {
+          "type": "text",
+          "id": "customer_name",
+          "label": "Customer Name",
+          "default": "Martin G."
+        },
+        {
+          "type": "image_picker",
+          "id": "check_icon",
+          "label": "Check Icon"
+        },
+        {
+          "type": "image_picker",
+          "id": "testimonial_image",
+          "label": "Testimonial Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonial with Image",
+      "category": "Custom Sections",
+      "blocks": [
+        {
+          "type": "testimonial"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  .testimonial-with-image {
+    padding: 40px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .testimonial-slider {
+    position: relative;
+  }
+  
+  .testimonial-slides {
+    display: flex;
+    transition: transform 0.5s ease;
+    will-change: transform;
+  }
+  
+  .testimonial-slide {
+    flex: 0 0 100%;
+    min-width: 100%;
+  }
+  
+  .testimonial-container {
+    display: flex;
+    flex-direction: row;
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 550px;
+  }
+  
+  .testimonial-content {
+    background-color: #F5F5F5;
+    border: 1px solid #DDDDDD;
+    padding: 40px;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-right: 0;
+  }
+  
+  .testimonial-image-container {
+    width: 50%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 400px;
+  }
+  
+  .star-icon {
+    margin-bottom: 0px;
+    margin-top: 90px;
+  }
+  
+  .testimonial-title {
+    font-size: 24px;
+    font-family: 'Grotesk Medium';
+    margin-bottom: 15px;
+    color: #212121;
+  }
+  
+  .testimonial-description {
+    margin-bottom: 20px;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  
+  .customer-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .customer-name {
+    margin-right: 10px;
+    font-weight: bold;
+  }
+  
+  .testimonial-check-icon {
+    width: 25px;
+    height: 25px;
+  }
+  
+  .testimonial-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    overflow: hidden;
+    max-width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .dots-container {
+    display: flex;
+    gap: 10px;
+    transition: transform 0.3s ease;
+    transform: translateX(250px);
+  }
+  
+  .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #D9D9D9;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+  }
+  
+  .dot.active {
+    background-color: #8E191B;
+    border: 1px solid #8E191B;
+  }
+  
+  .slider-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 35px;
+    height: 35px;
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    z-index: 10;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .slider-arrow svg {
+    width: 35px;
+    height: 35px;
+    transition: all 0.3s ease;
+  }
+  
+  .slider-arrow.prev svg circle {
+    fill: rgba(69, 69, 69, 0.25);
+    transition: fill 0.3s ease;
+  }
+  
+  .slider-arrow.next svg circle {
+    fill: #454545;
+  }
+  
+  .slider-arrow.prev:hover svg circle,
+  .slider-arrow.prev.sliding svg circle {
+    fill: #454545;
+  }
+  
+  .slider-arrow.prev {
+    left: 20px;
+  }
+  
+  .slider-arrow.next {
+    right: 20px;
+  }
+  
+  @media (max-width: 768px) {
+    .testimonial-with-image {
+      padding: 20px 0;
+    }
+    
+    .testimonial-slider {
+      position: relative;
+      padding-bottom: 50px;
+    }
+    
+    .testimonial-container {
+      flex-direction: column;
+      height: auto;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    
+    .testimonial-content,
+    .testimonial-image-container {
+      width: 100%;
+    }
+    
+    .testimonial-image-container {
+      margin-bottom: 20px;
+      order: 1;
+      min-height: 300px;
+    }
+    
+    .testimonial-content {
+      order: 2;
+      margin-right: 0;
+      padding: 20px;
+      justify-content: flex-start;
+      min-height: auto;
+      height: auto;
+    }
+    
+    .testimonial-title {
+      font-size: 19px;
+    }
+    
+    .customer-name {
+      font-size: 18px;
+    }
+    
+    .testimonial-description {
+      line-height: 1.4;
+    }
+    
+    .star-icon {
+      margin-top: 0px;
+      margin-bottom: 20px;
+    }
+    
+    .customer-info {
+      margin-bottom: 0;
+    }
+    
+    .testimonial-dots {
+      display: ruby !important;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin-top: 0;
+      margin-left: -130px;
+      padding: 20px;
+      position: absolute;
+      bottom: 0;
+      left: 10px;
+      right: 0;
+      width: 100%;
+      box-sizing: border-box;
+      max-width: none;
+    }
+    
+    .dots-container {
+      justify-content: center;
+      transform: translateX(310px) !important;
+    }
+    
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #D9D9D9;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+    
+    .dot.active {
+      background-color: #8E191B;
+      border: 1px solid #8E191B;
+    }
+    
+    .slider-arrow {
+      display: none;
+    }
+  }
+</style>
+
+<div class="testimonial-with-image">
+  {% if section.settings.heading != blank %}
+    <h2 class="section-heading">{{ section.settings.heading }}</h2>
+  {% endif %}
+  
+  <div class="testimonial-slider">
+    <div class="testimonial-slides" id="testimonial-slides-{{ section.id }}">
+      {% for block in section.blocks %}
+        <div class="testimonial-slide" data-index="{{ forloop.index0 }}">
+          <div class="testimonial-container" {{ block.shopify_attributes }}>
+            <div class="testimonial-content">
+              {% if block.settings.star_icon != blank %}  
+              <svg class="star-icon" width="147" height="24" viewBox="0 0 147 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M75.5094 0.480911L77.3095 5.81042C77.7374 7.07732 78.9188 7.93572 80.256 7.9512L85.8802 8.01631C86.5562 8.02418 86.8361 8.88564 86.2939 9.28883L81.7816 12.6472C80.7088 13.4456 80.2575 14.8346 80.6559 16.1111L82.332 21.4805C82.5332 22.1259 81.8011 22.6577 81.2493 22.2668L76.6614 19.013C75.5706 18.2394 74.11 18.2393 73.0191 19.0128L68.4305 22.2659C67.8795 22.6568 67.1466 22.1242 67.3478 21.4796L69.0238 16.1102C69.4223 14.8337 68.9709 13.4448 67.8982 12.6463L63.3859 9.28795C62.8437 8.88477 63.1236 8.02331 63.7996 8.01544L69.4238 7.95032C70.7609 7.93484 71.9424 7.07644 72.3703 5.80955L74.1704 0.480036C74.3873 -0.160158 75.2934 -0.160158 75.5094 0.480911Z" fill="#8E191B"/>
+              <path d="M43.5094 0.480911L45.3095 5.81042C45.7374 7.07732 46.9188 7.93572 48.256 7.9512L53.8802 8.01631C54.5562 8.02418 54.8361 8.88564 54.2939 9.28883L49.7816 12.6472C48.7088 13.4456 48.2575 14.8346 48.6559 16.1111L50.332 21.4805C50.5332 22.1259 49.8011 22.6577 49.2493 22.2668L44.6614 19.013C43.5706 18.2394 42.11 18.2393 41.0191 19.0128L36.4305 22.2659C35.8795 22.6568 35.1466 22.1242 35.3478 21.4796L37.0238 16.1102C37.4223 14.8337 36.9709 13.4448 35.8982 12.6463L31.3859 9.28795C30.8437 8.88477 31.1236 8.02331 31.7996 8.01544L37.4238 7.95032C38.7609 7.93484 39.9424 7.07644 40.3703 5.80955L42.1704 0.480036C42.3873 -0.160158 43.2934 -0.160158 43.5094 0.480911Z" fill="#8E191B"/>
+              <path d="M14.7093 0.480911L16.5094 5.81042C16.9373 7.07732 18.1188 7.93572 19.4559 7.9512L25.0801 8.01631C25.7562 8.02418 26.036 8.88564 25.4938 9.28883L20.9815 12.6472C19.9088 13.4456 19.4574 14.8346 19.8559 16.1111L21.5319 21.4805C21.7331 22.1259 21.0011 22.6577 20.4492 22.2668L15.8613 19.013C14.7705 18.2394 13.31 18.2393 12.219 19.0128L7.63047 22.2659C7.07948 22.6568 6.34658 22.1242 6.54774 21.4796L8.2238 16.1102C8.62226 14.8337 8.1709 13.4448 7.09816 12.6463L2.58588 9.28795C2.04364 8.88477 2.3235 8.02331 2.99956 8.01544L8.62377 7.95032C9.96089 7.93484 11.1424 7.07644 11.5703 5.80955L13.3703 0.480036C13.5872 -0.160158 14.4933 -0.160158 14.7093 0.480911Z" fill="#8E191B"/>
+              <path d="M104.309 0.480911L106.109 5.81042C106.537 7.07732 107.719 7.93572 109.056 7.9512L114.68 8.01631C115.356 8.02418 115.636 8.88564 115.094 9.28883L110.582 12.6472C109.509 13.4456 109.057 14.8346 109.456 16.1111L111.132 21.4805C111.333 22.1259 110.601 22.6577 110.049 22.2668L105.461 19.013C104.371 18.2394 102.91 18.2393 101.819 19.0128L97.2305 22.2659C96.6795 22.6568 95.9466 22.1242 96.1478 21.4796L97.8238 16.1102C98.2223 14.8337 97.7709 13.4448 96.6982 12.6463L92.1859 9.28795C91.6437 8.88477 91.9235 8.02331 92.5996 8.01544L98.2238 7.95032C99.5609 7.93484 100.742 7.07644 101.17 5.80955L102.97 0.480036C103.187 -0.160158 104.093 -0.160158 104.309 0.480911Z" fill="#8E191B"/>
+              <path d="M134.709 0.480911L136.509 5.81042C136.937 7.07732 138.119 7.93572 139.456 7.9512L145.08 8.01631C145.756 8.02418 146.036 8.88564 145.494 9.28883L140.982 12.6472C139.909 13.4456 139.457 14.8346 139.856 16.1111L141.532 21.4805C141.733 22.1259 141.001 22.6577 140.449 22.2668L135.861 19.013C134.771 18.2394 133.31 18.2393 132.219 19.0128L127.63 22.2659C127.079 22.6568 126.347 22.1242 126.548 21.4796L128.224 16.1102C128.622 14.8337 128.171 13.4448 127.098 12.6463L122.586 9.28795C122.044 8.88477 122.324 8.02331 123 8.01544L128.624 7.95032C129.961 7.93484 131.142 7.07644 131.57 5.80955L133.37 0.480036C133.587 -0.160158 134.493 -0.160158 134.709 0.480911Z" fill="#8E191B"/>
+              </svg>
+              {% endif %}
+              
+              {% if block.settings.title != blank %}
+                <h3 class="testimonial-title">{{ block.settings.title }}</h3>
+              {% endif %}
+              
+              {% if block.settings.description != blank %}
+                <div class="testimonial-description">{{ block.settings.description }}</div>
+              {% endif %}
+              
+              <div class="customer-info">
+                {% if block.settings.customer_name != blank %}
+                  <span class="customer-name">{{ block.settings.customer_name }}</span>
+                {% endif %}
+                
+                {% if block.settings.check_icon != blank %}                  
+                <svg class="testimonial-check-icon" width="21" height="22" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10.6765 0.676758C4.98441 0.676758 0.353088 5.30808 0.353088 11.0002C0.353088 16.6923 4.98441 21.3237 10.6765 21.3237C16.3687 21.3237 21 16.6923 21 11.0002C21 5.30808 16.3687 0.676758 10.6765 0.676758ZM16.4463 8.28351L9.84859 14.8295C9.46049 15.2176 8.83953 15.2434 8.42556 14.8553L4.93266 11.6729C4.51869 11.2848 4.49282 10.638 4.85504 10.224C5.24314 9.81003 5.88998 9.78416 6.30395 10.1723L9.07239 12.7078L14.9715 6.80873C15.3855 6.39476 16.0323 6.39476 16.4463 6.80873C16.8603 7.2227 16.8603 7.86954 16.4463 8.28351Z" fill="#8E191B"/>
+                </svg>
+              {% endif %}
+              </div>
+            </div>
+            
+            <div class="testimonial-image-container" style="background-image: url('{{ block.settings.testimonial_image | img_url: '800x' }}');"></div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    
+    {% if section.blocks.size > 1 and section.settings.show_arrows %}
+      <button class="slider-arrow prev" id="prev-arrow-{{ section.id }}">
+        <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="17.0815" cy="17.9185" r="17.0815" transform="rotate(180 17.0815 17.9185)" fill="#454545" fill-opacity="0.25"/>
+          <path d="M20.3522 23.692C20.3489 23.5511 20.29 23.4171 20.1883 23.3193L15.2208 18.3519L20.1883 13.3844C20.2395 13.3346 20.2802 13.275 20.308 13.2092C20.3358 13.1434 20.3501 13.0727 20.3501 13.0012C20.3501 12.8949 20.3184 12.791 20.259 12.7028C20.1996 12.6146 20.1152 12.5461 20.0167 12.5061C19.9182 12.4661 19.8099 12.4564 19.7059 12.4782C19.6018 12.5 19.5066 12.5523 19.4324 12.6285L14.087 17.9739C13.9868 18.0742 13.9305 18.2101 13.9305 18.3519C13.9305 18.4936 13.9868 18.6296 14.087 18.7298L19.4324 24.0752C19.5071 24.1528 19.6034 24.2061 19.7089 24.228C19.8143 24.25 19.9239 24.2396 20.0233 24.1981C20.1228 24.1567 20.2073 24.0863 20.266 23.9959C20.3247 23.9056 20.3547 23.7997 20.3522 23.692Z" fill="white"/>
+        </svg>
+      </button>
+      <button class="slider-arrow next" id="next-arrow-{{ section.id }}">
+        <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="17.0815" cy="17.0815" r="17.0815" fill="#454545"/>
+          <path d="M13.8108 11.308C13.8142 11.4489 13.8731 11.5829 13.9747 11.6807L18.9422 16.6481L13.9747 21.6156C13.9235 21.6654 13.8828 21.725 13.855 21.7908C13.8272 21.8566 13.8129 21.9273 13.8129 21.9988C13.8129 22.1051 13.8447 22.209 13.9041 22.2972C13.9635 22.3854 14.0478 22.4539 14.1463 22.4939C14.2449 22.5339 14.3531 22.5436 14.4572 22.5218C14.5612 22.5 14.6564 22.4477 14.7306 22.3715L20.076 17.0261C20.1762 16.9258 20.2325 16.7899 20.2325 16.6481C20.2325 16.5064 20.1762 16.3704 20.076 16.2702L14.7306 10.9248C14.656 10.8472 14.5596 10.7939 14.4542 10.772C14.3487 10.75 14.2391 10.7604 14.1397 10.8019C14.0403 10.8433 13.9557 10.9137 13.897 11.0041C13.8383 11.0944 13.8083 11.2003 13.8108 11.308Z" fill="white"/>
+        </svg>
+      </button>
+    {% endif %}
+    
+    {% if section.blocks.size > 1 %}
+      <div class="testimonial-dots" id="testimonial-dots-{{ section.id }}">
+        <div class="dots-container" id="dots-container-{{ section.id }}">
+          {% for block in section.blocks %}
+            <div class="dot {% if forloop.first %}active{% endif %}" data-index="{{ forloop.index0 }}"></div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const sectionId = '{{ section.id }}';
+  const slidesContainer = document.getElementById(`testimonial-slides-${sectionId}`);
+  const dotsContainer = document.getElementById(`testimonial-dots-${sectionId}`);
+  const dotsContainerInner = document.getElementById(`dots-container-${sectionId}`);
+  const slides = document.querySelectorAll(`#testimonial-slides-${sectionId} .testimonial-slide`);
+  const dots = dotsContainerInner ? dotsContainerInner.querySelectorAll('.dot') : [];
+  const prevArrow = document.getElementById(`prev-arrow-${sectionId}`);
+  const nextArrow = document.getElementById(`next-arrow-${sectionId}`);
+  
+  let currentIndex = 0;
+  let autoplayInterval;
+  const autoplay = {{ section.settings.autoplay }};
+  const autoplaySpeed = {{ section.settings.autoplay_speed }} * 1000;
+  const maxVisibleDots = 5;
+  const totalSlides = slides.length;
+  
+  if (!slidesContainer || slides.length <= 1) return;
+  
+  function updateDotsVisibility() {
+    if (totalSlides <= maxVisibleDots || !dotsContainerInner) return;
+    
+    let startIndex = Math.max(0, currentIndex - Math.floor(maxVisibleDots / 2));
+    let endIndex = Math.min(totalSlides - 1, startIndex + maxVisibleDots - 1);
+    
+    if (endIndex - startIndex < maxVisibleDots - 1) {
+      startIndex = Math.max(0, endIndex - maxVisibleDots + 1);
+    }
+    
+    dots.forEach((dot, index) => {
+      if (index >= startIndex && index <= endIndex) {
+        dot.style.display = 'block';
+      } else {
+        dot.style.display = 'none';
+      }
+    });
+    
+    const dotWidth = 12;
+    const dotGap = 10; 
+    const visibleDots = endIndex - startIndex + 1;
+    const containerWidth = dotsContainer.offsetWidth;
+    const dotsWidth = (visibleDots * dotWidth) + ((visibleDots - 1) * dotGap);
+    const offset = (containerWidth - dotsWidth) / 2;
+    
+    dotsContainerInner.style.transform = `translateX(${190}px)`;
+  }
+  
+  function goToSlide(index) {
+    if (index < 0) index = slides.length - 1;
+    if (index >= slides.length) index = 0;
+    
+    currentIndex = index;
+    
+    if (prevArrow) {
+      prevArrow.classList.add('sliding');
+      setTimeout(() => {
+        prevArrow.classList.remove('sliding');
+      }, 500);
+    }
+    
+    slidesContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+    
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === currentIndex);
+    });
+    
+    updateDotsVisibility();
+  }
+  
+  if (dotsContainerInner) {
+    dots.forEach(dot => {
+      dot.addEventListener('click', function() {
+        const index = parseInt(this.getAttribute('data-index'));
+        goToSlide(index);
+        resetAutoplay();
+      });
+    });
+    
+    updateDotsVisibility();
+  }
+  
+  if (prevArrow) {
+    prevArrow.addEventListener('click', function() {
+      goToSlide(currentIndex - 1);
+      resetAutoplay();
+    });
+  }
+  
+  if (nextArrow) {
+    nextArrow.addEventListener('click', function() {
+      goToSlide(currentIndex + 1);
+      resetAutoplay();
+    });
+  }
+  
+  let touchStartX = 0;
+  let touchEndX = 0;
+  
+  slidesContainer.addEventListener('touchstart', function(e) {
+    touchStartX = e.changedTouches[0].screenX;
+  }, {passive: true});
+  
+  slidesContainer.addEventListener('touchend', function(e) {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+    resetAutoplay();
+  }, {passive: true});
+  
+  function handleSwipe() {
+    const difference = touchStartX - touchEndX;
+    if (difference > 50) {
+      goToSlide(currentIndex + 1);
+    } else if (difference < -50) {
+      goToSlide(currentIndex - 1);
+    }
+  }
+  
+  function startAutoplay() {
+    if (autoplay && slides.length > 1) {
+      autoplayInterval = setInterval(() => {
+        goToSlide(currentIndex + 1);
+      }, autoplaySpeed);
+    }
+  }
+  
+  function resetAutoplay() {
+    if (autoplay) {
+      clearInterval(autoplayInterval);
+      startAutoplay();
+    }
+  }
+  
+  startAutoplay();
+  
+  slidesContainer.addEventListener('mouseenter', function() {
+    if (autoplay) {
+      clearInterval(autoplayInterval);
+    }
+  });
+  
+  slidesContainer.addEventListener('mouseleave', function() {
+    if (autoplay) {
+      resetAutoplay();
+    }
+  });
+  
+  window.addEventListener('resize', function() {
+    updateDotsVisibility();
+  });
+});
+</script>

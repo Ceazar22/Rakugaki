@@ -1,0 +1,130 @@
+{% schema %}
+{
+  "name": "Custom Image Container",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image alt text",
+      "info": "Important for SEO and accessibility"
+    },
+    {
+      "type": "range",
+      "id": "image_width",
+      "min": 100,
+      "max": 2000,
+      "step": 20,
+      "unit": "px",
+      "label": "Image width (desktop)",
+      "default": 800
+    },
+    {
+      "type": "range",
+      "id": "image_width_mobile",
+      "min": 50,
+      "max": 1000,
+      "step": 10,
+      "unit": "px",
+      "label": "Image width (mobile)",
+      "default": 300
+    },
+    {
+      "type": "select",
+      "id": "image_alignment",
+      "label": "Image alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Image Container",
+      "category": "Image"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  .custom-image-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: {{ section.settings.padding_top }}px 20px {{ section.settings.padding_bottom }}px;
+  }
+  
+  .custom-image-container__inner {
+    text-align: {{ section.settings.image_alignment }};
+  }
+  
+  .custom-image-container img {
+    width: {{ section.settings.image_width }}px;
+    max-width: 100%;
+    height: auto;
+    display: inline-block;
+  }
+  
+  @media screen and (max-width: 749px) {
+    .custom-image-container img {
+      width: {{ section.settings.image_width_mobile }}px;
+    }
+  }
+</style>
+
+<div class="custom-image-container">
+  <div class="custom-image-container__inner">
+    {% if section.settings.image != blank %}
+      
+      <img src="{{ section.settings.image | img_url: 'master' }}"
+           alt="{{ section.settings.image_alt | escape }}"
+           width="{{ section.settings.image_width }}"
+           loading="lazy">
+    {% else %}
+      <div style="text-align: center; padding: 20px; background: #f5f5f5;">
+        <p>No image selected. Please upload an image in the theme settings.</p>
+        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+      </div>
+    {% endif %}
+  </div>
+</div>

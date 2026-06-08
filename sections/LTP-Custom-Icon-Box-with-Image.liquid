@@ -1,0 +1,414 @@
+{%- style -%}
+  .icon-boxes-with-image {
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px 0;
+    background-color: {{ section.settings.background_color }};
+    font-family: 'Grotesk Regular';
+  }
+  
+  .three-column-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .column-image {
+    width: 30%;
+  }
+  
+  .column-image img {
+    width: 650px;
+    height: auto;
+    border-radius: {{ section.settings.image_border_radius }}px;
+    margin-left: -180px;
+    margin-bottom: -10px;
+  }
+  
+  .column-icon-boxes {
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 10px;
+    margin-top: 190px;
+  }
+  
+  .column-content {
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 40px;
+  }
+  
+  .icon-box {
+    display: flex;
+    gap: 0px;
+    margin-bottom: 30px;
+    align-items: flex-start;
+  }
+  
+  .icon-box:nth-child(1) {
+    margin-left: -100px;
+  }
+  
+  .icon-box:nth-child(2) {
+    margin-top: 0px;
+  }
+  
+  .icon-box:nth-child(3) {
+    margin-top: 20px;
+    margin-left: 30px;
+  }
+  
+  .icon-box-icon {
+    flex-shrink: 0;
+    width: 50px;
+    height: 50px;
+  }
+  
+  .icon-box-text h3 {
+    margin: 0 0 0px 0;
+    font-size: 24px;
+    color: {{ section.settings.heading_color }};
+    font-family: 'Grotesk Medium';
+  }
+  
+  .icon-box-text p {
+    margin: 0;
+    font-size: 16px;
+    color: {{ section.settings.text_color }};
+    font-family: 'Grotesk Regular';
+    padding-right: 150px;
+  }
+  
+  .content-heading {
+    font-size: 28px;
+    margin: 0 0 0px 0;
+    color: {{ section.settings.main_heading_color }};
+    font-family: 'Grotesk Medium';
+  }
+  
+  .content-description {
+    font-size: 16px;
+    margin: 0 0 25px 0;
+    color: {{ section.settings.main_text_color }};
+    font-family: 'Grotesk Regular';
+    line-height: 1.6;
+  }
+  
+  .content-button {
+    display: inline-block;
+    padding: 12px 20px;
+    background-color: {{ section.settings.button_background }};
+    color: {{ section.settings.button_text_color }};
+    text-decoration: none;
+    border-radius: {{ section.settings.button_border_radius }}px;
+    font-weight: 600;
+    font-family: 'Grotesk Regular';
+    transition: all 0.3s ease;
+    width: 150px;
+    text-align: center;
+  }
+  
+  .content-button:hover {
+    background-color: {{ section.settings.button_hover_background }};
+    color: {{ section.settings.button_hover_text_color }};
+    transform: translateY(-5px);
+    border: 1px solid #670e10 !important;
+  }
+  
+  @media (max-width: 768px) {
+    .three-column-container {
+      flex-direction: column;
+    }
+    
+    .column-image,
+    .column-icon-boxes,
+    .column-content {
+      width: 100%;
+      padding-left: 0;
+    }
+    .column-image img {
+      margin-left: -60px !important;
+      width: 140% !important;
+      margin-top: -50px;
+    }
+    .icon-box-text p {
+      padding-right: 0px;
+    }
+    
+    .column-image {
+      order: 3;
+      margin-top: 30px;
+    }
+    
+    .column-icon-boxes {
+      order: 2;
+      margin-top: 80px;
+    }
+    
+    .column-content {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 35px;
+  align-items: center; 
+  text-align: center;
+}
+
+    .content-button 
+    {
+      width: 250px;
+    }
+    .icon-box-icon {
+      margin-right: -10px;
+      margin-top: 20px;
+    }
+
+    
+    .icon-box:nth-child(1),
+    .icon-box:nth-child(2),
+    .icon-box:nth-child(3) {
+      margin-left: 0;
+      margin-top: 0;
+    }
+  }
+{%- endstyle -%}
+
+<div class="icon-boxes-with-image">
+  <div class="three-column-container">
+    <div class="column-image">
+      {% if section.settings.image != blank %}
+        <img src="{{ section.settings.image | img_url: '800x' }}" alt="{{ section.settings.image.alt | escape }}">
+      {% else %}
+        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+      {% endif %}
+    </div>
+  
+    <div class="column-icon-boxes">
+      {% for block in section.blocks %}
+        <div class="icon-box" {{ block.shopify_attributes }}>
+          <div class="icon-box-icon">
+            {% if block.settings.icon != blank %}
+              <img src="{{ block.settings.icon | img_url: '100x' }}" alt="{{ block.settings.icon.alt | escape }}">
+            {% else %}
+              {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            {% endif %}
+          </div>
+          <div class="icon-box-text">
+            <h3>{{ block.settings.title }}</h3>
+            <p>{{ block.settings.text }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    
+    <div class="column-content">
+      <h2 class="content-heading">{{ section.settings.main_heading }}</h2>
+      <p class="content-description">{{ section.settings.main_text }}</p>
+      <a href="{{ section.settings.button_link }}" class="content-button">{{ section.settings.button_text }}</a>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "3 Column Icon Box Layout",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 50
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Image Border Radius",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "main_heading",
+      "label": "Heading",
+      "default": "Headlines for Sleeves"
+    },
+    {
+      "type": "textarea",
+      "id": "main_text",
+      "label": "Description",
+      "default": "Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Shop Sleeves"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Icon Box Heading Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Icon Box Text Color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "main_heading_color",
+      "label": "Main Heading Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "main_text_color",
+      "label": "Main Text Color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_background",
+      "label": "Button Hover Background",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Button Hover Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Button Border Radius",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "icon_box",
+      "name": "Icon Box",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Single Pocket"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Lorem ipsum dolor sit amet Lorem ipsum dolor"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "3 Column Icon Box Layout",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "icon_box",
+          "settings": {
+            "title": "Single Pocket",
+            "text": "Lorem ipsum dolor sit amet Lorem ipsum dolor"
+          }
+        },
+        {
+          "type": "icon_box",
+          "settings": {
+            "title": "Long lasting",
+            "text": "Lorem ipsum dolor sit amet Lorem ipsum dolor"
+          }
+        },
+        {
+          "type": "icon_box",
+          "settings": {
+            "title": "Quality Fabric",
+            "text": "Lorem ipsum dolor sit amet Lorem ipsum dolor"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

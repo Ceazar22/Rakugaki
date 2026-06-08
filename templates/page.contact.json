@@ -1,0 +1,102 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "contact_hero_Ffyw3p": {
+      "type": "contact-hero",
+      "name": "Contact Hero",
+      "settings": {
+        "desktop_image": "shopify://shop_images/Banner.png",
+        "mobile_image": "shopify://shop_images/Mobile.png"
+      }
+    },
+    "image_banner_7YjMJR": {
+      "type": "image-banner",
+      "blocks": {
+        "heading_BhNAhU": {
+          "type": "heading",
+          "disabled": true,
+          "settings": {
+            "heading": "CONTACT US",
+            "heading_size": "h1"
+          }
+        }
+      },
+      "block_order": [
+        "heading_BhNAhU"
+      ],
+      "disabled": true,
+      "custom_css": [
+        "h2 {color: white !important;}",
+        ".banner__box.content-container.content-container--full-width-mobile.color-scheme-1.gradient {margin-top: -930px;}",
+        "@media screen and (min-width: 1700px) and (max-width: 2000px) {.banner__box.content-container.content-container--full-width-mobile.color-scheme-1.gradient {margin-left: -100px; }}",
+        "@media screen and (max-width: 768px) {.banner__box.content-container.content-container--full-width-mobile.color-scheme-1.gradient {margin-top: -60px; }}"
+      ],
+      "name": "Image banner",
+      "settings": {
+        "image": "shopify://shop_images/Contact_us_Web_UPDATED.png",
+        "image_2": "shopify://shop_images/Mobile.png",
+        "image_overlay_opacity": 0,
+        "image_behavior": "none",
+        "full_width": true,
+        "content_width": 1200,
+        "border_radius": 0,
+        "desktop_image_height": "small",
+        "desktop_content_position": "middle-left",
+        "desktop_content_alignment": "left",
+        "show_text_box": false,
+        "color_scheme": "",
+        "mobile_image_height": "small",
+        "stack_images_on_mobile": false,
+        "swap_mobile_position": false,
+        "mobile_content_alignment": "left",
+        "mobile_content_position": "default",
+        "show_text_below": false
+      }
+    },
+    "form": {
+      "type": "contact-form",
+      "custom_css": [
+        "h2 {margin-bottom: 0px;}",
+        "p {padding-bottom: 30px;}",
+        ".field__label {margin-top: -30px; margin-left: -15px;}",
+        "@media screen and (min-width: 1700px) and (max-width: 2000px) {.contact-wrapper {margin-left: -120px; }}",
+        "@media screen and (max-width: 768px) {{margin-top: 50px; }}"
+      ],
+      "settings": {
+        "heading": "",
+        "heading_size": "h1",
+        "info_heading": "We’d love to hear from you!",
+        "info_description": "Need support or product guidance? Our team is ready to assist you. Reach out and we’ll reply shortly.",
+        "icon_1": "mail.svg",
+        "icon_text_1": "rakugakicentral@gmail.com",
+        "icon_2": "phone.svg",
+        "icon_text_2": "+639543802888",
+        "color_scheme": "scheme-1",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "main",
+    "contact_hero_Ffyw3p",
+    "image_banner_7YjMJR",
+    "form"
+  ]
+}

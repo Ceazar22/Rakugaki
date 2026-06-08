@@ -1,0 +1,421 @@
+{{ 'section-contact-form.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .contact-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  @media screen and (min-width: 750px) {
+    .contact-wrapper {
+      grid-template-columns: 1fr 1fr;
+      gap: 23rem;
+      width: 1300px;
+      margin-left: -100px;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .contact-info__item {
+      justify-content: center;
+    }
+    .contact-info {
+      text-align: center;
+    }
+    .contact-info__heading {
+      font-size: 30px !important;
+    }
+    .contact-wrapper {
+      display: inherit;
+    }
+    .contact__fields {
+      grid-template-columns: 1fr !important;
+    }
+  }
+
+  .contact__fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-info {
+    color: #000;
+  }
+
+  .contact-info__heading {
+    font-size: 40px;
+    margin-bottom: 1rem;
+    color: #000;
+  }
+
+  .contact-info__description {
+    font-size: 20px;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    color: #000;
+  }
+
+  .contact-info__item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    color: #000;
+  }
+
+  .contact-info__icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 12px;
+    flex-shrink: 0;
+  }
+
+  .contact-info__icon svg {
+    width: 100%;
+    height: 100%;
+    fill: #000;
+  }
+
+  .contact-info__text {
+    font-size: 16px;
+    color: #000;
+  }
+
+  .contact-form-wrapper {
+    background-color: #F4F4F4;
+    padding: 40px;
+    border-radius: 8px;
+  }
+
+  .field {
+    margin-bottom: 1.5rem;
+  }
+
+  .field__label {
+    display: block;
+    color: #000;
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  .field__input {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 16px !important;
+    background: #fff;
+    outline: none;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+    padding-bottom: 23px !important;
+  }
+
+
+  .text-area {
+    min-height: 150px;
+    resize: vertical;
+    padding: 12px 16px;
+    width: 100%;
+    border-radius: 8px;
+    font-size: 16px;
+    background: #fff;
+    outline: none;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+    font-family: inherit;
+  }
+
+  .text-area:focus {
+    border-color: #000;
+    border-width: 2px;
+  }
+
+  .mobile-only-br {
+    display: none;
+  }
+
+  @media screen and (max-width: 768px) {
+    .mobile-only-br {
+      display: block;
+    }
+  }
+{%- endstyle -%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient">
+  <div class="contact page-width section-{{ section.id }}-padding">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="title title-wrapper--no-top-margin inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+        {{ section.settings.heading }}
+      </h2>
+    {%- else -%}
+      <h2 class="visually-hidden">{{ 'templates.contact.form.title' | t }}</h2>
+    {%- endif -%}
+    
+    <div class="contact-wrapper">
+      <div class="contact-info">
+        <h3 class="contact-info__heading">{{ section.settings.info_heading | default: "Get in Touch" }}</h3>
+        <p class="contact-info__description">{{ section.settings.info_description | default: "We'd love to hear from you. Send us a message and we'll respond as soon as possible." }}</p>
+        
+        <div class="contact-info__item">
+          <div class="contact-info__icon">      
+          <svg width="23" height="16" viewBox="0 0 23 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 0V16.0012H22.2239V0H0ZM0.888955 0.888955H21.3349V2.01404L11.1119 10.098L0.888955 2.01404V0.888955ZM0.888955 3.15301L10.8341 11.0147C10.9973 11.1449 11.2265 11.1449 11.3897 11.0147L21.3349 3.15301V15.1122H0.888955V3.15301Z" fill="#1A1A1A"/>
+          </svg>
+          </div>
+          <div class="contact-info__text">{{ section.settings.icon_text_1 | default: "hello@example.com" | replace: '<br>', '<br class="mobile-only-br">' }}</div>
+        </div>
+        
+        <div class="contact-info__item">
+          <div class="contact-info__icon">
+            {{ section.settings.icon_2 | default: 'https://cdn.shopify.com/s/files/1/0615/1104/1109/files/phone.svg?v=1763736940' | inline_asset_content }}
+          </div>
+          <span class="contact-info__text">{{ section.settings.icon_text_2 | default: "" }}</span>
+        </div>
+      </div>
+
+      <div class="contact-form-wrapper">
+        {%- liquid
+          assign contact_form_class = 'isolate'
+          if settings.animations_reveal_on_scroll
+            assign contact_form_class = 'isolate scroll-trigger animate--slide-in'
+          endif
+        -%}
+        {%- form 'contact', id: 'ContactForm', class: contact_form_class -%}
+          {%- if form.posted_successfully? -%}
+            <h2 class="form-status form-status-list form__message" tabindex="-1" autofocus>
+              {{- 'icon-success.svg' | inline_asset_content -}}
+              {{ 'templates.contact.form.post_success' | t }}
+            </h2>
+          {%- elsif form.errors -%}
+            <div class="form__message">
+              <h2 class="form-status caption-large text-body" role="alert" tabindex="-1" autofocus>
+                {{- 'icon-error.svg' | inline_asset_content -}}
+                {{ 'templates.contact.form.error_heading' | t }}
+              </h2>
+            </div>
+            <ul class="form-status-list caption-large" role="list">
+              <li>
+                <a href="#ContactForm-email" class="link">
+                  {{ form.errors.translated_fields.email | capitalize }}
+                  {{ form.errors.messages.email }}
+                </a>
+              </li>
+            </ul>
+          {%- endif -%}
+          <div class="contact__fields">
+            <div class="field">
+              <label class="field__label" for="ContactForm-name">{{ 'templates.contact.form.name' | t }}</label>
+              <input
+                class="field__input"
+                autocomplete="name"
+                type="text"
+                id="ContactForm-name"
+                name="contact[{{ 'templates.contact.form.name' | t }}]"
+                value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+              >
+            </div>
+            <div class="field field--with-error">
+              <label class="field__label" for="ContactForm-email">
+                {{- 'templates.contact.form.email' | t }}
+                <span aria-hidden="true">*</span>
+              </label>
+              <input
+                autocomplete="email"
+                type="email"
+                id="ContactForm-email"
+                class="field__input"
+                name="contact[email]"
+                spellcheck="false"
+                autocapitalize="off"
+                value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                aria-required="true"
+                {% if form.errors contains 'email' %}
+                  aria-invalid="true"
+                  aria-describedby="ContactForm-email-error"
+                {% endif %}
+              >
+              {%- if form.errors contains 'email' -%}
+                <small class="contact__field-error" id="ContactForm-email-error">
+                  <span class="visually-hidden">{{ 'accessibility.error' | t }}</span>
+                  <span class="form__message">
+                    <span class="svg-wrapper">
+                      {{- 'icon-error.svg' | inline_asset_content -}}
+                    </span>
+                    {{- form.errors.translated_fields.email | capitalize }}
+                    {{ form.errors.messages.email -}}
+                  </span>
+                </small>
+              {%- endif -%}
+            </div>
+          </div>
+          <div class="field">
+            <label class="field__label" for="ContactForm-phone">{{ 'templates.contact.form.phone' | t }}</label>
+            <input
+              type="tel"
+              id="ContactForm-phone"
+              class="field__input"
+              autocomplete="tel"
+              name="contact[{{ 'templates.contact.form.phone' | t }}]"
+              pattern="[0-9\-]*"
+              value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
+            >
+          </div>
+          <div class="field">
+            <label class="form__label field__label" for="ContactForm-body">
+              {{- 'templates.contact.form.comment' | t -}}
+            </label>
+            <textarea
+              rows="10"
+              id="ContactForm-body"
+              class="text-area field__input"
+              name="contact[{{ 'templates.contact.form.comment' | t }}]"
+            >{{- form.body -}}</textarea>
+          </div>
+          <div class="contact__button">
+            <button type="submit" class="button">
+              {{ 'templates.contact.form.send' | t }}
+            </button>
+          </div>
+        {%- endform -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.contact-form.name",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "default": "t:sections.contact-form.settings.title.default",
+      "label": "t:sections.contact-form.settings.title.label"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.all.heading_size.options__1.label"
+        },
+        {
+          "value": "h1",
+          "label": "t:sections.all.heading_size.options__2.label"
+        },
+        {
+          "value": "h0",
+          "label": "t:sections.all.heading_size.options__3.label"
+        },
+        {
+          "value": "hxl",
+          "label": "t:sections.all.heading_size.options__4.label"
+        },
+        {
+          "value": "hxxl",
+          "label": "t:sections.all.heading_size.options__5.label"
+        }
+      ],
+      "default": "h1",
+      "label": "t:sections.all.heading_size.label"
+    },
+    {
+      "type": "header",
+      "content": "Contact Information"
+    },
+    {
+      "type": "text",
+      "id": "info_heading",
+      "default": "Get in Touch",
+      "label": "Contact info heading"
+    },
+    {
+      "type": "textarea",
+      "id": "info_description",
+      "default": "We'd love to hear from you. Send us a message and we'll respond as soon as possible.",
+      "label": "Contact info description"
+    },
+    {
+      "type": "text",
+      "id": "icon_1",
+      "default": "icon-email.svg",
+      "label": "First icon filename (SVG)"
+    },
+    {
+      "type": "html",
+      "id": "icon_text_1",
+      "default": "hello@example.com",
+      "label": "First icon text"
+    },
+    {
+      "type": "text",
+      "id": "icon_2",
+      "default": "icon-phone.svg",
+      "label": "Second icon filename (SVG)"
+    },
+    {
+      "type": "text",
+      "id": "icon_text_2",
+      "default": "+1 (555) 123-4567",
+      "label": "Second icon text"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.contact-form.presets.name"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,559 @@
+{%- liquid
+  assign product_form_id = 'product-form-' | append: section.id
+  assign is_set_product = false
+  
+  for tag in product.tags
+    assign tag_lower = tag | downcase
+    assign has_number = false
+    
+    if tag_lower contains '0' or tag_lower contains '1' or tag_lower contains '2' or tag_lower contains '3' or tag_lower contains '4' or tag_lower contains '5' or tag_lower contains '6' or tag_lower contains '7' or tag_lower contains '8' or tag_lower contains '9'
+      assign has_number = true
+    endif
+    
+    if tag_lower contains 'set' and has_number
+      assign is_set_product = true
+      break
+    endif
+  endfor
+-%}
+
+<div class="custom-variant-picker" data-section="{{ section.id }}" data-product-form="{{ product_form_id }}">
+  {%- for option in product.options_with_values -%}
+    {%- liquid
+      assign option_name_lower = option.name | downcase
+      assign is_color = false
+      assign is_size = false
+      assign is_design = false
+      
+      if option_name_lower contains 'color' or option_name_lower contains 'colour'
+        assign is_color = true
+      endif
+      
+      if option_name_lower contains 'size'
+        assign is_size = true
+      endif
+      
+      if option_name_lower contains 'design'
+        assign is_design = true
+      endif
+      
+      if is_set_product == true and is_color == true
+        continue
+      endif
+    -%}
+    
+    <div class="variant-option {% if is_color %}color-option{% elsif is_size %}size-option{% elsif is_design %}design-option{% else %}standard-option{% endif %}" data-option-index="{{ forloop.index }}" data-option-position="{{ option.position }}">
+      <div class="variant-label">
+        {{ option.name }}:
+        <span class="selected-value">
+          {%- unless is_size -%}
+          {%- endunless -%}
+        </span>
+      </div>
+      
+      <div class="variant-values">
+        {%- for value in option.values -%}
+          {%- liquid
+            assign option_value_name = value.name | default: value
+            assign option_available = value.available
+            
+            if option_available == blank
+              assign option_available = false
+              for variant in product.variants
+                assign option_index = option.position | minus: 1
+                if variant.options[option_index] == option_value_name
+                  if variant.available
+                    assign option_available = true
+                  endif
+                endif
+              endfor
+            endif
+            
+            assign has_swatch_color = false
+            assign has_swatch_image = false
+            assign is_light_swatch = false
+            assign swatch_image_url = blank
+            assign swatch_color_rgb = blank
+            
+            if value.swatch != blank
+              if value.swatch.color != blank
+                assign has_swatch_color = true
+                assign swatch_color_rgb = value.swatch.color.rgb
+                
+                if value.swatch.color.lightness > 92
+                  assign is_light_swatch = true
+                endif
+              endif
+              
+              if value.swatch.image != blank
+                assign has_swatch_image = true
+                assign swatch_image_url = value.swatch.image | image_url: width: 80
+              endif
+            endif
+          -%}
+          
+          <input
+            type="radio"
+            id="Option-{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+            name="options[{{ option.name | escape }}]"
+            value="{{ option_value_name | escape }}"
+            {% unless option_available %}disabled{% endunless %}
+            class="visually-hidden option-selector"
+            data-index="option{{ option.position }}"
+            data-option-position="{{ option.position }}"
+            data-option-value="{{ option_value_name | escape }}"
+          >
+          
+          {%- if is_color -%}
+            <label
+              for="Option-{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+              class="variant-swatch{% unless option_available %} unavailable{% endunless %}"
+              data-value="{{ option_value_name | escape }}"
+              title="{{ option_value_name }}"
+            >
+              <span
+                class="swatch-color{% if is_light_swatch %} light-swatch{% endif %}"
+                {% if has_swatch_image %}
+                  style="background-image: url('{{ swatch_image_url }}'); background-size: cover; background-position: center;"
+                {% elsif has_swatch_color %}
+                  style="background-color: rgb({{ swatch_color_rgb }});"
+                {% else %}
+                  style="background-color: #D3D3D3;"
+                {% endif %}
+              ></span>
+            </label>
+          {%- elsif is_size -%}
+            <label
+              for="Option-{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+              class="variant-size{% unless option_available %} unavailable{% endunless %}"
+              data-value="{{ option_value_name | escape }}"
+            >
+              {{ option_value_name }}
+            </label>
+          {%- else -%}
+            <label
+              for="Option-{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+              class="variant-standard{% unless option_available %} unavailable{% endunless %}"
+              data-value="{{ option_value_name | escape }}"
+            >
+              {{ option_value_name }}
+            </label>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      
+      {%- if is_size -%}
+        <div class="size-fit-info" style="display: none;"></div>
+      {%- endif -%}
+    </div>
+  {%- endfor -%}
+</div>
+
+{% style %}
+  .custom-variant-picker {
+    margin-bottom: 20px;
+  }
+  
+  .variant-option {
+    margin-bottom: 35px;
+  }
+  
+  .variant-label {
+    margin-bottom: 8px;
+    font-family: 'Poppins Medium';
+    color: #262626;
+    font-size: 16px;
+  }
+  
+  .variant-values {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  
+  .variant-swatch {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid #e0e0e0;
+    padding: 0;
+  }
+
+  .swatch-color {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
+
+  .swatch-color.light-swatch {
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+  }
+  
+  .variant-swatch.active {
+    position: relative;
+    outline: 1px solid black;
+    padding: 2px;
+  }
+  
+  .variant-swatch.active::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100% + 6px);
+    height: calc(100% + 6px);
+    border: 2px solid #1A1A1A;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  
+  .variant-swatch.unavailable {
+    opacity: 0.5;
+    pointer-events: none;
+    position: relative;
+  }
+  
+  .variant-swatch.unavailable::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    width: 120%;
+    height: 2px;
+    background-color: #ff0000;
+    z-index: 10;
+    border-radius: 1px;
+  }
+  
+  .variant-swatch:hover:not(.unavailable) {
+    transform: scale(1.1);
+  }
+
+  span.selected-value {
+    font-family: 'Poppins Regular';
+  }
+  
+  .variant-size,
+  .variant-standard {
+    display: inline-block;
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    min-width: 40px;
+    transition: all 0.3s ease;
+    background: #F5F4F4;
+    font-family: 'Poppins Regular';
+  }
+  
+  .variant-size.active,
+  .variant-standard.active {
+    border: 1px solid #000;
+    color: white;
+    background: #262626;
+    outline: 2px solid #000;
+    outline-offset: 2px;
+  }
+  
+  .variant-size.unavailable,
+  .variant-standard.unavailable {
+    opacity: 0.5;
+    text-decoration: line-through;
+    pointer-events: none;
+  }
+  
+  .size-fit-info {
+    margin-top: 8px;
+    font-size: 0.9em;
+    color: black;
+    font-family: 'Grotesk Regular';
+  }
+  
+  .visually-hidden {
+    position: absolute !important;
+    overflow: hidden;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    clip: rect(0 0 0 0);
+    word-wrap: normal !important;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .size-fit-info {
+      margin-bottom: -25px;
+    }
+
+    .variant-swatch {
+      width: 30px;
+      height: 30px;
+    }
+  }
+{% endstyle %}
+
+<script>
+(function() {
+  const variants = {{ product.variants | json }};
+  const product = {{ product | json }};
+  const productFormId = '{{ product_form_id }}';
+  
+  function waitForForm() {
+    const productForm = document.getElementById(productFormId);
+    if (productForm) {
+      initializeVariantPicker(productForm);
+    } else {
+      setTimeout(waitForForm, 100);
+    }
+  }
+  
+  function initializeVariantPicker(productForm) {
+    function getSelectedOptions() {
+      const selected = [];
+      const radios = document.querySelectorAll('.option-selector:checked');
+      
+      radios.forEach(radio => {
+        const position = parseInt(radio.dataset.optionPosition);
+        selected[position - 1] = radio.value.trim();
+      });
+      
+      return selected;
+    }
+    
+    function findVariantByOptions(options) {
+      const variant = variants.find(v => {
+        return options.every((value, index) => {
+          if (!value) return true;
+          return v.options[index].trim() === value.trim();
+        });
+      });
+      
+      return variant;
+    }
+    
+    function changeProductImage(variant) {
+      if (!variant || !variant.featured_image) return;
+      
+      const mainImageContainers = [
+        '.product-single__media',
+        '.product__media-container',
+        '.product__media-wrapper',
+        '.product-gallery__main',
+        '.product__media-list'
+      ];
+      
+      let mainImageContainer = null;
+      for (const selector of mainImageContainers) {
+        mainImageContainer = document.querySelector(selector);
+        if (mainImageContainer) break;
+      }
+      
+      if (mainImageContainer) {
+        const existingImg = mainImageContainer.querySelector('img');
+        if (existingImg) {
+          existingImg.src = variant.featured_image.src;
+          existingImg.srcset = variant.featured_image.src;
+          existingImg.alt = variant.featured_image.alt || 'Product image';
+        }
+      }
+    }
+    
+    function updateAvailability() {
+      const selectedOptions = getSelectedOptions();
+      
+      document.querySelectorAll('.variant-option').forEach(optionContainer => {
+        const isColorOption = optionContainer.classList.contains('color-option');
+        const isSizeOption = optionContainer.classList.contains('size-option');
+        
+        optionContainer.querySelectorAll('.option-selector').forEach(radio => {
+          const radioPosition = parseInt(radio.dataset.optionPosition);
+          const radioValue = radio.dataset.optionValue.trim();
+          const label = radio.nextElementSibling;
+          
+          if (isSizeOption) {
+            const sizeVariants = variants.filter(v => v.options[radioPosition - 1].trim() === radioValue);
+            const hasAvailable = sizeVariants.some(v => v.available);
+            
+            label.style.display = '';
+            
+            if (hasAvailable) {
+              label.classList.remove('unavailable');
+              radio.disabled = false;
+            } else {
+              label.classList.add('unavailable');
+              radio.disabled = true;
+            }
+          } else {
+            const testOptions = [...selectedOptions];
+            testOptions[radioPosition - 1] = radioValue;
+            
+            const matchingVariants = variants.filter(variant => {
+              return testOptions.every((value, index) => {
+                if (!value) return true;
+                return variant.options[index].trim() === value.trim();
+              });
+            });
+            
+            if (matchingVariants.length > 0) {
+              const hasAvailable = matchingVariants.some(v => v.available);
+              
+              label.style.display = '';
+              
+              if (hasAvailable) {
+                label.classList.remove('unavailable');
+                radio.disabled = false;
+              } else {
+                label.classList.add('unavailable');
+                radio.disabled = true;
+              }
+            } else {
+              if (isColorOption) {
+                label.style.display = 'none';
+              }
+            }
+          }
+        });
+      });
+    }
+
+    function updateVariantId() {
+      const selectedOptions = getSelectedOptions();
+      const allSelected = selectedOptions.every(opt => opt !== undefined && opt !== null);
+      
+      if (allSelected && selectedOptions.length > 0) {
+        const variant = findVariantByOptions(selectedOptions);
+        
+        if (variant) {
+          const variantInput = productForm.querySelector('input[name="id"]');
+          const variantInputByClass = productForm.querySelector('.product-variant-id');
+          
+          if (variantInput) {
+            variantInput.value = variant.id;
+            variantInput.disabled = !variant.available;
+          }
+          
+          if (variantInputByClass) {
+            variantInputByClass.value = variant.id;
+            variantInputByClass.disabled = !variant.available;
+          }
+          
+          const submitButton = productForm.querySelector('button[type="submit"]');
+          if (submitButton) {
+            if (variant.available) {
+              submitButton.disabled = false;
+              const buttonText = submitButton.querySelector('span');
+              if (buttonText) buttonText.textContent = {{ 'products.product.add_to_cart' | t | json }};
+            } else {
+              submitButton.disabled = true;
+              const buttonText = submitButton.querySelector('span');
+              if (buttonText) buttonText.textContent = {{ 'products.product.sold_out' | t | json }};
+            }
+          }
+          
+          document.dispatchEvent(new CustomEvent('variant:change', { 
+            bubbles: true,
+            detail: { variant: variant }
+          }));
+          
+          const url = new URL(window.location);
+          url.searchParams.set('variant', variant.id);
+          window.history.replaceState(null, '', url.toString());
+          
+          return variant;
+        }
+      } else {
+        const submitButton = productForm.querySelector('button[type="submit"]');
+        if (submitButton) {
+          submitButton.disabled = true;
+          const buttonText = submitButton.querySelector('span');
+          if (buttonText) buttonText.textContent = {{ 'products.product.add_to_cart' | t | json }};
+        }
+      }
+      return null;
+    }
+
+    const allRadios = document.querySelectorAll('.option-selector');
+    const fitInfo = document.querySelector('.size-fit-info');
+    
+    const submitButton = productForm.querySelector('button[type="submit"]');
+    if (submitButton) {
+      submitButton.disabled = true;
+    }
+
+    updateAvailability();
+    
+    allRadios.forEach(radio => {
+      radio.addEventListener('change', function() {
+        if (!this.checked) return;
+        
+        const optionContainer = this.closest('.variant-option');
+        
+        optionContainer.querySelectorAll('label').forEach(lbl => {
+          lbl.classList.remove('active');
+        });
+        
+        this.nextElementSibling.classList.add('active');
+        
+        if (!optionContainer.classList.contains('size-option')) {
+          const selectedValueSpan = optionContainer.querySelector('.selected-value');
+          if (selectedValueSpan) {
+            selectedValueSpan.textContent = this.value;
+          }
+        }
+        
+        if (optionContainer.classList.contains('size-option') && fitInfo) {
+          fitInfo.style.display = 'block';
+        }
+        
+        updateAvailability();
+        
+        const variant = updateVariantId();
+        if (variant && variant.featured_image) {
+          changeProductImage(variant);
+        }
+      });
+    });
+    
+    document.addEventListener('variant:change', function(e) {
+      if (e.detail && e.detail.variant) {
+        const variant = e.detail.variant;
+        
+        const priceElement = document.getElementById('price-{{ section.id }}');
+        if (priceElement && variant.price !== undefined) {
+          const priceSpan = priceElement.querySelector('.price-item--regular, .price__regular .price-item');
+          if (priceSpan) {
+            priceSpan.textContent = Shopify.formatMoney(variant.price, window.theme?.moneyFormat || '${{amount}}');
+          }
+        }
+        
+        const skuElement = document.getElementById('Sku-{{ section.id }}');
+        if (skuElement && variant.sku !== undefined) {
+          skuElement.textContent = variant.sku;
+          skuElement.style.display = variant.sku ? 'block' : 'none';
+        }
+        
+        if (variant.featured_image) {
+          changeProductImage(variant);
+        }
+      }
+    });
+  }
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', waitForForm);
+  } else {
+    waitForForm();
+  }
+})();
+</script>

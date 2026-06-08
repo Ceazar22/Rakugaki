@@ -1,0 +1,198 @@
+<style>
+  .trust-section-{{ section.id }} {
+    background: linear-gradient(to right, #141414, #931932);
+    padding: 60px 20px;
+  }
+
+  .trust-container-{{ section.id }} {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .trust-heading-{{ section.id }} {
+    text-align: center;
+    color: white;
+    font-size: 42px;
+    font-weight: bold;
+    margin-bottom: 60px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .trust-grid-{{ section.id }} {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+  }
+
+  .trust-item-{{ section.id }} {
+    text-align: center;
+    color: white;
+  }
+
+  .trust-icon-{{ section.id }} {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+  }
+
+  .trust-icon-{{ section.id }} svg {
+    width: 100%;
+    height: 100%;
+    fill: white;
+    stroke: white;
+  }
+
+  .trust-title-{{ section.id }} {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: white;
+  }
+
+  .trust-description-{{ section.id }} {
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.9;
+  }
+
+  @media screen and (max-width: 768px) {
+    .trust-section-{{ section.id }} {
+      padding: 40px 20px;
+    }
+
+    .trust-heading-{{ section.id }} {
+      font-size: 28px;
+      margin-bottom: 40px;
+    }
+
+    .trust-grid-{{ section.id }} {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+    }
+
+    .trust-icon-{{ section.id }} {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 15px;
+    }
+
+    .trust-title-{{ section.id }} {
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .trust-description-{{ section.id }} {
+      font-size: 12px;
+    }
+  }
+</style>
+
+<div class="trust-section-{{ section.id }}">
+  <div class="trust-container-{{ section.id }}">
+    {% if section.settings.heading != blank %}
+      <h2 class="trust-heading-{{ section.id }}">{{ section.settings.heading }}</h2>
+    {% endif %}
+    
+    <div class="trust-grid-{{ section.id }}">
+      {% for block in section.blocks %}
+        <div class="trust-item-{{ section.id }}">
+          {% if block.settings.icon_svg != blank %}
+            <div class="trust-icon-{{ section.id }}">
+              {{ block.settings.icon_svg }}
+            </div>
+          {% endif %}
+          
+          {% if block.settings.title != blank %}
+            <h3 class="trust-title-{{ section.id }}">{{ block.settings.title }}</h3>
+          {% endif %}
+          
+          {% if block.settings.description != blank %}
+            <p class="trust-description-{{ section.id }}">{{ block.settings.description }}</p>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Trust Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "YOUR TRUSTED STATIONERY SOURCE"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "trust_item",
+      "name": "Trust Item",
+      "settings": [
+        {
+          "type": "html",
+          "id": "icon_svg",
+          "label": "Icon SVG",
+          "default": "<svg viewBox='0 0 100 100'><circle cx='50' cy='50' r='40'/></svg>"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Feature Title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Feature description goes here"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trust Section",
+      "blocks": [
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon_svg": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='none' stroke='white' stroke-width='3'><path d='M30 45L20 35L15 40L30 55L85 10L80 5L30 45Z'/><path d='M70 30L75 35L50 60L45 55'/></svg>",
+            "title": "TRUSTED BY THOUSANDS",
+            "description": "Thousands of 5-star reviews from students, creators, and professionals"
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon_svg": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='none' stroke='white' stroke-width='3'><rect x='25' y='35' width='50' height='45'/><polyline points='30,50 50,65 70,50'/><line x1='50' y1='15' x2='50' y2='35'/><polyline points='40,20 50,15 60,20'/></svg>",
+            "title": "SWIFT IN DISPATCH",
+            "description": "From fast processing to careful packaging, our team ensures a smooth and reliable experience."
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon_svg": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='none' stroke='white' stroke-width='3'><rect x='20' y='35' width='45' height='35' rx='5'/><circle cx='32' cy='60' r='8'/><circle cx='53' cy='60' r='8'/><rect x='65' y='40' width='15' height='30'/><line x1='30' y1='25' x2='40' y2='25'/><line x1='45' y1='25' x2='55' y2='25'/><line x1='30' y1='30' x2='35' y2='30'/></svg>",
+            "title": "RELIABLE SERVICE, EVERY TIME",
+            "description": "Orders are usually shipped within 1 to 3 business days"
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon_svg": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='none' stroke='white' stroke-width='3'><circle cx='50' cy='50' r='35'/><path d='M35 45h30M35 50h30M35 55h30M35 60h20'/></svg>",
+            "title": "SECURE & GUARANTEED",
+            "description": "Safe checkout + 7-day replacement support."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

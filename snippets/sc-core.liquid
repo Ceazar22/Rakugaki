@@ -1,0 +1,19 @@
+
+{% assign product_item = product | default: card_product %}
+{% if product_item %}
+    <script>
+        // Initialize soldCount object and its properties if not already defined
+        window['soldCount'] = window['soldCount'] || {}
+        window['soldCount']['inventory'] = window['soldCount']['inventory'] || {}
+        window['soldCount']['metafields'] = window['soldCount']['metafields'] || {}
+
+        // Calculate total inventory for the product
+        {% for variant in product_item.variants -%}
+        {% assign total_inventory = total_inventory | plus: variant.inventory_quantity -%}
+        {% endfor -%}
+
+        // Store the total inventory and metafields in the soldCount object
+        window['soldCount']['inventory'][{{ product_item.id }}] = {{ total_inventory }}
+        window['soldCount']['metafields'][{{ product_item.id }}] = {{ product_item.metafields["app--71373979649--soldcount"] | json }}
+    </script>
+{% endif %}

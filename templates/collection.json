@@ -1,0 +1,104 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "banner": {
+      "type": "main-collection-banner",
+      "disabled": true,
+      "settings": {
+        "show_collection_description": true,
+        "show_collection_image": true,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "custom_liquid_Q4TXRQ": {
+      "type": "custom-liquid",
+      "disabled": true,
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "{% if collection %}\n  <nav class=\"breadcrumb\" aria-label=\"Breadcrumb\">\n    <a href=\"{{ routes.root_url }}\">Home</a> &gt; \n    <span>{{ collection.title }}</span>\n  </nav>\n\n  <style>\n    .breadcrumb {\n      font-family: 'Grotesk Regular', sans-serif;\n      font-size: 14px;\n      color: #666;\n      margin-left: 70px;\n    }\n\n    .breadcrumb a {\n      text-decoration: none;\n      color: #333;\n    }\n\n    .breadcrumb a:hover {\n      text-decoration: underline;\n    }\n\n    .breadcrumb span {\n      color: #999;\n    }\n    @media screen and (max-width: 768px) {\n    .breadcrumb {\n    display: none;\n}\n}\n  </style>\n{% endif %}",
+        "color_scheme": "",
+        "padding_top": 16,
+        "padding_bottom": 16
+      }
+    },
+    "image_banner_EjYyrq": {
+      "type": "image-banner",
+      "blocks": {
+        "heading_Mrkfda": {
+          "type": "heading",
+          "disabled": true,
+          "settings": {
+            "heading": "{{ collection.title }}",
+            "heading_size": "h1"
+          }
+        }
+      },
+      "block_order": [
+        "heading_Mrkfda"
+      ],
+      "custom_css": [
+        ".banner__box.content-container.content-container--full-width-mobile.color-scheme-1.gradient {margin-top: -430px;}",
+        "p {color: #1a1a1a;}",
+        "@media screen and (max-width: 768px) {.banner__box.content-container.content-container--full-width-mobile.color-scheme-1.gradient {margin-top: -160px; background: transparent; } #Banner-template--16589426524245__image_banner_4xeH8F {height: 24rem; }}"
+      ],
+      "name": "Image banner",
+      "settings": {
+        "image": "shopify://shop_images/rakugaki_products_web.png",
+        "image_2": "shopify://shop_images/rakugakiproducts_mobile.png",
+        "image_overlay_opacity": 0,
+        "image_behavior": "none",
+        "full_width": true,
+        "content_width": 1200,
+        "border_radius": 0,
+        "desktop_image_height": "small",
+        "desktop_content_position": "top-right",
+        "desktop_content_alignment": "center",
+        "show_text_box": false,
+        "color_scheme": "scheme-1",
+        "mobile_image_height": "small",
+        "stack_images_on_mobile": false,
+        "swap_mobile_position": false,
+        "mobile_content_alignment": "right",
+        "mobile_content_position": "bottom",
+        "show_text_below": false
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "custom_css": [
+        ".button {color: white !important; padding: 10px !important;}"
+      ],
+      "settings": {
+        "products_per_page": 12,
+        "columns_desktop": 3,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "image_ratio": "portrait",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": true,
+        "quick_add": "none",
+        "enable_filtering": true,
+        "filter_type": "vertical",
+        "enable_sorting": true,
+        "padding_top": 40,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "custom_liquid_Q4TXRQ",
+    "image_banner_EjYyrq",
+    "product-grid"
+  ]
+}

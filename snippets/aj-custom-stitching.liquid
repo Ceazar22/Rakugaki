@@ -1,0 +1,92 @@
+{% assign current_line = product.metafields.product_stitching.product_line %}
+
+{% if current_line %}
+  <div class="product-line-stitching">
+    {% comment %}
+      <legend class="label label-product-info">Colour: {{ product.title }}</legend>
+    {% endcomment %}
+    <legend class="label label-product-info form__label variant-label">Color: <span class="selected-value">{{ product.metafields.product_stitching.color_name }}</span></legend>
+    <div class="product-line-options">
+      {% for item in collections['all-live-products'].products %}
+        {% assign item_line = item.metafields.product_stitching.product_line %}
+        {% if item_line == current_line %}
+          {% assign item_colors = item.metafields.product_stitching.color_circle %}
+          {% assign item_colors_name = item.metafields.product_stitching.color_name %}
+          {% assign item_colors_clean = item_colors | remove: '[' | remove: ']' | remove: '"' %}
+          {% assign item_colors_array = item_colors_clean | split: ',' %}
+          <a href="{{ item.url }}" class="product-line-link {% if item.url == product.url %}active{% endif %}">
+            <div class="outer-circle">
+              <div class="inner-circle" style="background: {% if item_colors_array.size == 2 %}linear-gradient(135deg, {{ item_colors_array[0] }} 40%, {{ item_colors_array[1] }} 60%){% else %}{{ item_colors_array[0] }}{% endif %};">
+              </div>
+            </div>
+            <!-- <div class="variant_color_label">
+              {{ item_colors_name }}
+            </div> -->
+          </a>
+          <style>
+            .product-line-link.active::after {
+              background: {% if item_colors_array.size == 2 %}linear-gradient(135deg, {{ item_colors_array[0] }} 40%, {{ item_colors_array[1] }} 60%){% else %}{{ item_colors_array[0] }}{% endif %};
+            }
+          </style>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}
+
+{% style %}
+.product-line-stitching .label-product-info {
+  margin-bottom: 5px;
+}
+.product-line-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+}
+.product-line-link {
+  display: inline-block;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  /* border: 1px solid #33333322; */
+  /* border-radius: 6px; */
+  /* min-width: 100px; */
+  transition: transform 0.2s ease;
+  position: relative;
+}
+.product-line-link:hover {
+  transform: scale(1.02);
+}
+.product-line-link.active::after {
+  /* border-color: #000000 */
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -4px;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 3px;
+  /* background-color: #000; */
+  border-radius: 25px;
+}
+.inner-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #ccc; /* fallback color */
+  /* box-shadow:
+    inset 2px 2px 5px rgba(0, 0, 0, 0.15),
+    inset -2px -2px 5px rgba(255, 255, 255, 0.6); */
+  transition: all 0.3s ease;
+}
+.variant_color_label {
+  /* font-size: 0.75rem; */
+  margin-top: 6px;
+  color: #444;
+}
+{% endstyle %}
+

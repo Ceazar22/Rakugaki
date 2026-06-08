@@ -1,0 +1,69 @@
+<div class="swiper desktop">
+  <div
+    class="swiper-wrapper product-grid"
+    id="Slider-{{ section.id }}"
+    data-id="{{ section.id }}"
+  >
+    {% assign skip_card_product_styles = false %}
+    {%- for product in section.settings.collection.products -%}
+      <div
+        class="swiper-slide grid__item"
+        id="Slide-{{ section.id }}-{{ forloop.index }}"
+      >
+        {% render 'card-product',
+          card_product: product,
+          media_aspect_ratio: 'adapt',
+          image_shape: 'default',
+          show_secondary_image: true,
+          show_vendor: false,
+          show_rating: true,
+          skip_styles: skip_card_product_styles,
+          section_id: section.id,
+          quick_add: 'standard'
+        %}
+      </div>
+      {%- assign skip_card_product_styles = true -%}
+    {%- endfor -%}
+  </div>
+  <div class="tuned-featured-buttons">
+    <div class="tuned-featured-button-prev">
+      <span class="svg-wrapper">
+      <svg width="142" height="142" viewBox="0 0 142 142" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="140.356" y="140.356" width="138.711" height="138.711" transform="rotate(180 140.356 140.356)" stroke="#454545" stroke-opacity="0.32" stroke-width="2.71107"/>
+      <path d="M87.9411 99.1706C87.9235 98.4267 87.6127 97.7198 87.0763 97.204L60.8662 70.994L87.0763 44.7839C87.3464 44.5211 87.5612 44.2067 87.7078 43.8595C87.8545 43.5123 87.9301 43.1392 87.9301 42.7622C87.9299 42.2011 87.7625 41.6529 87.4491 41.1875C87.1357 40.7221 86.6906 40.3607 86.1708 40.1496C85.651 39.9385 85.08 39.8872 84.5308 40.0022C83.9817 40.1173 83.4793 40.3936 83.088 40.7956L54.8838 68.9998C54.3551 69.5288 54.0581 70.2461 54.0581 70.994C54.0581 71.7419 54.3551 72.4591 54.8838 72.9881L83.088 101.192C83.4819 101.602 83.9903 101.883 84.5466 101.999C85.103 102.114 85.6813 102.059 86.2059 101.841C86.7304 101.622 87.1768 101.251 87.4864 100.774C87.796 100.298 87.9545 99.7387 87.9411 99.1706Z" fill="#454545" fill-opacity="0.32"/>
+      </svg>
+      </span>
+    </div>
+    <div class="tuned-featured-button-next">
+      <span class="svg-wrapper">
+        
+      <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0.501642" y="0.501642" width="50.9967" height="50.9967" fill="white"/>
+      <rect x="0.501642" y="0.501642" width="50.9967" height="50.9967" stroke="#CECECE" stroke-width="0.996717"/>
+      <path d="M19.7717 15.6433C19.7781 15.9168 19.8924 16.1767 20.0896 16.3663L29.7257 26.0024L20.0896 35.6384C19.9903 35.7351 19.9113 35.8506 19.8574 35.9783C19.8035 36.106 19.7757 36.2431 19.7757 36.3817C19.7758 36.588 19.8373 36.7896 19.9525 36.9607C20.0678 37.1318 20.2314 37.2646 20.4225 37.3422C20.6136 37.4199 20.8235 37.4387 21.0254 37.3964C21.2273 37.3541 21.412 37.2525 21.5559 37.1047L31.9251 26.7355C32.1195 26.5411 32.2287 26.2774 32.2287 26.0024C32.2287 25.7274 32.1195 25.4637 31.9251 25.2693L21.5559 14.9001C21.4111 14.7495 21.2242 14.6461 21.0196 14.6036C20.8151 14.561 20.6025 14.5812 20.4096 14.6616C20.2168 14.7419 20.0527 14.8786 19.9388 15.0538C19.825 15.229 19.7667 15.4345 19.7717 15.6433Z" fill="#454545"/>
+      </svg>
+      </span>
+    </div>
+  </div>
+</div>
+
+<script>
+  const customTunedCollectionDesktop{{ section.index }} = new Swiper('.custom-featured-collection--{{ section.id }} .swiper.desktop', {
+    direction: 'horizontal',
+    loop: {{ section.settings.loop_mode }},
+    spaceBetween: {{ section.settings.space_between }},
+    slidesPerView: {{ section.settings.slides_per_view_mobile }},
+    breakpoints: {
+      720: {
+        slidesPerView: {{ section.settings.slides_per_view_tablet }},
+      },
+      1080: {
+        slidesPerView: {{ section.settings.slides_per_view_desktop }},
+      }
+    },
+    navigation: {
+      nextEl: '.custom-featured-collection--{{ section.id }} .swiper.desktop .tuned-featured-button-next',
+      prevEl: '.custom-featured-collection--{{ section.id }} .swiper.desktop .tuned-featured-button-prev',
+    }
+  });
+</script>

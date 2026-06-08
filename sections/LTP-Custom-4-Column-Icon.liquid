@@ -1,0 +1,274 @@
+{% schema %}
+{
+  "name": "Icon Box Grid",
+  "tag": "section",
+  "class": "icon-box-section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "desktop_layout",
+      "label": "Desktop Icon Position",
+      "options": [
+        {
+          "value": "top",
+          "label": "Icon on top"
+        },
+        {
+          "value": "left",
+          "label": "Icon on left"
+        }
+      ],
+      "default": "top"
+    },
+    {
+      "type": "select",
+      "id": "desktop_grid",
+      "label": "Desktop Columns",
+      "options": [
+        {
+          "value": "3",
+          "label": "3 per row"
+        },
+        {
+          "value": "4",
+          "label": "4 per row"
+        }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "radio",
+      "id": "mobile_layout",
+      "label": "Mobile Icon Position",
+      "options": [
+        {
+          "value": "top",
+          "label": "Icon on top"
+        },
+        {
+          "value": "left",
+          "label": "Icon on left"
+        }
+      ],
+      "default": "top"
+    },
+    {
+      "type": "radio",
+      "id": "mobile_grid",
+      "label": "Mobile Grid Layout",
+      "options": [
+        {
+          "value": "single",
+          "label": "1 per row"
+        },
+        {
+          "value": "double",
+          "label": "2 per row"
+        }
+      ],
+      "default": "double"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dividers",
+      "label": "Show dividers between items (single column only)",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Metafield Settings"
+    },
+    {
+      "type": "product",
+      "id": "metafield_product",
+      "label": "Product with Metafields",
+      "info": "Select the product that contains your icon metafields"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "icon_box",
+      "name": "Icon Box",
+      "settings": [
+        {
+          "type": "text",
+          "id": "metafield_key",
+          "label": "Metafield Key",
+          "info": "Enter the metafield key (e.g., 'custom.this_fit_is_different_icon_1')",
+          "default": "custom.this_fit_is_different_icon_1"
+        },
+        {
+          "type": "textarea",
+          "id": "fallback_svg",
+          "label": "Fallback SVG Code",
+          "info": "SVG code to display when metafield is empty (paste complete SVG tag)",
+          "default": "<svg width=\"48\" height=\"48\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 2L2 7V10C2 16 6 20.5 12 22C18 20.5 22 16 22 10V7L12 2Z\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\"/></svg>"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Feature Title"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description",
+          "default": "Feature description"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Icon Box Grid",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+/* Your existing styles remain exactly the same */
+.icon-boxs-section .page-width {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 1rem;
+}
+
+.icon-boxs-container {
+  display: grid;
+  gap: 2rem;
+}
+
+.icon-boxs-container.desktop-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.icon-boxs-container.desktop-3 {
+  grid-template-columns: repeat(3, 1fr);
+  margin-left: 120px;
+}
+
+.icon-boxs {
+  display: flex;
+}
+
+.icon-boxs.icon-top {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.icon-boxs.icon-left {
+  flex-direction: row;
+  text-align: left;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.icon-boxs img,
+.icon-boxs svg {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 1rem;
+}
+
+.icon-boxs.icon-left img,
+.icon-boxs.icon-left svg {
+  margin-bottom: 0;
+  flex-shrink: 0;
+  margin-top: 20px;
+}
+
+.icon-boxs h3 {
+  font-family: 'Grotesk Medium', sans-serif;
+  font-size: 18px;
+  margin-bottom: 0.5rem;
+}
+
+.icon-boxs p {
+  font-family: 'Grotesk Regular', sans-serif;
+  font-size: 13px;
+  color: #333;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .icon-boxs-container.mobile-single {
+    display: contents;
+  }
+  
+  .icon-boxs-container.mobile-single .icon-boxs {
+    margin-bottom: 2rem;
+    {% if section.settings.show_dividers %}
+    padding-bottom: 1.5rem;
+    {% endif %}
+  }
+  
+  .icon-boxs-container.mobile-single .icon-boxs:last-child {
+    margin-bottom: 0;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  .icon-boxs h3 {
+      margin-bottom: -1px;
+  }
+
+  .icon-boxs-container.mobile-double {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 2rem;
+  }
+
+  .icon-boxs.mobile-top {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .icon-boxs.mobile-left {
+    flex-direction: row;
+    text-align: left;
+    align-items: flex-start;
+  }
+  
+  .icon-boxs.mobile-top img,
+  .icon-boxs.mobile-top svg {
+    margin-bottom: -1rem;
+  }
+  
+  .icon-boxs.mobile-left img,
+  .icon-boxs.mobile-left svg {
+    margin-bottom: 0;
+    margin-right: 1rem;
+  }
+}
+{% endstylesheet %}
+
+<div class="page-width">
+  <div class="icon-boxs-container desktop-{{ section.settings.desktop_grid }} mobile-{{ section.settings.mobile_grid }}">
+    {% assign metafield_product = section.settings.metafield_product %}
+    
+    {% for block in section.blocks %}
+      {% assign metafield_value = metafield_product.metafields[block.settings.metafield_key] %}
+      
+      <div class="icon-boxs icon-{{ section.settings.desktop_layout }} mobile-{{ section.settings.mobile_layout }}" {{ block.shopify_attributes }}>
+        {% if metafield_value != blank %}
+          {% if block.settings.metafield_key contains '_icon_image_' %}
+            <img src="{{ metafield_value | img_url: '96x96' }}" alt="{{ block.settings.heading }}" width="48" height="48">
+          {% else %}
+            {{ metafield_value }}
+          {% endif %}
+        {% elsif block.settings.fallback_svg != blank %}
+          {{ block.settings.fallback_svg }}
+        {% endif %}
+        
+        <div class="icon-box-content">
+          <h3>{{ block.settings.heading }}</h3>
+          <p>{{ block.settings.description }}</p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>

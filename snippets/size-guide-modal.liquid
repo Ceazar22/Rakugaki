@@ -1,0 +1,546 @@
+<style>  
+  .size-guide-trigger {
+    color: #670E10;
+    text-decoration: underline;
+    cursor: pointer;
+    font-family: 'Grotesk Medium';
+    font-weight: 500;
+    font-size: 14px;
+    transition: color 0.3s ease;
+  }
+  
+  .size-guide-trigger:hover {
+    color: #4a0a0c;
+  }
+  
+  .size-guide-modal {
+    display: none;
+    position: fixed;
+    z-index: 999999;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(2px);
+    animation: fadeIn 0.3s ease;
+    transform: translateZ(0);
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes slideIn {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  
+  .size-guide-modal-content {
+    background-color: #fff;
+    margin: 5vh auto;
+    padding: 0;
+    border-radius: 5px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    animation: slideIn 0.3s ease;
+    position: relative;
+    transform: translateZ(0);
+  }
+  
+  .size-guide-header {
+    padding: 24px 24px 16px 24px;
+    border-bottom: 1px solid #f0f0f0;
+    position: relative;
+  }
+  
+  .size-guide-title {
+    font-family: 'Grotesk Medium';
+    font-weight: 500;
+    font-size: 24px;
+    color: #1a1a1a;
+    margin: 0;
+    padding-right: 40px;
+  }
+  
+  .size-guide-close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    color: #666;
+    font-size: 28px;
+    font-weight: 300;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    background: #f5f5f5;
+  }
+  
+  .size-guide-close:hover {
+    background: #e0e0e0;
+    color: #333;
+  }
+  
+  .size-guide-body {
+    padding: 24px;
+  }
+  
+  .input-group {
+    margin-bottom: 20px;
+  }
+  
+  .input-label {
+    display: block;
+    margin-bottom: 8px;
+    font-family: 'Grotesk Medium';
+    font-weight: 500;
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .input-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .input-field {
+    flex: 1;
+    padding: 12px 16px;
+    border: 2px solid #e8e8e8;
+    border-radius: 8px;
+    font-family: 'Grotesk Regular';
+    font-weight: 400;
+    font-size: 14px;
+    transition: border-color 0.2s ease;
+    background: #fafafa;
+  }
+  
+  .input-field:focus {
+    outline: none;
+    border-color: #670E10;
+    background: #fff;
+  }
+  
+  .unit-select {
+    padding: 12px 16px;
+    border: 2px solid #e8e8e8;
+    border-radius: 8px;
+    font-family: 'Grotesk Regular';
+    font-weight: 400;
+    font-size: 14px;
+    background: #fafafa;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+    min-width: 80px;
+  }
+  
+  .unit-select:focus {
+    outline: none;
+    border-color: #670E10;
+    background: #fff;
+  }
+  
+  .fit-select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e8e8e8;
+    border-radius: 8px;
+    font-family: 'Grotesk Regular';
+    font-weight: 400;
+    font-size: 14px;
+    background: #fafafa;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+  }
+  
+  .fit-select:focus {
+    outline: none;
+    border-color: #670E10;
+    background: #fff;
+  }
+  
+  .generate-btn {
+    width: 100%;
+    background: #670E10;
+    color: white;
+    padding: 16px 24px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Grotesk Medium';
+    font-weight: 500;
+    font-size: 16px;
+    margin: 24px 0;
+    transition: all 0.3s ease;
+  }
+  
+  .generate-btn:hover {
+    background: white;
+    color: #670E10;
+    border: 1px solid #670E10;
+    transform: translateY(-2px);
+  }
+  
+  .generate-btn:active {
+    transform: translateY(0);
+  }
+  
+  .size-result {
+    display: none;
+    padding: 20px;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border: 1px solid #0ea5e9;
+    border-radius: 12px;
+    margin-top: 20px;
+  }
+  
+  .result-title {
+    font-family: 'Grotesk Medium';
+    font-weight: 500;
+    font-size: 18px;
+    color: #0c4a6e;
+    margin: 0 0 12px 0;
+  }
+  
+  .size-recommendation {
+    font-family: 'Grotesk Medium';
+    font-weight: 500;
+    font-size: 20px;
+    color: #0c4a6e;
+    margin-bottom: 8px;
+  }
+  
+  .size-details {
+    font-family: 'Grotesk Regular';
+    font-weight: 400;
+    font-size: 14px;
+    color: #0369a1;
+    line-height: 1.4;
+  }
+  
+  .size-chart {
+    margin-top: 24px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    border: 1px solid #e9ecef;
+  }
+  
+  .chart-title {
+    font-family: 'Grotesk Medium';
+    font-weight: 500;
+    font-size: 16px;
+    color: #333;
+    margin: 0 0 12px 0;
+  }
+  
+  .chart-content {
+    font-family: 'Grotesk Regular';
+    font-weight: 400;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.6;
+  }
+  
+  @media (max-width: 768px) {
+    .size-guide-modal-content {
+      width: 95%;
+      margin: 2% auto;
+      max-height: 95vh;
+    }
+    
+    .size-guide-header {
+      padding: 20px 20px 16px 20px;
+    }
+    
+    .size-guide-title {
+      font-size: 20px;
+    }
+    
+    .size-guide-body {
+      padding: 20px;
+    }
+    
+    .input-row {
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .input-field {
+      width: 100%;
+    }
+    
+    .unit-select {
+      width: 100%;
+      min-width: unset;
+    }
+    
+    .generate-btn {
+      padding: 14px 20px;
+      font-size: 15px;
+    }
+    
+    .size-recommendation {
+      font-size: 18px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .size-guide-modal-content {
+      width: 98%;
+      margin: 1% auto;
+      border-radius: 12px;
+    }
+    
+    .size-guide-header {
+      padding: 16px;
+    }
+    
+    .size-guide-title {
+      font-size: 18px;
+    }
+    
+    .size-guide-body {
+      padding: 16px;
+    }
+  }
+</style>
+
+<div class="guide">
+<span class="size-guide-trigger" id="size-guide-trigger">Choose My Size</span>
+</div>
+
+<div id="size-guide-modal" class="size-guide-modal">
+  <div class="size-guide-modal-content">
+    <div class="size-guide-header">
+      <h2 class="size-guide-title">Size Guide</h2>
+      <span class="size-guide-close">&times;</span>
+    </div>
+    
+    <div class="size-guide-body">
+      <div class="input-group">
+        <label class="input-label">Height</label>
+        <div class="input-row">
+          <input type="number" id="height-input" class="input-field" placeholder="Enter height">
+          <select id="height-unit" class="unit-select">
+            <option value="cm">cm</option>
+            <option value="inches">inches</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label class="input-label">Weight</label>
+        <div class="input-row">
+          <input type="number" id="weight-input" class="input-field" placeholder="Enter weight">
+          <select id="weight-unit" class="unit-select">
+            <option value="kg">kg</option>
+            <option value="lbs">lbs</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label class="input-label">Fit Preference</label>
+        <select id="fit-preference" class="fit-select">
+          <option value="">Select fit style</option>
+          <option value="slim">Slim Fit</option>
+          <option value="regular">Regular Fit</option>
+          <option value="loose">Loose Fit</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label class="input-label">Age</label>
+        <input type="number" id="age-input" class="input-field" placeholder="Enter age">
+      </div>
+
+      <button id="generate-size-btn" class="generate-btn">
+        Find My Perfect Size
+      </button>
+
+      <div id="size-result" class="size-result">
+        <h4 class="result-title">Your Recommended Size</h4>
+        <div id="size-recommendation" class="size-recommendation"></div>
+        <div id="size-details" class="size-details"></div>
+      </div>
+
+      <div class="size-chart">
+        <h4 class="chart-title">Size Chart Reference</h4>
+        <div class="chart-content">
+          <strong>Small:</strong> 28-30 &nbsp;|&nbsp; <strong>Medium:</strong> 32-34 &nbsp;|&nbsp; <strong>Large:</strong> 36-38 &nbsp;|&nbsp; <strong>XL:</strong> 40-42
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  const modal = document.getElementById('size-guide-modal');
+  const trigger = document.getElementById('size-guide-trigger');
+  const closeBtn = document.getElementsByClassName('size-guide-close')[0];
+  
+  trigger.addEventListener('click', function() {
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+    
+    if (modal.parentNode !== document.body) {
+      document.body.appendChild(modal);
+    }
+  });
+  
+  closeBtn.addEventListener('click', function() {
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+    document.documentElement.style.overflow = 'auto';
+  });
+  
+  window.addEventListener('click', function(event) {
+    if (event.target === modal) {
+      modal.style.display = 'none';
+      document.body.style.overflow = 'auto';
+      document.documentElement.style.overflow = 'auto';
+    }
+  });
+  
+  const sizeGuide = {
+    sizeMapping: {
+      28: { category: 'Small', range: '28-30' },
+      29: { category: 'Small', range: '28-30' },
+      30: { category: 'Small', range: '28-30' },
+      31: { category: 'Medium', range: '32-34' },
+      32: { category: 'Medium', range: '32-34' },
+      33: { category: 'Medium', range: '32-34' },
+      34: { category: 'Medium', range: '32-34' },
+      35: { category: 'Large', range: '36-38' },
+      36: { category: 'Large', range: '36-38' },
+      37: { category: 'Large', range: '36-38' },
+      38: { category: 'Large', range: '36-38' },
+      39: { category: 'XL', range: '40-42' },
+      40: { category: 'XL', range: '40-42' },
+    },
+
+    convertHeight: function(height, unit) {
+      if (unit === 'inches') {
+        return height * 2.54;
+      }
+      return height;
+    },
+
+    convertWeight: function(weight, unit) {
+      if (unit === 'lbs') {
+        return weight * 0.453592;
+      }
+      return weight;
+    },
+
+    calculateBMI: function(heightCm, weightKg) {
+      const heightM = heightCm / 100;
+      return weightKg / (heightM * heightM);
+    },
+
+    getBaseSize: function(heightCm, weightKg, age) {
+      const bmi = this.calculateBMI(heightCm, weightKg);
+      let baseSize = 28;
+      
+      if (heightCm < 160) baseSize += 0;
+      else if (heightCm < 170) baseSize += 1;
+      else if (heightCm < 175) baseSize += 2;
+      else if (heightCm < 180) baseSize += 3;
+      else if (heightCm < 185) baseSize += 4;
+      else baseSize += 5;
+      
+      if (bmi < 18.5) baseSize -= 2;
+      else if (bmi < 22) baseSize -= 1;
+      else if (bmi < 25) baseSize += 0;
+      else if (bmi < 28) baseSize += 1;
+      else if (bmi < 30) baseSize += 2;
+      else baseSize += 3;
+      
+      if (age > 40) baseSize += 1;
+      if (age > 55) baseSize += 1;
+      
+      return Math.max(28, Math.min(40, Math.round(baseSize)));
+    },
+
+    adjustForFit: function(baseSize, fitPreference) {
+      switch(fitPreference) {
+        case 'slim':
+          return Math.max(28, baseSize - 1);
+        case 'loose':
+          return Math.min(40, baseSize + 1);
+        case 'regular':
+        default:
+          return baseSize;
+      }
+    },
+
+    generateRecommendation: function(height, heightUnit, weight, weightUnit, fitPreference, age) {
+      const heightCm = this.convertHeight(height, heightUnit);
+      const weightKg = this.convertWeight(weight, weightUnit);
+      
+      const baseSize = this.getBaseSize(heightCm, weightKg, age);
+      const adjustedSize = this.adjustForFit(baseSize, fitPreference);
+      
+      const sizeInfo = this.sizeMapping[adjustedSize];
+      
+      if (sizeInfo) {
+        return {
+          waistSize: adjustedSize,
+          category: sizeInfo.category,
+          range: sizeInfo.range,
+          bmi: this.calculateBMI(heightCm, weightKg).toFixed(1)
+        };
+      }
+      
+      return null;
+    }
+  };
+
+  document.getElementById('generate-size-btn').addEventListener('click', function() {
+    const height = parseFloat(document.getElementById('height-input').value);
+    const heightUnit = document.getElementById('height-unit').value;
+    const weight = parseFloat(document.getElementById('weight-input').value);
+    const weightUnit = document.getElementById('weight-unit').value;
+    const fitPreference = document.getElementById('fit-preference').value;
+    const age = parseInt(document.getElementById('age-input').value);
+    
+    if (!height || !weight || !fitPreference || !age) {
+      alert('Please fill in all fields to get your size recommendation.');
+      return;
+    }
+    
+    if (height <= 0 || weight <= 0 || age < 13) {
+      alert('Please enter valid measurements.');
+      return;
+    }
+    
+    const recommendation = sizeGuide.generateRecommendation(
+      height, heightUnit, weight, weightUnit, fitPreference, age
+    );
+    
+    if (recommendation) {
+      document.getElementById('size-recommendation').innerHTML = 
+        `Size ${recommendation.waistSize} (${recommendation.category})`;
+      
+      document.getElementById('size-details').innerHTML = 
+        `Based on your ${fitPreference} fit preference, range ${recommendation.range}. Your BMI is ${recommendation.bmi}.`;
+      
+      document.getElementById('size-result').style.display = 'block';
+    } else {
+      alert('Unable to determine size. Please check your measurements.');
+    }
+  });
+})();
+</script>

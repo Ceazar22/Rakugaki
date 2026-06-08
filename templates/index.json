@@ -1,0 +1,509 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "custom_banner_wVrLjK": {
+      "type": "Custom-banner",
+      "name": "Hero Section",
+      "settings": {
+        "background_image": "shopify://shop_images/Homepage.png",
+        "background_image_mobile": "shopify://shop_images/top-view-woman-writing-notebook-with-copy-space_1.png",
+        "rating": "4.9",
+        "star_svg": "<svg width=\"129\" height=\"24\" viewbox=\"0 0 129 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M12.2723 1.89485L14.5103 8.52102L21.5032 8.60198C22.1049 8.60899 22.354 9.37576 21.8714 9.73463L16.2611 13.9102L18.345 20.5862C18.524 21.1607 17.8725 21.634 17.3813 21.2861L11.6768 17.2405L5.9715 21.2853C5.48108 21.6333 4.82874 21.1592 5.00778 20.5855L7.09169 13.9095L1.4814 9.73385C0.998756 9.37498 1.24786 8.60821 1.8496 8.6012L8.84243 8.52025L11.0805 1.89407C11.2735 1.32424 12.08 1.32424 12.2723 1.89485Z\" fill=\"#FF8D3A\"></path>\n<path d=\"M38.6258 1.89485L40.8638 8.52102L47.8567 8.60198C48.4584 8.60899 48.7075 9.37576 48.2249 9.73463L42.6146 13.9102L44.6985 20.5862C44.8775 21.1607 44.226 21.634 43.7348 21.2861L38.0303 17.2405L32.325 21.2853C31.8346 21.6333 31.1823 21.1592 31.3613 20.5855L33.4452 13.9095L27.8349 9.73385C27.3523 9.37498 27.6014 8.60821 28.2031 8.6012L35.1959 8.52025L37.434 1.89407C37.627 1.32424 38.4335 1.32424 38.6258 1.89485Z\" fill=\"#FF8D3A\"></path>\n<path d=\"M64.9794 1.89485L67.2174 8.52102L74.2103 8.60198C74.812 8.60899 75.0611 9.37576 74.5785 9.73463L68.9682 13.9102L71.0521 20.5862C71.2311 21.1607 70.5796 21.634 70.0884 21.2861L64.3839 17.2405L58.6786 21.2853C58.1882 21.6333 57.5358 21.1592 57.7149 20.5855L59.7988 13.9095L54.1885 9.73385C53.7058 9.37498 53.955 8.60821 54.5567 8.6012L61.5495 8.52025L63.7876 1.89407C63.9806 1.32424 64.7871 1.32424 64.9794 1.89485Z\" fill=\"#FF8D3A\"></path>\n<path d=\"M91.3329 1.89485L93.5709 8.52102L100.564 8.60198C101.166 8.60899 101.415 9.37576 100.932 9.73463L95.3217 13.9102L97.4056 20.5862C97.5846 21.1607 96.9331 21.634 96.4419 21.2861L90.7374 17.2405L85.0321 21.2853C84.5417 21.6333 83.8893 21.1592 84.0684 20.5855L86.1523 13.9095L80.542 9.73385C80.0594 9.37498 80.3085 8.60821 80.9102 8.6012L87.903 8.52025L90.1411 1.89407C90.3341 1.32424 91.1406 1.32424 91.3329 1.89485Z\" fill=\"#FF8D3A\"></path>\n<path d=\"M117.686 1.89485L119.924 8.52102L126.917 8.60198C127.519 8.60899 127.768 9.37576 127.285 9.73463L121.675 13.9102L123.759 20.5862C123.938 21.1607 123.287 21.634 122.795 21.2861L117.091 17.2405L111.386 21.2853C110.895 21.6333 110.243 21.1592 110.422 20.5855L112.506 13.9095L106.896 9.73385C106.413 9.37498 106.662 8.60821 107.264 8.6012L114.257 8.52025L116.495 1.89407C116.688 1.32424 117.494 1.32424 117.686 1.89485Z\" fill=\"#FF8D3A\"></path>\n</svg>",
+        "rating_text": "Trusted by idea-makers, quality-seekers, and professionals.",
+        "heading": "QUALITY STATIONERY FOR<br>MINDFUL CREATIVITY",
+        "description": "Japanese stationery and tools designed for clarity, focus, and self-expression. Personalize your pieces with engraving to make them truly yours.",
+        "button_text": "Shop Now",
+        "button_link": "shopify://collections/best-sellers"
+      }
+    },
+    "image_banner": {
+      "type": "image-banner",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Quality Stationery for mindful creativity",
+            "heading_size": "h0"
+          }
+        },
+        "text_B7yhB4": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Moves with you. Sharpens your look. And keeps you cool. Even in heat and hustle. </p>",
+            "text_style": "body"
+          }
+        },
+        "button": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Shop all",
+            "button_link_1": "shopify://collections/all",
+            "button_style_secondary_1": true,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text_B7yhB4",
+        "button"
+      ],
+      "disabled": true,
+      "custom_css": [
+        "h2,p {color: white;}",
+        "@media screen and (max-width: 768px) {.banner--mobile-bottom .banner__box {background: transparent !important; margin-top: -590px; } .banner__content {background: transparent; }}"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/top-view-woman-writing-notebook-with-copy-space_1.png",
+        "image_2": "shopify://shop_images/top-view-woman-writing-notebook-with-copy-space_1.png",
+        "image_overlay_opacity": 0,
+        "image_behavior": "none",
+        "full_width": true,
+        "content_width": 1050,
+        "border_radius": 0,
+        "desktop_image_height": "medium",
+        "desktop_content_position": "top-center",
+        "desktop_content_alignment": "left",
+        "show_text_box": false,
+        "color_scheme": "scheme-1",
+        "mobile_image_height": "adapt",
+        "stack_images_on_mobile": true,
+        "swap_mobile_position": false,
+        "mobile_content_alignment": "center",
+        "mobile_content_position": "default",
+        "show_text_below": true
+      }
+    },
+    "custom_category_BcmEnq": {
+      "type": "Custom-category",
+      "blocks": {
+        "category_aBTM3E": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/Writing_tools_112dbcbd-3a46-4d9f-98ef-92c0e0b6a3bb.png",
+            "text": "Writing Tools",
+            "link": "shopify://collections/writing-tools"
+          }
+        },
+        "category_d8fAhV": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/ink_refills_1.png",
+            "text": "Ink Refills",
+            "link": "shopify://collections/ink-refils"
+          }
+        },
+        "category_hMKfRw": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/pen_cases_e19a07c7-a321-4637-9eca-f81be7235baf.png",
+            "text": "Pen Cases",
+            "link": "shopify://collections/pen-cases"
+          }
+        },
+        "category_VWJMwN": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/accessories_1.png",
+            "text": "Accessories",
+            "link": "shopify://collections/accessories"
+          }
+        }
+      },
+      "block_order": [
+        "category_aBTM3E",
+        "category_d8fAhV",
+        "category_hMKfRw",
+        "category_VWJMwN"
+      ],
+      "name": "Shop by Category",
+      "settings": {
+        "heading": "SHOP BY CATEGORY"
+      }
+    },
+    "ltp_custom_featured_collection_6Jpm98": {
+      "type": "LTP-Custom-Featured-Collection",
+      "disabled": true,
+      "settings": {
+        "section_heading": "",
+        "page_width": false,
+        "collection": "test",
+        "loop_mode": true,
+        "space_between": 62,
+        "slides_per_view_desktop": 2.8,
+        "slides_per_view_tablet": 3.2,
+        "slides_per_view_mobile": 3,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "featured_collection_yhhb4j": {
+      "type": "featured-collection",
+      "custom_css": [
+        ".slider {margin-left: 30px;}",
+        "@media screen and (max-width: 768px) {{display: none; }}"
+      ],
+      "name": "t:sections.featured-collection.presets.name",
+      "settings": {
+        "collection": "new-arrivals",
+        "products_to_show": 6,
+        "title": "NEW ARRIVAL",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 4,
+        "enable_desktop_slider": true,
+        "full_width": true,
+        "show_view_all": false,
+        "view_all_style": "solid",
+        "color_scheme": "",
+        "image_ratio": "portrait",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": true,
+        "quick_add": "none",
+        "mobile_grid_layout": "2x2",
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "padding_top": 0,
+        "padding_bottom": 16
+      }
+    },
+    "ltp_featured_collection_v2_wLYUF4": {
+      "type": "LTP-Featured-collection-V2",
+      "custom_css": [
+        "{display: none;}",
+        "@media screen and (max-width: 768px) {{display: block; }}"
+      ],
+      "name": "Featured Collection V2",
+      "settings": {
+        "collection": "laser-engraving",
+        "products_to_show": 4,
+        "title": "NEW ARRIVAL",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "full_width": false,
+        "show_view_all": false,
+        "view_all_style": "solid",
+        "color_scheme": "",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "mobile_grid_layout": "2x2",
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "featured_collection_XhK6B6": {
+      "type": "featured-collection",
+      "custom_css": [
+        ".slider {margin-left: 30px;}",
+        "@media screen and (max-width: 768px) {{display: none; }}"
+      ],
+      "name": "t:sections.featured-collection.presets.name",
+      "settings": {
+        "collection": "best-sellers",
+        "products_to_show": 6,
+        "title": "BEST SELLER",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 4,
+        "enable_desktop_slider": true,
+        "full_width": true,
+        "show_view_all": false,
+        "view_all_style": "solid",
+        "color_scheme": "",
+        "image_ratio": "portrait",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": true,
+        "quick_add": "none",
+        "mobile_grid_layout": "2x2",
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "padding_top": 0,
+        "padding_bottom": 16
+      }
+    },
+    "ltp_featured_collection_v2_a6wfXG": {
+      "type": "LTP-Featured-collection-V2",
+      "custom_css": [
+        "{display: none;}",
+        "@media screen and (max-width: 768px) {{display: block; }}"
+      ],
+      "name": "Featured Collection V2",
+      "settings": {
+        "collection": "laser-engraving",
+        "products_to_show": 4,
+        "title": "shop best seller",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "full_width": false,
+        "show_view_all": false,
+        "view_all_style": "solid",
+        "color_scheme": "",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "mobile_grid_layout": "2x2",
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "gift_section_GCmYXG": {
+      "type": "Gift-section",
+      "name": "Gift Section",
+      "settings": {
+        "full_width": false,
+        "bg_image_desktop": "shopify://shop_images/7_d391b230-9ce0-4212-bb3b-dccf42a6eb2d.png",
+        "bg_image_mobile": "shopify://shop_images/9_59160518-a8c5-4ccb-b3f0-a3d30b6666e9.png",
+        "heading": "Make It Personal",
+        "description": "<p>Add a name, a mantra, a logo, or an initial. Engraving <br/>transforms a writing tool into something meaningful <br/>a reminder, a gift, a keepsake.</p>",
+        "button_text": "Customize Now",
+        "button_url": "shopify://collections/laser-engraving",
+        "button_bg_color": "#8b1538",
+        "button_text_color": "#ffffff"
+      }
+    },
+    "trust_section_WKDLVj": {
+      "type": "Trust-section",
+      "blocks": {
+        "trust_item_cqarW4": {
+          "type": "trust_item",
+          "settings": {
+            "icon_svg": "<svg width=\"79\" height=\"64\" viewbox=\"0 0 79 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M42.0102 0.0115138C41.7877 0.0323719 41.5722 0.0671389 41.3497 0.108857C39.5697 0.463467 37.6089 1.88886 35.8289 3.66886L44.3673 9.00886C45.4381 5.44886 46.1543 1.88886 43.8389 0.463467C43.3035 0.0601848 42.6708 -0.0371585 42.0102 0.0115138ZM33.3397 6.33886C32.4219 7.47917 30.9617 9.37737 29.2721 11.658L11.6181 14.8842C10.5473 15.065 9.48352 15.9481 8.94813 17.0189L0.583519 37.4889C0.228909 38.5596 -0.132653 39.6235 0.0481288 40.6942C0.402739 44.6089 3.78891 47.6335 7.70352 47.2789C8.53789 47.1954 9.36532 47.0216 10.1649 46.7296L18.3835 51.9027C19.5308 50.3313 21.8114 47.1746 24.1059 44.0387C28.8688 46.4932 40.9881 52.6189 40.9881 52.6189C44.9027 54.7535 49.5335 55.115 53.8097 54.225L67.8689 51.1935L68.5781 56.3527L78.9035 54.9342L74.2797 23.6035L63.9473 25.0289L64.1281 26.4542L45.4381 14.7035C44.7011 14.2932 43.7972 13.737 42.8794 13.2642C42.9489 13.1182 43.0671 12.8817 43.1297 12.7427L33.3397 6.33886ZM34.2297 11.3242L38.4989 13.9942C36.7189 17.5542 34.0489 22.7135 30.6697 28.2342L29.7588 29.8057L25.6773 28.7627C24.4188 28.568 23.1812 28.714 22.0617 29.1451C22.8544 27.8101 23.647 26.4751 24.4397 25.2027C27.9997 19.5081 31.5597 14.5296 34.2297 11.3242ZM26.2336 15.8925C24.697 18.0896 23.0838 20.4398 21.4081 23.075C17.5631 29.3954 13.9127 36.2303 11.194 41.327C10.6308 42.3769 9.42789 43.545 7.70352 43.7189C6.1043 43.8996 4.3243 42.8289 3.78891 41.2227C3.4343 40.3327 3.60813 39.4427 3.96274 38.7335L11.7989 19.3342C11.9797 18.7989 12.5081 18.4442 13.0435 18.2635L26.2336 15.8925ZM41.2523 16.6434C42.1841 17.1162 43.1506 17.6585 43.6581 17.9089L63.4189 30.3689H64.6635L67.1597 47.6335L52.9197 50.665C49.3597 51.3742 45.6189 51.0127 42.4135 49.4135L23.0073 39.6235C21.2273 38.7335 20.3373 36.7796 21.2273 34.8189C21.9435 33.0389 23.7235 32.1489 25.5035 32.5035L39.9173 36.0635L45.4381 28.0535L42.2397 26.0927L38.3181 31.975L33.437 30.7304C36.7606 25.3 39.4376 20.2938 41.2523 16.6434ZM71.2481 27.6989L74.8081 51.9027L71.6097 52.445L68.0497 28.0535L71.2481 27.6989ZM17.4935 37.1273C17.6395 37.913 17.862 38.6917 18.2097 39.4427C18.9189 40.8681 19.9897 41.7581 20.6989 42.2935C20.6989 42.2935 20.977 42.4395 20.9909 42.4395L17.4935 47.105L13.3981 44.6089C14.4967 42.5646 15.9777 39.8529 17.4935 37.1273ZM7.52274 49.2327C5.56891 54.7535 5.56891 58.3135 5.56891 59.7389L4.3243 61.5189C3.96274 62.0542 4.14352 62.7635 4.67891 63.125C5.03352 63.2989 5.2143 63.2989 5.56891 63.2989C5.92352 63.1181 6.1043 62.9442 6.45891 62.7635L7.52274 60.9835C8.7743 60.4481 11.9727 58.8489 16.0681 54.5727L7.52274 49.2327Z\" fill=\"white\"></path>\n</svg>",
+            "title": "Trusted by thousands",
+            "description": "Thousands of 5-star reviews from students, creators and professionals."
+          }
+        },
+        "trust_item_nqpQPj": {
+          "type": "trust_item",
+          "settings": {
+            "icon_svg": "<svg width=\"89\" height=\"82\" viewbox=\"0 0 89 82\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M44.4702 0.000217121C43.9987 0.00758706 43.5494 0.201714 43.2209 0.539992C42.8924 0.87827 42.7116 1.33306 42.718 1.80455V25.9875L35.0765 18.346C34.9125 18.1752 34.7161 18.0388 34.4987 17.9449C34.2813 17.8509 34.0473 17.8013 33.8105 17.7988C33.5737 17.7964 33.3388 17.8413 33.1195 17.9308C32.9003 18.0203 32.7011 18.1527 32.5336 18.3202C32.3662 18.4876 32.2338 18.6868 32.1443 18.9061C32.0548 19.1253 32.0099 19.3602 32.0123 19.597C32.0147 19.8339 32.0644 20.0678 32.1583 20.2852C32.2523 20.5026 32.3887 20.6991 32.5595 20.8631L43.2395 31.5431C43.5733 31.8768 44.026 32.0642 44.498 32.0642C44.97 32.0642 45.4227 31.8768 45.7565 31.5431L56.4365 20.8631C56.6074 20.6991 56.7438 20.5026 56.8377 20.2852C56.9317 20.0678 56.9813 19.8339 56.9837 19.597C56.9861 19.3602 56.9413 19.1253 56.8518 18.9061C56.7622 18.6868 56.6299 18.4876 56.4624 18.3202C56.295 18.1527 56.0958 18.0203 55.8765 17.9308C55.6572 17.8413 55.4223 17.7964 55.1855 17.7988C54.9487 17.8013 54.7148 17.8509 54.4974 17.9449C54.28 18.0388 54.0835 18.1752 53.9195 18.346L46.278 25.9875V1.80455C46.2813 1.56641 46.2367 1.33003 46.147 1.10942C46.0572 0.888802 45.9241 0.688439 45.7556 0.520191C45.587 0.351943 45.3864 0.219232 45.1656 0.129917C44.9448 0.0406014 44.7083 -0.00350239 44.4702 0.000217121ZM24.9354 21.3741C24.7151 21.3757 24.497 21.4181 24.2922 21.4993L10.0522 26.8393C9.79651 26.9246 9.5635 27.0669 9.37079 27.2554C9.17807 27.4439 9.03068 27.6737 8.93974 27.9274L0.269193 41.8024C0.129498 42.0267 0.0414695 42.2792 0.0114944 42.5417C-0.0184806 42.8042 0.0103491 43.0701 0.0958921 43.32C0.181435 43.57 0.321546 43.7978 0.506062 43.9869C0.690577 44.176 0.91487 44.3217 1.16267 44.4133L8.89802 47.2641V67.6646C8.89835 68.0284 9.01016 68.3834 9.21839 68.6817C9.42662 68.9801 9.72127 69.2075 10.0627 69.3333L43.8827 81.7933C44.2799 81.9396 44.7162 81.9396 45.1134 81.7933L78.9334 69.3333C79.2748 69.2075 79.5694 68.9801 79.7776 68.6817C79.9859 68.3834 80.0977 68.0284 80.098 67.6646V47.2641L87.8334 44.4133C88.0812 44.3217 88.3055 44.176 88.49 43.9869C88.6745 43.7978 88.8146 43.57 88.9001 43.32C88.9857 43.0701 89.0145 42.8042 88.9846 42.5417C88.9546 42.2792 88.8665 42.0267 88.7269 41.8024L80.0633 27.9448C79.9786 27.7024 79.8424 27.4812 79.6642 27.2964C79.486 27.1116 79.2699 26.9675 79.0307 26.874C79.01 26.8655 78.9892 26.8574 78.9681 26.8497C78.9601 26.8462 78.9519 26.8427 78.9438 26.8393L64.7038 21.4993C64.4814 21.4123 64.2438 21.3709 64.005 21.3776C63.5915 21.3906 63.1953 21.5472 62.8847 21.8205C62.5741 22.0939 62.3684 22.4669 62.303 22.8754C62.2376 23.284 62.3165 23.7026 62.5263 24.0592C62.736 24.4159 63.0634 24.6884 63.4522 24.8298L73.2144 28.4906L44.498 39.0698L15.7816 28.4906L25.5438 24.8298C25.9389 24.688 26.2712 24.4111 26.482 24.048C26.6928 23.685 26.7685 23.2591 26.6957 22.8456C26.6229 22.4322 26.4063 22.0577 26.0842 21.7885C25.7621 21.5192 25.3552 21.3725 24.9354 21.3741ZM11.422 30.6739L41.8315 41.8754L34.8575 53.0352L4.44454 41.8337L11.422 30.6739ZM77.574 30.6739L84.5515 41.8337L54.1385 53.0352L47.1645 41.8754L77.574 30.6739ZM42.718 47.1667V77.5693L12.458 66.4234V48.5747L34.9827 56.8733C35.3663 57.0145 35.7869 57.0194 36.1737 56.8871C36.5606 56.7547 36.8901 56.4933 37.1068 56.1467L42.718 47.1667ZM46.278 47.1667L51.8892 56.1467C52.106 56.4933 52.4355 56.7547 52.8223 56.8871C53.2091 57.0194 53.6297 57.0145 54.0134 56.8733L76.538 48.5747V66.4234L46.278 77.5693V47.1667Z\" fill=\"white\"></path>\n</svg>",
+            "title": "Swift in dispatch",
+            "description": "From fast processing to careful packaging, our team ensures a smooth and reliable experience."
+          }
+        },
+        "trust_item_H8R7xx": {
+          "type": "trust_item",
+          "settings": {
+            "icon_svg": "<svg width=\"89\" height=\"66\" viewbox=\"0 0 89 66\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M0 0V3.56H50.0069C50.7161 3.56 51.62 4.46391 51.62 5.17312V53.4H33.6531C32.8048 48.352 28.4174 44.5 23.14 44.5C17.8626 44.5 13.4752 48.352 12.6269 53.4H5.34C4.35266 53.4 3.56 52.6073 3.56 51.62V35.6H0V51.62C0 54.5473 2.41273 56.96 5.34 56.96H12.6269C13.4752 62.008 17.8626 65.86 23.14 65.86C28.4174 65.86 32.8048 62.008 33.6531 56.96H60.6869C61.5352 62.008 65.9226 65.86 71.2 65.86C76.4774 65.86 80.8648 62.008 81.7131 56.96H83.66C85.141 56.96 86.4412 56.2925 87.3869 55.3469C88.3325 54.4012 89 53.101 89 51.62V34.5431C89 32.5406 88.2352 30.705 87.5537 29.3144C86.8723 27.9237 86.1631 26.9225 86.1631 26.9225V26.8669L78.8763 17.0769H78.8206V17.0212C77.2423 15.0466 74.7113 12.46 71.2 12.46H56.96C56.3203 12.46 55.7362 12.5782 55.18 12.7937V5.17312C55.18 2.32234 52.8577 0 50.0069 0H0ZM0 7.12V10.68H32.04V7.12H0ZM0 14.24V17.8H26.7V14.24H0ZM56.96 16.02H64.08V32.04C64.08 33.521 64.7475 34.8213 65.6931 35.7669C66.6387 36.7125 67.939 37.38 69.42 37.38H85.44V51.62C85.44 51.919 85.2175 52.3988 84.8281 52.7881C84.4388 53.1775 83.959 53.4 83.66 53.4H81.7131C80.8648 48.352 76.4774 44.5 71.2 44.5C65.9226 44.5 61.5352 48.352 60.6869 53.4H55.18V17.8C55.18 17.501 55.4025 17.0212 55.7919 16.6319C56.1812 16.2425 56.661 16.02 56.96 16.02ZM67.64 16.02H71.2C72.6671 16.02 74.7113 17.6679 75.9837 19.2463L83.2706 28.9806L83.3262 29.0362C83.361 29.0849 83.8408 29.7663 84.3831 30.8719C84.8351 31.7897 85.0715 32.8813 85.2175 33.82H69.42C69.121 33.82 68.6413 33.5975 68.2519 33.2081C67.8625 32.8187 67.64 32.339 67.64 32.04V16.02ZM0 21.36V24.92H21.36V21.36H0ZM0 28.48V32.04H16.02V28.48H0ZM23.14 48.06C27.0963 48.06 30.26 51.2237 30.26 55.18C30.26 59.1363 27.0963 62.3 23.14 62.3C19.1837 62.3 16.02 59.1363 16.02 55.18C16.02 51.2237 19.1837 48.06 23.14 48.06ZM71.2 48.06C75.1563 48.06 78.32 51.2237 78.32 55.18C78.32 59.1363 75.1563 62.3 71.2 62.3C67.2437 62.3 64.08 59.1363 64.08 55.18C64.08 51.2237 67.2437 48.06 71.2 48.06Z\" fill=\"white\"></path>\n</svg>",
+            "title": "Reliable service, every time",
+            "description": "Orders are usually shipped within  1 to 3 business days."
+          }
+        },
+        "trust_item_HCMB4t": {
+          "type": "trust_item",
+          "settings": {
+            "icon_svg": "<svg width=\"82\" height=\"82\" viewbox=\"0 0 82 82\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M40.94 0C18.3505 0 0 18.3505 0 40.94C0 63.5295 18.3505 81.88 40.94 81.88C63.5295 81.88 81.88 63.5295 81.88 40.94C81.88 18.3505 63.5295 0 40.94 0ZM40.94 3.56C61.6055 3.56 78.32 20.2745 78.32 40.94C78.32 61.6055 61.6055 78.32 40.94 78.32C20.2745 78.32 3.56 61.6055 3.56 40.94C3.56 20.2745 20.2745 3.56 40.94 3.56ZM40.94 14.24C40.7218 14.2435 40.5062 14.2871 40.3038 14.3686C33.753 14.7198 28.48 20.0646 28.48 26.7V30.26H21.36C20.8879 30.26 20.4352 30.4476 20.1014 30.7814C19.7676 31.1152 19.58 31.5679 19.58 32.04V60.52C19.58 60.9921 19.7676 61.4448 20.1014 61.7786C20.4352 62.1124 20.8879 62.3 21.36 62.3H60.52C60.9921 62.3 61.4448 62.1124 61.7786 61.7786C62.1124 61.4448 62.3 60.9921 62.3 60.52V32.04C62.3 31.5679 62.1124 31.1152 61.7786 30.7814C61.4448 30.4476 60.9921 30.26 60.52 30.26H53.4V26.7C53.4 19.8393 47.8007 14.24 40.94 14.24ZM40.94 17.8C45.8771 17.8 49.84 21.7629 49.84 26.7V30.26H32.04V26.7C32.04 21.7629 36.0029 17.8 40.94 17.8ZM23.14 33.82H58.74V37.38H23.14V33.82ZM23.14 40.94H35.6V44.5H23.14V40.94ZM39.16 40.94H42.72V51.62H39.16V40.94ZM46.28 40.94H58.74V44.5H46.28V40.94ZM23.14 48.06H35.6V51.62H23.14V48.06ZM46.28 48.06H58.74V51.62H46.28V48.06ZM23.14 55.18H58.74V58.74H23.14V55.18Z\" fill=\"white\"></path>\n</svg>",
+            "title": "Secure & Guaranteed",
+            "description": "Safe checkout + 7-day replacement support."
+          }
+        }
+      },
+      "block_order": [
+        "trust_item_cqarW4",
+        "trust_item_nqpQPj",
+        "trust_item_H8R7xx",
+        "trust_item_HCMB4t"
+      ],
+      "custom_css": [
+        "{margin-top: 50px;}"
+      ],
+      "name": "Trust Section",
+      "settings": {
+        "heading": "Your trusted stationery source"
+      }
+    },
+    "custom_3_column_8gL8MA": {
+      "type": "Custom-3-column",
+      "blocks": {
+        "feature_hbj6NA": {
+          "type": "feature",
+          "settings": {
+            "image": "shopify://shop_images/web-trusted_quality.png",
+            "title": "TRUSTED JAPANESE QUALITY",
+            "description": "Our selection features Japanese brands trusted worldwide for quality."
+          }
+        },
+        "feature_MqmfdQ": {
+          "type": "feature",
+          "settings": {
+            "image": "shopify://shop_images/web-selected_with_intention.png",
+            "title": "SELECTED WITH  INTENTION",
+            "description": "We offer products we personally vouch for, from stationery essentials to limited edition pieces."
+          }
+        },
+        "feature_Ekb7NE": {
+          "type": "feature",
+          "settings": {
+            "image": "shopify://shop_images/web-make_it_memorable_1.png",
+            "title": "Make it personal & Make it memorable",
+            "description": "Create a one of a kind keepsake with optional engraving and custom gift boxes."
+          }
+        }
+      },
+      "block_order": [
+        "feature_hbj6NA",
+        "feature_MqmfdQ",
+        "feature_Ekb7NE"
+      ],
+      "name": "Quality Features",
+      "settings": {
+        "heading": "Quality Stationery & Meaningful Options"
+      }
+    },
+    "custom_testimonial_Bjnx8E": {
+      "type": "Custom-testimonial",
+      "blocks": {
+        "testimonial_card_rQTkTb": {
+          "type": "testimonial_card",
+          "settings": {
+            "card_background_color": "#931932",
+            "card_title_color": "#ffffff",
+            "card_text_color": "#ffffff",
+            "card_star_icon": "<svg width=\"129\" height=\"24\" viewbox=\"0 0 129 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M12.2719 1.89485L14.51 8.52102L21.5028 8.60198C22.1045 8.60899 22.3536 9.37576 21.871 9.73463L16.2607 13.9102L18.3446 20.5862C18.5237 21.1607 17.8721 21.634 17.3809 21.2861L11.6764 17.2405L5.97114 21.2853C5.48071 21.6333 4.82837 21.1592 5.00741 20.5855L7.09133 13.9095L1.48103 9.73385C0.99839 9.37498 1.24749 8.60821 1.84924 8.6012L8.84206 8.52025L11.0801 1.89407C11.2732 1.32424 12.0796 1.32424 12.2719 1.89485Z\" fill=\"#FF8D3A\"></path>\n<path d=\"M38.6254 1.89485L40.8635 8.52102L47.8563 8.60198C48.4581 8.60899 48.7072 9.37576 48.2245 9.73463L42.6142 13.9102L44.6981 20.5862C44.8772 21.1607 44.2256 21.634 43.7344 21.2861L38.0299 17.2405L32.3247 21.2853C31.8342 21.6333 31.1819 21.1592 31.3609 20.5855L33.4448 13.9095L27.8345 9.73385C27.3519 9.37498 27.601 8.60821 28.2028 8.6012L35.1956 8.52025L37.4336 1.89407C37.6267 1.32424 38.4332 1.32424 38.6254 1.89485Z\" fill=\"#FF8D3A\"></path>\n<path d=\"M64.979 1.89485L67.217 8.52102L74.2098 8.60198C74.8116 8.60899 75.0607 9.37576 74.578 9.73463L68.9677 13.9102L71.0516 20.5862C71.2307 21.1607 70.5791 21.634 70.0879 21.2861L64.3834 17.2405L58.6782 21.2853C58.1877 21.6333 57.5354 21.1592 57.7144 20.5855L59.7984 13.9095L54.1881 9.73385C53.7054 9.37498 53.9545 8.60821 54.5563 8.6012L61.5491 8.52025L63.7871 1.89407C63.9802 1.32424 64.7867 1.32424 64.979 1.89485Z\" fill=\"#FF8D3A\"></path>\n<path d=\"M91.3325 1.89485L93.5705 8.52102L100.563 8.60198C101.165 8.60899 101.414 9.37576 100.932 9.73463L95.3212 13.9102L97.4052 20.5862C97.5842 21.1607 96.9326 21.634 96.4414 21.2861L90.737 17.2405L85.0317 21.2853C84.5413 21.6333 83.8889 21.1592 84.068 20.5855L86.1519 13.9095L80.5416 9.73385C80.0589 9.37498 80.308 8.60821 80.9098 8.6012L87.9026 8.52025L90.1407 1.89407C90.3337 1.32424 91.1402 1.32424 91.3325 1.89485Z\" fill=\"#FF8D3A\"></path>\n<path d=\"M117.686 1.89485L119.924 8.52102L126.917 8.60198C127.519 8.60899 127.768 9.37576 127.285 9.73463L121.675 13.9102L123.759 20.5862C123.938 21.1607 123.286 21.634 122.795 21.2861L117.09 17.2405L111.385 21.2853C110.895 21.6333 110.242 21.1592 110.421 20.5855L112.505 13.9095L106.895 9.73385C106.412 9.37498 106.662 8.60821 107.263 8.6012L114.256 8.52025L116.494 1.89407C116.687 1.32424 117.494 1.32424 117.686 1.89485Z\" fill=\"#FF8D3A\"></path>\n</svg>",
+            "card_title": "Seller is accomodating",
+            "card_description": "Very accommodating seller. Surely was able to get a few of these before they ran out of stocks. I completed all the colors for this series. Thanks for this shop they have all the colors.",
+            "customer_name": "Tara K.",
+            "verified_text": "Verified Buyer"
+          }
+        },
+        "testimonial_card_CKh4AQ": {
+          "type": "testimonial_card",
+          "settings": {
+            "card_background_color": "#931932",
+            "card_title_color": "#ffffff",
+            "card_text_color": "#ffffff",
+            "card_star_icon": "<svg width=\"129\" height=\"24\" viewbox=\"0 0 129 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M12.2719 1.89485L14.51 8.52102L21.5028 8.60198C22.1045 8.60899 22.3536 9.37576 21.871 9.73463L16.2607 13.9102L18.3446 20.5862C18.5237 21.1607 17.8721 21.634 17.3809 21.2861L11.6764 17.2405L5.97114 21.2853C5.48071 21.6333 4.82837 21.1592 5.00741 20.5855L7.09133 13.9095L1.48103 9.73385C0.99839 9.37498 1.24749 8.60821 1.84924 8.6012L8.84206 8.52025L11.0801 1.89407C11.2732 1.32424 12.0796 1.32424 12.2719 1.89485Z\" fill=\"#FF8D3A\"></path>\n<path d=\"M38.6254 1.89485L40.8635 8.52102L47.8563 8.60198C48.4581 8.60899 48.7072 9.37576 48.2245 9.73463L42.6142 13.9102L44.6981 20.5862C44.8772 21.1607 44.2256 21.634 43.7344 21.2861L38.0299 17.2405L32.3247 21.2853C31.8342 21.6333 31.1819 21.1592 31.3609 20.5855L33.4448 13.9095L27.8345 9.73385C27.3519 9.37498 27.601 8.60821 28.2028 8.6012L35.1956 8.52025L37.4336 1.89407C37.6267 1.32424 38.4332 1.32424 38.6254 1.89485Z\" fill=\"#FF8D3A\"></path>\n<path d=\"M64.979 1.89485L67.217 8.52102L74.2098 8.60198C74.8116 8.60899 75.0607 9.37576 74.578 9.73463L68.9677 13.9102L71.0516 20.5862C71.2307 21.1607 70.5791 21.634 70.0879 21.2861L64.3834 17.2405L58.6782 21.2853C58.1877 21.6333 57.5354 21.1592 57.7144 20.5855L59.7984 13.9095L54.1881 9.73385C53.7054 9.37498 53.9545 8.60821 54.5563 8.6012L61.5491 8.52025L63.7871 1.89407C63.9802 1.32424 64.7867 1.32424 64.979 1.89485Z\" fill=\"#FF8D3A\"></path>\n<path d=\"M91.3325 1.89485L93.5705 8.52102L100.563 8.60198C101.165 8.60899 101.414 9.37576 100.932 9.73463L95.3212 13.9102L97.4052 20.5862C97.5842 21.1607 96.9326 21.634 96.4414 21.2861L90.737 17.2405L85.0317 21.2853C84.5413 21.6333 83.8889 21.1592 84.068 20.5855L86.1519 13.9095L80.5416 9.73385C80.0589 9.37498 80.308 8.60821 80.9098 8.6012L87.9026 8.52025L90.1407 1.89407C90.3337 1.32424 91.1402 1.32424 91.3325 1.89485Z\" fill=\"#FF8D3A\"></path>\n<path d=\"M117.686 1.89485L119.924 8.52102L126.917 8.60198C127.519 8.60899 127.768 9.37576 127.285 9.73463L121.675 13.9102L123.759 20.5862C123.938 21.1607 123.286 21.634 122.795 21.2861L117.09 17.2405L111.385 21.2853C110.895 21.6333 110.242 21.1592 110.421 20.5855L112.505 13.9095L106.895 9.73385C106.412 9.37498 106.662 8.60821 107.263 8.6012L114.256 8.52025L116.494 1.89407C116.687 1.32424 117.494 1.32424 117.686 1.89485Z\" fill=\"#FF8D3A\"></path>\n</svg>",
+            "card_title": "Perfect gift ideas!",
+            "card_description": "I'm very happy to have received my order of the pens with ENGRAVING. I'll be giving these out as gifts to my teachers and friends. They have different font cariation",
+            "customer_name": "Swara Y.",
+            "verified_text": "Verified Buyer"
+          }
+        },
+        "testimonial_card_yyPkiY": {
+          "type": "testimonial_card",
+          "settings": {
+            "card_background_color": "#931932",
+            "card_title_color": "#ffffff",
+            "card_text_color": "#ffffff",
+            "card_star_icon": "<svg width=\"129\" height=\"24\" viewbox=\"0 0 129 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M12.2719 1.89485L14.51 8.52102L21.5028 8.60198C22.1045 8.60899 22.3536 9.37576 21.871 9.73463L16.2607 13.9102L18.3446 20.5862C18.5237 21.1607 17.8721 21.634 17.3809 21.2861L11.6764 17.2405L5.97114 21.2853C5.48071 21.6333 4.82837 21.1592 5.00741 20.5855L7.09133 13.9095L1.48103 9.73385C0.99839 9.37498 1.24749 8.60821 1.84924 8.6012L8.84206 8.52025L11.0801 1.89407C11.2732 1.32424 12.0796 1.32424 12.2719 1.89485Z\" fill=\"#FF8D3A\"></path>\n<path d=\"M38.6254 1.89485L40.8635 8.52102L47.8563 8.60198C48.4581 8.60899 48.7072 9.37576 48.2245 9.73463L42.6142 13.9102L44.6981 20.5862C44.8772 21.1607 44.2256 21.634 43.7344 21.2861L38.0299 17.2405L32.3247 21.2853C31.8342 21.6333 31.1819 21.1592 31.3609 20.5855L33.4448 13.9095L27.8345 9.73385C27.3519 9.37498 27.601 8.60821 28.2028 8.6012L35.1956 8.52025L37.4336 1.89407C37.6267 1.32424 38.4332 1.32424 38.6254 1.89485Z\" fill=\"#FF8D3A\"></path>\n<path d=\"M64.979 1.89485L67.217 8.52102L74.2098 8.60198C74.8116 8.60899 75.0607 9.37576 74.578 9.73463L68.9677 13.9102L71.0516 20.5862C71.2307 21.1607 70.5791 21.634 70.0879 21.2861L64.3834 17.2405L58.6782 21.2853C58.1877 21.6333 57.5354 21.1592 57.7144 20.5855L59.7984 13.9095L54.1881 9.73385C53.7054 9.37498 53.9545 8.60821 54.5563 8.6012L61.5491 8.52025L63.7871 1.89407C63.9802 1.32424 64.7867 1.32424 64.979 1.89485Z\" fill=\"#FF8D3A\"></path>\n<path d=\"M91.3325 1.89485L93.5705 8.52102L100.563 8.60198C101.165 8.60899 101.414 9.37576 100.932 9.73463L95.3212 13.9102L97.4052 20.5862C97.5842 21.1607 96.9326 21.634 96.4414 21.2861L90.737 17.2405L85.0317 21.2853C84.5413 21.6333 83.8889 21.1592 84.068 20.5855L86.1519 13.9095L80.5416 9.73385C80.0589 9.37498 80.308 8.60821 80.9098 8.6012L87.9026 8.52025L90.1407 1.89407C90.3337 1.32424 91.1402 1.32424 91.3325 1.89485Z\" fill=\"#FF8D3A\"></path>\n<path d=\"M117.686 1.89485L119.924 8.52102L126.917 8.60198C127.519 8.60899 127.768 9.37576 127.285 9.73463L121.675 13.9102L123.759 20.5862C123.938 21.1607 123.286 21.634 122.795 21.2861L117.09 17.2405L111.385 21.2853C110.895 21.6333 110.242 21.1592 110.421 20.5855L112.505 13.9095L106.895 9.73385C106.412 9.37498 106.662 8.60821 107.263 8.6012L114.256 8.52025L116.494 1.89407C116.687 1.32424 117.494 1.32424 117.686 1.89485Z\" fill=\"#FF8D3A\"></path>\n</svg>",
+            "card_title": "Very Cute Pen",
+            "card_description": "I'm very happy to have received my order of the pens with ENGRAVING. I'll be giving these out as gifts to my teachers and friends. They have different font cariation",
+            "customer_name": "Angelie T.",
+            "verified_text": "Verified Buyer"
+          }
+        },
+        "testimonial_card_n7FFH9": {
+          "type": "testimonial_card",
+          "settings": {
+            "card_background_color": "#931932",
+            "card_title_color": "#ffffff",
+            "card_text_color": "#ffffff",
+            "card_star_icon": "<svg width=\"129\" height=\"24\" viewbox=\"0 0 129 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M12.2719 1.89485L14.51 8.52102L21.5028 8.60198C22.1045 8.60899 22.3536 9.37576 21.871 9.73463L16.2607 13.9102L18.3446 20.5862C18.5237 21.1607 17.8721 21.634 17.3809 21.2861L11.6764 17.2405L5.97114 21.2853C5.48071 21.6333 4.82837 21.1592 5.00741 20.5855L7.09133 13.9095L1.48103 9.73385C0.99839 9.37498 1.24749 8.60821 1.84924 8.6012L8.84206 8.52025L11.0801 1.89407C11.2732 1.32424 12.0796 1.32424 12.2719 1.89485Z\" fill=\"#FF8D3A\"></path>\n<path d=\"M38.6254 1.89485L40.8635 8.52102L47.8563 8.60198C48.4581 8.60899 48.7072 9.37576 48.2245 9.73463L42.6142 13.9102L44.6981 20.5862C44.8772 21.1607 44.2256 21.634 43.7344 21.2861L38.0299 17.2405L32.3247 21.2853C31.8342 21.6333 31.1819 21.1592 31.3609 20.5855L33.4448 13.9095L27.8345 9.73385C27.3519 9.37498 27.601 8.60821 28.2028 8.6012L35.1956 8.52025L37.4336 1.89407C37.6267 1.32424 38.4332 1.32424 38.6254 1.89485Z\" fill=\"#FF8D3A\"></path>\n<path d=\"M64.979 1.89485L67.217 8.52102L74.2098 8.60198C74.8116 8.60899 75.0607 9.37576 74.578 9.73463L68.9677 13.9102L71.0516 20.5862C71.2307 21.1607 70.5791 21.634 70.0879 21.2861L64.3834 17.2405L58.6782 21.2853C58.1877 21.6333 57.5354 21.1592 57.7144 20.5855L59.7984 13.9095L54.1881 9.73385C53.7054 9.37498 53.9545 8.60821 54.5563 8.6012L61.5491 8.52025L63.7871 1.89407C63.9802 1.32424 64.7867 1.32424 64.979 1.89485Z\" fill=\"#FF8D3A\"></path>\n<path d=\"M91.3325 1.89485L93.5705 8.52102L100.563 8.60198C101.165 8.60899 101.414 9.37576 100.932 9.73463L95.3212 13.9102L97.4052 20.5862C97.5842 21.1607 96.9326 21.634 96.4414 21.2861L90.737 17.2405L85.0317 21.2853C84.5413 21.6333 83.8889 21.1592 84.068 20.5855L86.1519 13.9095L80.5416 9.73385C80.0589 9.37498 80.308 8.60821 80.9098 8.6012L87.9026 8.52025L90.1407 1.89407C90.3337 1.32424 91.1402 1.32424 91.3325 1.89485Z\" fill=\"#FF8D3A\"></path>\n<path d=\"M117.686 1.89485L119.924 8.52102L126.917 8.60198C127.519 8.60899 127.768 9.37576 127.285 9.73463L121.675 13.9102L123.759 20.5862C123.938 21.1607 123.286 21.634 122.795 21.2861L117.09 17.2405L111.385 21.2853C110.895 21.6333 110.242 21.1592 110.421 20.5855L112.505 13.9095L106.895 9.73385C106.412 9.37498 106.662 8.60821 107.263 8.6012L114.256 8.52025L116.494 1.89407C116.687 1.32424 117.494 1.32424 117.686 1.89485Z\" fill=\"#FF8D3A\"></path>\n</svg>",
+            "card_title": "Favorite pen lately!",
+            "card_description": "I placed my order last Dec 23 early in the morning, the orders were done by noon, and was shipped later that day. They also sent pictures immediately. Superb service!",
+            "customer_name": "Dianemary G.",
+            "verified_text": "Verified Buyer"
+          }
+        },
+        "testimonial_card_Fd6pNK": {
+          "type": "testimonial_card",
+          "settings": {
+            "card_background_color": "#931932",
+            "card_title_color": "#ffffff",
+            "card_text_color": "#ffffff",
+            "card_star_icon": "<svg width=\"129\" height=\"24\" viewbox=\"0 0 129 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M12.2719 1.89485L14.51 8.52102L21.5028 8.60198C22.1045 8.60899 22.3536 9.37576 21.871 9.73463L16.2607 13.9102L18.3446 20.5862C18.5237 21.1607 17.8721 21.634 17.3809 21.2861L11.6764 17.2405L5.97114 21.2853C5.48071 21.6333 4.82837 21.1592 5.00741 20.5855L7.09133 13.9095L1.48103 9.73385C0.99839 9.37498 1.24749 8.60821 1.84924 8.6012L8.84206 8.52025L11.0801 1.89407C11.2732 1.32424 12.0796 1.32424 12.2719 1.89485Z\" fill=\"#FF8D3A\"></path>\n<path d=\"M38.6254 1.89485L40.8635 8.52102L47.8563 8.60198C48.4581 8.60899 48.7072 9.37576 48.2245 9.73463L42.6142 13.9102L44.6981 20.5862C44.8772 21.1607 44.2256 21.634 43.7344 21.2861L38.0299 17.2405L32.3247 21.2853C31.8342 21.6333 31.1819 21.1592 31.3609 20.5855L33.4448 13.9095L27.8345 9.73385C27.3519 9.37498 27.601 8.60821 28.2028 8.6012L35.1956 8.52025L37.4336 1.89407C37.6267 1.32424 38.4332 1.32424 38.6254 1.89485Z\" fill=\"#FF8D3A\"></path>\n<path d=\"M64.979 1.89485L67.217 8.52102L74.2098 8.60198C74.8116 8.60899 75.0607 9.37576 74.578 9.73463L68.9677 13.9102L71.0516 20.5862C71.2307 21.1607 70.5791 21.634 70.0879 21.2861L64.3834 17.2405L58.6782 21.2853C58.1877 21.6333 57.5354 21.1592 57.7144 20.5855L59.7984 13.9095L54.1881 9.73385C53.7054 9.37498 53.9545 8.60821 54.5563 8.6012L61.5491 8.52025L63.7871 1.89407C63.9802 1.32424 64.7867 1.32424 64.979 1.89485Z\" fill=\"#FF8D3A\"></path>\n<path d=\"M91.3325 1.89485L93.5705 8.52102L100.563 8.60198C101.165 8.60899 101.414 9.37576 100.932 9.73463L95.3212 13.9102L97.4052 20.5862C97.5842 21.1607 96.9326 21.634 96.4414 21.2861L90.737 17.2405L85.0317 21.2853C84.5413 21.6333 83.8889 21.1592 84.068 20.5855L86.1519 13.9095L80.5416 9.73385C80.0589 9.37498 80.308 8.60821 80.9098 8.6012L87.9026 8.52025L90.1407 1.89407C90.3337 1.32424 91.1402 1.32424 91.3325 1.89485Z\" fill=\"#FF8D3A\"></path>\n<path d=\"M117.686 1.89485L119.924 8.52102L126.917 8.60198C127.519 8.60899 127.768 9.37576 127.285 9.73463L121.675 13.9102L123.759 20.5862C123.938 21.1607 123.286 21.634 122.795 21.2861L117.09 17.2405L111.385 21.2853C110.895 21.6333 110.242 21.1592 110.421 20.5855L112.505 13.9095L106.895 9.73385C106.412 9.37498 106.662 8.60821 107.263 8.6012L114.256 8.52025L116.494 1.89407C116.687 1.32424 117.494 1.32424 117.686 1.89485Z\" fill=\"#FF8D3A\"></path>\n</svg>",
+            "card_title": "Trusted shop ever!",
+            "card_description": "My go-to when it comes to pens, engraving, and refills! 🙌🏽 Fast shipping and safely packed kahit refills lang ang inorder.",
+            "customer_name": "Daigi J.",
+            "verified_text": "Verified Buyer"
+          }
+        },
+        "testimonial_card_xzpJXF": {
+          "type": "testimonial_card",
+          "settings": {
+            "card_background_color": "#931932",
+            "card_title_color": "#ffffff",
+            "card_text_color": "#ffffff",
+            "card_star_icon": "<svg width=\"129\" height=\"24\" viewbox=\"0 0 129 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M12.2719 1.89485L14.51 8.52102L21.5028 8.60198C22.1045 8.60899 22.3536 9.37576 21.871 9.73463L16.2607 13.9102L18.3446 20.5862C18.5237 21.1607 17.8721 21.634 17.3809 21.2861L11.6764 17.2405L5.97114 21.2853C5.48071 21.6333 4.82837 21.1592 5.00741 20.5855L7.09133 13.9095L1.48103 9.73385C0.99839 9.37498 1.24749 8.60821 1.84924 8.6012L8.84206 8.52025L11.0801 1.89407C11.2732 1.32424 12.0796 1.32424 12.2719 1.89485Z\" fill=\"#FF8D3A\"></path>\n<path d=\"M38.6254 1.89485L40.8635 8.52102L47.8563 8.60198C48.4581 8.60899 48.7072 9.37576 48.2245 9.73463L42.6142 13.9102L44.6981 20.5862C44.8772 21.1607 44.2256 21.634 43.7344 21.2861L38.0299 17.2405L32.3247 21.2853C31.8342 21.6333 31.1819 21.1592 31.3609 20.5855L33.4448 13.9095L27.8345 9.73385C27.3519 9.37498 27.601 8.60821 28.2028 8.6012L35.1956 8.52025L37.4336 1.89407C37.6267 1.32424 38.4332 1.32424 38.6254 1.89485Z\" fill=\"#FF8D3A\"></path>\n<path d=\"M64.979 1.89485L67.217 8.52102L74.2098 8.60198C74.8116 8.60899 75.0607 9.37576 74.578 9.73463L68.9677 13.9102L71.0516 20.5862C71.2307 21.1607 70.5791 21.634 70.0879 21.2861L64.3834 17.2405L58.6782 21.2853C58.1877 21.6333 57.5354 21.1592 57.7144 20.5855L59.7984 13.9095L54.1881 9.73385C53.7054 9.37498 53.9545 8.60821 54.5563 8.6012L61.5491 8.52025L63.7871 1.89407C63.9802 1.32424 64.7867 1.32424 64.979 1.89485Z\" fill=\"#FF8D3A\"></path>\n<path d=\"M91.3325 1.89485L93.5705 8.52102L100.563 8.60198C101.165 8.60899 101.414 9.37576 100.932 9.73463L95.3212 13.9102L97.4052 20.5862C97.5842 21.1607 96.9326 21.634 96.4414 21.2861L90.737 17.2405L85.0317 21.2853C84.5413 21.6333 83.8889 21.1592 84.068 20.5855L86.1519 13.9095L80.5416 9.73385C80.0589 9.37498 80.308 8.60821 80.9098 8.6012L87.9026 8.52025L90.1407 1.89407C90.3337 1.32424 91.1402 1.32424 91.3325 1.89485Z\" fill=\"#FF8D3A\"></path>\n<path d=\"M117.686 1.89485L119.924 8.52102L126.917 8.60198C127.519 8.60899 127.768 9.37576 127.285 9.73463L121.675 13.9102L123.759 20.5862C123.938 21.1607 123.286 21.634 122.795 21.2861L117.09 17.2405L111.385 21.2853C110.895 21.6333 110.242 21.1592 110.421 20.5855L112.505 13.9095L106.895 9.73385C106.412 9.37498 106.662 8.60821 107.263 8.6012L114.256 8.52025L116.494 1.89407C116.687 1.32424 117.494 1.32424 117.686 1.89485Z\" fill=\"#FF8D3A\"></path>\n</svg>",
+            "card_title": "Personalize Engraving",
+            "card_description": "The engraving service is superb. Seller even confirmed before engraving and even sent photos afterwards. Customer service is amazing. The pen itself is great as well!!",
+            "customer_name": "Genny P.",
+            "verified_text": "Verified Buyer"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_card_rQTkTb",
+        "testimonial_card_CKh4AQ",
+        "testimonial_card_yyPkiY",
+        "testimonial_card_n7FFH9",
+        "testimonial_card_Fd6pNK",
+        "testimonial_card_xzpJXF"
+      ],
+      "name": "Testimonial Carousel",
+      "settings": {
+        "background_color": "#ffffff",
+        "heading_color": "#121212",
+        "description_color": "#121212",
+        "rating_text_color": "#ffffff",
+        "arrow_color": "#121212",
+        "rating_number": "4.9",
+        "star_icon": "<svg width=\"129\" height=\"24\" viewbox=\"0 0 129 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M12.2719 1.89485L14.51 8.52102L21.5028 8.60198C22.1045 8.60899 22.3536 9.37576 21.871 9.73463L16.2607 13.9102L18.3446 20.5862C18.5237 21.1607 17.8721 21.634 17.3809 21.2861L11.6764 17.2405L5.97114 21.2853C5.48071 21.6333 4.82837 21.1592 5.00741 20.5855L7.09133 13.9095L1.48103 9.73385C0.99839 9.37498 1.24749 8.60821 1.84924 8.6012L8.84206 8.52025L11.0801 1.89407C11.2732 1.32424 12.0796 1.32424 12.2719 1.89485Z\" fill=\"#FF8D3A\"></path>\n<path d=\"M38.6254 1.89485L40.8635 8.52102L47.8563 8.60198C48.4581 8.60899 48.7072 9.37576 48.2245 9.73463L42.6142 13.9102L44.6981 20.5862C44.8772 21.1607 44.2256 21.634 43.7344 21.2861L38.0299 17.2405L32.3247 21.2853C31.8342 21.6333 31.1819 21.1592 31.3609 20.5855L33.4448 13.9095L27.8345 9.73385C27.3519 9.37498 27.601 8.60821 28.2028 8.6012L35.1956 8.52025L37.4336 1.89407C37.6267 1.32424 38.4332 1.32424 38.6254 1.89485Z\" fill=\"#FF8D3A\"></path>\n<path d=\"M64.979 1.89485L67.217 8.52102L74.2098 8.60198C74.8116 8.60899 75.0607 9.37576 74.578 9.73463L68.9677 13.9102L71.0516 20.5862C71.2307 21.1607 70.5791 21.634 70.0879 21.2861L64.3834 17.2405L58.6782 21.2853C58.1877 21.6333 57.5354 21.1592 57.7144 20.5855L59.7984 13.9095L54.1881 9.73385C53.7054 9.37498 53.9545 8.60821 54.5563 8.6012L61.5491 8.52025L63.7871 1.89407C63.9802 1.32424 64.7867 1.32424 64.979 1.89485Z\" fill=\"#FF8D3A\"></path>\n<path d=\"M91.3325 1.89485L93.5705 8.52102L100.563 8.60198C101.165 8.60899 101.414 9.37576 100.932 9.73463L95.3212 13.9102L97.4052 20.5862C97.5842 21.1607 96.9326 21.634 96.4414 21.2861L90.737 17.2405L85.0317 21.2853C84.5413 21.6333 83.8889 21.1592 84.068 20.5855L86.1519 13.9095L80.5416 9.73385C80.0589 9.37498 80.308 8.60821 80.9098 8.6012L87.9026 8.52025L90.1407 1.89407C90.3337 1.32424 91.1402 1.32424 91.3325 1.89485Z\" fill=\"#FF8D3A\"></path>\n<path d=\"M117.686 1.89485L119.924 8.52102L126.917 8.60198C127.519 8.60899 127.768 9.37576 127.285 9.73463L121.675 13.9102L123.759 20.5862C123.938 21.1607 123.286 21.634 122.795 21.2861L117.09 17.2405L111.385 21.2853C110.895 21.6333 110.242 21.1592 110.421 20.5855L112.505 13.9095L106.895 9.73385C106.412 9.37498 106.662 8.60821 107.263 8.6012L114.256 8.52025L116.494 1.89407C116.687 1.32424 117.494 1.32424 117.686 1.89485Z\" fill=\"#FF8D3A\"></path>\n</svg>",
+        "heading": "TRUSTED BY CREATIVES WHO  VALUE CLARITY & CRAFT",
+        "description": "Join thousands of students, stationery lovers, and professionals who choose authentic Japanese tools for sharper focus and smoother workflow.",
+        "prev_arrow_icon": "<svg width=\"16\" height=\"29\" viewbox=\"0 0 16 29\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M9.61991 14.1481L15.5559 2.27463C15.9002 1.58608 15.6942 0.74662 15.0685 0.295448C14.4445 -0.154152 13.5814 -0.0834101 13.0375 0.458939L0.46128 13.0352C-0.153382 13.6498 -0.153382 14.6433 0.461281 15.258L13.0375 27.8342C13.3425 28.1392 13.7465 28.2964 14.1505 28.2964C14.4712 28.2964 14.7934 28.1973 15.0686 27.9993C15.6942 27.5481 15.9002 26.7102 15.5559 26.0201L9.61991 14.1481Z\" fill=\"white\"></path>\n</svg>",
+        "next_arrow_icon": "<svg width=\"16\" height=\"29\" viewbox=\"0 0 16 29\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M6.10177 14.1482L0.165799 26.0218C-0.178475 26.7103 0.0274609 27.5498 0.653127 28.0009C1.27722 28.4505 2.14026 28.3798 2.68419 27.8374L15.2604 15.2612C15.8751 14.6466 15.8751 13.6531 15.2604 13.0384L2.68419 0.462176C2.37921 0.157203 1.9752 0 1.57119 0C1.2505 0 0.928232 0.0990375 0.653127 0.297113C0.0274609 0.748285 -0.178475 1.58617 0.165799 2.27629L6.10177 14.1482Z\" fill=\"white\"></path>\n</svg>"
+      }
+    }
+  },
+  "order": [
+    "custom_banner_wVrLjK",
+    "image_banner",
+    "custom_category_BcmEnq",
+    "ltp_custom_featured_collection_6Jpm98",
+    "featured_collection_yhhb4j",
+    "ltp_featured_collection_v2_wLYUF4",
+    "featured_collection_XhK6B6",
+    "ltp_featured_collection_v2_a6wfXG",
+    "gift_section_GCmYXG",
+    "trust_section_WKDLVj",
+    "custom_3_column_8gL8MA",
+    "custom_testimonial_Bjnx8E"
+  ]
+}

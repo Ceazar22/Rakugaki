@@ -1,0 +1,265 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "image_banner_4xeH8F": {
+      "type": "image-banner",
+      "blocks": {
+        "heading_XRWtGx": {
+          "type": "heading",
+          "settings": {
+            "heading": "Policies",
+            "heading_size": "hxl"
+          }
+        },
+        "text_pdjpaP": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "<p>(Updated: November 15, 2025)</p>",
+            "text_style": "body"
+          }
+        }
+      },
+      "block_order": [
+        "heading_XRWtGx",
+        "text_pdjpaP"
+      ],
+      "custom_css": [
+        "h2 {color: white !important;}",
+        ".banner__box.content-container.content-container--full-width-mobile.color-scheme-1.gradient {margin-top: -430px;}",
+        "p {color: white;}",
+        "@media screen and (max-width: 768px) {.banner__box.content-container.content-container--full-width-mobile.color-scheme-1.gradient {margin-top: -160px; background: transparent; } #Banner-template--16589426524245__image_banner_4xeH8F {height: 24rem; }}"
+      ],
+      "name": "Image banner",
+      "settings": {
+        "image": "shopify://shop_images/FAQs_Policies_web.png",
+        "image_2": "shopify://shop_images/FAQs_Policies_mob.png",
+        "image_overlay_opacity": 0,
+        "image_behavior": "none",
+        "full_width": true,
+        "content_width": 1200,
+        "border_radius": 0,
+        "desktop_image_height": "small",
+        "desktop_content_position": "top-right",
+        "desktop_content_alignment": "center",
+        "show_text_box": false,
+        "color_scheme": "scheme-1",
+        "mobile_image_height": "small",
+        "stack_images_on_mobile": false,
+        "swap_mobile_position": false,
+        "mobile_content_alignment": "right",
+        "mobile_content_position": "bottom",
+        "show_text_below": false
+      }
+    },
+    "rich_text_qVQw4z": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_gAwi3V": {
+          "type": "heading",
+          "settings": {
+            "heading": "Shipping Policy",
+            "heading_size": "h1"
+          }
+        },
+        "text_QXfFrU": {
+          "type": "text",
+          "settings": {
+            "text": "<h3><strong><br/>Order Processing Time</strong></h3><p>Orders are processed within 1–4 business days. Orders are not processed on Sundays or holidays. If there is a high order volume, processing times may be extended. We will notify customers of any significant delays.</p><h3><strong>Shipping Rates</strong></h3><p>Shipping fees are calculated at checkout based on destination, courier rates, and total order size or weight.</p><h3><strong>Delivery Time</strong></h3><p>Delivery times vary depending on the courier and destination. Most orders arrive within a few business days, although remote areas may require additional time.</p><h3><strong>Packaging & Parcel Protection</strong></h3><p>All items are packed with proper protective materials such as bubble wrap and secure outer wrapping to ensure safe transit. Customers may also request **minimal or eco‑friendly packaging** during checkout or via message, and we will accommodate when possible. If your package arrives damaged, please document the outer packaging, shipping label, inner packaging, and the item itself so we can assist you.</p><h3><strong>Failed Deliveries / Returned Shipments</strong></h3><p>If a shipment is returned due to an incomplete address, refusal of delivery, or repeated failed delivery attempts, additional reshipment fees may apply.</p><h3><strong>Lost or Delayed Packages</strong></h3><p>If tracking indicates your order is lost or significantly delayed, please contact us so we can coordinate with the courier and assist you accordingly.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_gAwi3V",
+        "text_QXfFrU"
+      ],
+      "custom_css": [
+        ".rich-text__blocks {max-width: 100%;}",
+        ".rich-text__wrapper {width: 1400px; max-width: 5550px;}",
+        "@media screen and (max-width: 768px) {.rich-text__wrapper {width: 100%; max-width: 100%; }}"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "left",
+        "content_alignment": "left",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "rich_text_B8TYWx": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_JRgiwV": {
+          "type": "heading",
+          "settings": {
+            "heading": "RETURNS & REFUNDS POLICY",
+            "heading_size": "h1"
+          }
+        },
+        "text_tFe9Rr": {
+          "type": "text",
+          "settings": {
+            "text": "<h3><strong><br/>Eligibility for Returns</strong></h3><p>We accept returns for defective, damaged, or incorrect items reported within 7 days of receiving your order. Please provide clear photos or videos of the issue, including the inner and outer packaging, as well as the condition of the item at the time of unboxing. Items showing misuse, accidental damage, or wear and tear after delivery are not eligible for return. Returned items must include all original packaging.</p><h3><strong>Packaging Requirement for Returned Items</strong></h3><p>All returned items must be shipped back using the same level of protective packaging used during delivery, such as bubble wrap or padded wrapping. If a returned item arrives in a more damaged condition due to insufficient packaging during return transit, refunds or replacements cannot be granted.</p><h3><strong>What Qualifies as a Defect</strong></h3><p>• Physical Damage Upon Unboxing: Visible cracks, dents, broken parts, or deep scratches present at the time of opening.<br/>• Incorrect or Missing Items: Items that do not match the order or are missing.<br/>• Ink Flow Issues on Unused Pens: Pens that fail to write even after proper priming steps.<br/>• Manufacturing Defects: Issues in craftsmanship that affect functionality.<br/><br/>Not considered defects:<br/>• Minor cosmetic marks from manufacturing<br/>• Slight packaging imperfections<br/>• Ink flow issues after a pen has been used or improperly stored<br/>• Damage caused after delivery<br/>• Damage caused by inadequate return packaging</p><h3><strong>Refunds</strong></h3><p>Refunds may be approved for defective items, incorrect shipments, or stock availability issues. Refunds may be issued back to the original payment method or provided as store credit depending on the case.</p><h3><strong>Non-Refundable / Non-Returnable Items</strong></h3><p>• Used pens or stationery<br/>• Items damaged after delivery<br/>• Engraved or customized products (unless the engraving error is on our end)<br/>• Items returned without complete packaging<br/>• Items damaged due to inadequate return packaging</p><h3><strong>How to Request a Return</strong></h3><p>Please contact customer support with your order number, photos or videos of the issue, packaging documentation, and a brief description of the concern. Our team will guide you through the return or replacement process.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_JRgiwV",
+        "text_tFe9Rr"
+      ],
+      "custom_css": [
+        "p,.rte li,.rich-text__blocks > * + * {font-family: \"Poppins Regular\";}",
+        ".rich-text__blocks {max-width: 100%;}",
+        ".rich-text__wrapper {width: 1400px; max-width: 5550px;}",
+        "@media screen and (max-width: 768px) {.rich-text__wrapper {width: 100%; max-width: 100%; }}"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "left",
+        "content_alignment": "left",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 0,
+        "padding_bottom": 52
+      }
+    },
+    "rich_text_FAiPck": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_bDTGhC": {
+          "type": "heading",
+          "settings": {
+            "heading": "Privacy Policy",
+            "heading_size": "h1"
+          }
+        },
+        "text_Qgqb7p": {
+          "type": "text",
+          "settings": {
+            "text": "<p><br/>Rakugaki Central values your privacy. This policy outlines how we collect, use, store, and protect your personal information when you interact with our website and services.</p><p>• We collect only the information necessary to process orders, provide support, and improve your experience.<br/>• Information may include name, contact details, order history, and preferences.<br/>• Payment information is securely handled by third‑party processors and is never stored by us.<br/>• We do not sell or share your information with outside parties, except as required to process your order.<br/>• You may request data updates or deletion at any time.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_bDTGhC",
+        "text_Qgqb7p"
+      ],
+      "custom_css": [
+        "p,.rte li,.rich-text__blocks > * + * {font-family: \"Poppins Regular\";}",
+        ".rich-text__blocks {max-width: 100%;}",
+        ".rich-text__wrapper {width: 1400px; max-width: 5550px;}",
+        "@media screen and (max-width: 768px) {.rich-text__wrapper {width: 100%; max-width: 100%; }}"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "left",
+        "content_alignment": "left",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 0,
+        "padding_bottom": 52
+      }
+    },
+    "rich_text_AfhfD7": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_bWEyQi": {
+          "type": "heading",
+          "settings": {
+            "heading": "Terms & Conditions",
+            "heading_size": "h1"
+          }
+        },
+        "text_kxHTTR": {
+          "type": "text",
+          "settings": {
+            "text": "<p><br/>By using the Rakugaki Central website, you agree to the following terms and conditions.</p><p>• All product images and descriptions are for reference; actual colors or packaging may vary slightly.<br/>• Prices, availability, and policies may change without prior notice.<br/>• By placing an order, you confirm that all information provided is accurate and complete.<br/>• Unauthorized reproduction of our content, images, or branding is prohibited.<br/>• We reserve the right to refuse or cancel orders for suspected fraud or policy violations.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_bWEyQi",
+        "text_kxHTTR"
+      ],
+      "custom_css": [
+        "p,.rte li,.rich-text__blocks > * + * {font-family: \"Poppins Regular\";}",
+        ".rich-text__blocks {max-width: 100%;}",
+        ".rich-text__wrapper {width: 1400px; max-width: 5550px;}",
+        "@media screen and (max-width: 768px) {.rich-text__wrapper {width: 100%; max-width: 100%; }}"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "left",
+        "content_alignment": "left",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 0,
+        "padding_bottom": 52
+      }
+    },
+    "rich_text_kwij8d": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_NmrzCP": {
+          "type": "heading",
+          "settings": {
+            "heading": "About Us",
+            "heading_size": "h1"
+          }
+        },
+        "text_CVmXyz": {
+          "type": "text",
+          "settings": {
+            "text": "<p><br/>Rakugaki Central is dedicated to offering high‑quality Japanese stationery, pens, refills, accessories, and gift items. We carefully source our products from trusted suppliers and ensure that every item meets our standards of authenticity and quality.</p><p>Our mission is to bring thoughtfully curated writing tools and stationery to customers who value craftsmanship, aesthetics, and functionality. We strive to provide excellent service, secure packaging, and a smooth shopping experience from start to finish.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_NmrzCP",
+        "text_CVmXyz"
+      ],
+      "custom_css": [
+        "p,.rte li,.rich-text__blocks > * + * {font-family: \"Poppins Regular\";}",
+        ".rich-text__blocks {max-width: 100%;}",
+        ".rich-text__wrapper {width: 1400px; max-width: 5550px;}",
+        "@media screen and (max-width: 768px) {.rich-text__wrapper {width: 100%; max-width: 100%; }}"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "left",
+        "content_alignment": "left",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 0,
+        "padding_bottom": 52
+      }
+    }
+  },
+  "order": [
+    "main",
+    "image_banner_4xeH8F",
+    "rich_text_qVQw4z",
+    "rich_text_B8TYWx",
+    "rich_text_FAiPck",
+    "rich_text_AfhfD7",
+    "rich_text_kwij8d"
+  ]
+}

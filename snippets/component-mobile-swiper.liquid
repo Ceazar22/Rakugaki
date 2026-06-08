@@ -1,0 +1,46 @@
+<div class="swiper mobile">
+  <div
+    class="swiper-wrapper"
+    id="Slider-{{ section.id }}"
+    data-id="{{ section.id }}"
+  >
+    {% assign skip_card_product_styles = false %}
+    {%- for product in section.settings.collection.products -%}
+      <div
+        class="swiper-slide"
+        id="Slide-{{ section.id }}-{{ forloop.index }}"
+      >
+        {% render 'card-product',
+          card_product: product,
+          media_aspect_ratio: 'adapt',
+          image_shape: 'default',
+          show_secondary_image: true,
+          show_vendor: false,
+          show_rating: true,
+          skip_styles: skip_card_product_styles,
+          section_id: section.id,
+          quick_add: 'standard'
+        %}
+      </div>
+      {%- assign skip_card_product_styles = true -%}
+    {%- endfor -%}
+  </div>
+  
+</div>
+
+<script>
+   const customTunedCollectionMobile{{ section.index }} = new Swiper('.custom-featured-collection--{{ section.id }} .swiper.mobile', {
+  loop: false,
+  spaceBetween: 10,
+  slidesPerView: 2,
+  grid: {
+    rows: 2,
+    fill: 'row'
+  },
+  slidesPerGroup: 4, // Move 4 slides (2 full rows) at a time
+  navigation: {
+    nextEl: '.custom-featured-collection--{{ section.id }} .swiper.mobile .tuned-featured-button-next',
+    prevEl: '.custom-featured-collection--{{ section.id }} .swiper.mobile .tuned-featured-button-prev',
+  }
+});
+</script>

@@ -1,0 +1,102 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.header.name",
+  "type": "header",
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "text_yLMFWX": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Free Shipping on orders ₱2,500+</p>"
+          }
+        },
+        "text_QGKfg4": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Free Engraving on Selected Pens</p>"
+          }
+        },
+        "text_RRLrjP": {
+          "type": "text",
+          "settings": {
+            "text": "<p>5% off on refills with minimum spend of ₱1,500+ </p>"
+          }
+        },
+        "text_Qynw47": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Free Shipping on orders ₱2,500+ </p>"
+          }
+        },
+        "text_e7KgRK": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Free Engraving on Selected Pens</p>"
+          }
+        },
+        "text_KmQM6b": {
+          "type": "text",
+          "settings": {
+            "text": "<p>5% off on refills with minimum spend of ₱1,500+ </p>"
+          }
+        }
+      },
+      "block_order": [
+        "text_yLMFWX",
+        "text_QGKfg4",
+        "text_RRLrjP",
+        "text_Qynw47",
+        "text_e7KgRK",
+        "text_KmQM6b"
+      ],
+      "settings": {
+        "sticky": false,
+        "bg_color": "#670e10",
+        "text_color": "#ffffff",
+        "font_size": 14,
+        "font_family": "'Telegraf', sans-serif",
+        "padding": 9,
+        "gap": 70,
+        "icon_size": 16,
+        "speed": 49,
+        "direction": "left",
+        "pause_on_hover": true
+      }
+    },
+    "header": {
+      "type": "header",
+      "custom_css": [],
+      "settings": {
+        "logo_position": "middle-left",
+        "menu_alignment": "center",
+        "mobile_logo_position": "center",
+        "menu": "header-menu",
+        "menu_type_desktop": "dropdown",
+        "sticky_header_type": "on-scroll-up",
+        "show_line_separator": true,
+        "color_scheme": "scheme-1",
+        "menu_color_scheme": "scheme-1",
+        "enable_country_selector": true,
+        "enable_language_selector": true,
+        "enable_customer_avatar": true,
+        "margin_bottom": 0,
+        "padding_top": 20,
+        "padding_bottom": 20
+      }
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "header"
+  ]
+}

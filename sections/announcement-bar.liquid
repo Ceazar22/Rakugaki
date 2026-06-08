@@ -1,0 +1,381 @@
+{%- style -%}
+  @font-face {
+  font-family: 'Grotesk Regular';
+  src: url('https://cdn.shopify.com/s/files/1/0893/0636/6244/files/ClashGrotesk-Regular.otf?v=1749455636') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+  #shopify-section-{{ section.id }} {
+    --marquee-bg-color: {{ section.settings.bg_color }};
+    --marquee-text-color: {{ section.settings.text_color }};
+    --marquee-font-size: {{ section.settings.font_size }}px;
+    --marquee-speed: {{ section.settings.speed }}s;
+    --marquee-padding: {{ section.settings.padding }}px 0;
+    --marquee-gap: {{ section.settings.gap }}px;
+    {% if section.settings.font_family != 'inherit' %}
+      --marquee-font-family: {{ section.settings.font_family }};
+    {% endif %}
+    position: relative;
+    z-index: 101;
+  }
+  
+  .announcement-bar-marquee-{{ section.id }} {
+    background: linear-gradient(270deg, #141414 -42.77%, #931932 73.62%);
+    color: var(--marquee-text-color);
+    font-size: var(--marquee-font-size);
+    padding: var(--marquee-padding);
+    overflow: hidden;
+    white-space: nowrap;
+    display: flex;
+    {% if section.settings.font_family != 'inherit' %}
+    font-family: var(--marquee-font-family);
+    {% endif %}
+    {% if section.settings.sticky %}
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    {% endif %}
+    
+    --text-color: {{ section.settings.text_color }} !important;
+    margin-top: -15px;
+    padding-bottom: 25px;
+}
+  }
+  
+  .announcement-bar-marquee-{{ section.id }},
+  .announcement-bar-marquee-{{ section.id }} * {
+    color: var(--marquee-text-color) !important;
+    font-family: 'Grotesk Regular';
+  }
+  
+  .marquee-container-{{ section.id }} {
+    display: flex;
+    width: fit-content;
+    animation: scroll-{{ section.id }} var(--marquee-speed) linear infinite;
+    {% if section.settings.direction == 'right' %}
+    animation-direction: reverse;
+    {% endif %}
+    {% if section.settings.pause_on_hover %}
+    animation-play-state: running;
+    {% endif %}
+  }
+  
+  .marquee-container-{{ section.id }}:hover {
+    {% if section.settings.pause_on_hover %}
+    animation-play-state: paused;
+    {% endif %}
+  }
+  
+  @keyframes scroll-{{ section.id }} {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  
+  .marquee-group-{{ section.id }} {
+    display: flex;
+    gap: var(--marquee-gap);
+    align-items: center;
+    padding-right: var(--marquee-gap);
+    margin-bottom: -30px;
+  }
+  
+  .marquee-item-{{ section.id }} {
+    display: flex;
+    align-items: center;
+    gap: var(--marquee-gap);
+    flex-shrink: 0;
+  }
+  
+  .marquee-item-{{ section.id }} strong,
+  .marquee-item-{{ section.id }} b {
+    font-weight: bold;
+  }
+  
+  {% if section.settings.icon_size > 0 %}
+  .marquee-icon-{{ section.id }} {
+    width: {{ section.settings.icon_size }}px;
+    height: {{ section.settings.icon_size }}px;
+    flex-shrink: 0;
+  }
+  {% endif %}
+{%- endstyle -%}
+
+<div class="announcement-bar-marquee-{{ section.id }}">
+  <div class="marquee-container-{{ section.id }}">
+    <div class="marquee-group-{{ section.id }}">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'text' -%}
+            <div class="marquee-item-{{ section.id }}" {{ block.shopify_attributes }}>
+              {{ block.settings.text }}
+            </div>
+          
+          {%- when 'icon_text' -%}
+            <div class="marquee-item-{{ section.id }}" {{ block.shopify_attributes }}>
+              {%- if block.settings.icon != blank -%}
+                <img src="{{ block.settings.icon | img_url: '100x' }}" 
+                     alt="{{ block.settings.icon.alt | escape }}" 
+                     class="marquee-icon-{{ section.id }}"
+                     width="{{ block.settings.icon_size | default: section.settings.icon_size }}"
+                     height="{{ block.settings.icon_size | default: section.settings.icon_size }}"
+                     loading="lazy">
+              {%- endif -%}
+              {{ block.settings.text }}
+            </div>
+          
+          {%- when 'html' -%}
+            <div class="marquee-item-{{ section.id }}" {{ block.shopify_attributes }}>
+              {{ block.settings.html }}
+            </div>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+    
+    <div class="marquee-group-{{ section.id }}" aria-hidden="true">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'text' -%}
+            <div class="marquee-item-{{ section.id }}">
+              {{ block.settings.text }}
+            </div>
+          
+          {%- when 'icon_text' -%}
+            <div class="marquee-item-{{ section.id }}">
+              {%- if block.settings.icon != blank -%}
+                <img src="{{ block.settings.icon | img_url: '100x' }}" 
+                     alt="" 
+                     class="marquee-icon-{{ section.id }}"
+                     width="{{ block.settings.icon_size | default: section.settings.icon_size }}"
+                     height="{{ block.settings.icon_size | default: section.settings.icon_size }}"
+                     loading="lazy"
+                     aria-hidden="true">
+              {%- endif -%}
+              {{ block.settings.text }}
+            </div>
+          
+          {%- when 'html' -%}
+            <div class="marquee-item-{{ section.id }}">
+              {{ block.settings.html }}
+            </div>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Announcement Bar Marquee",
+  "max_blocks": 10,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky",
+      "label": "Make sticky",
+      "default": false,
+      "info": "Bar will stick to top of page when scrolling"
+    },
+    {
+      "type": "header",
+      "content": "Design"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "Font size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "font_family",
+      "label": "Font family",
+      "options": [
+        {
+          "value": "inherit",
+          "label": "Inherit from theme"
+        },
+        {
+          "value": "'Telegraf', sans-serif",
+          "label": "Telegraf"
+        },
+        {
+          "value": "Arial, sans-serif",
+          "label": "Arial"
+        },
+        {
+          "value": "'Helvetica Neue', Helvetica, sans-serif",
+          "label": "Helvetica"
+        }
+      ],
+      "default": "'Telegraf', sans-serif"
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "label": "Vertical padding",
+      "min": 5,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Spacing between items",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Default icon size",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 16,
+      "info": "Set to 0 to hide icons"
+    },
+    {
+      "type": "header",
+      "content": "Animation"
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "label": "Animation speed",
+      "min": 5,
+      "max": 60,
+      "step": 1,
+      "unit": "s",
+      "default": 15,
+      "info": "Higher number = slower speed"
+    },
+    {
+      "type": "select",
+      "id": "direction",
+      "label": "Direction",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left to right"
+        },
+        {
+          "value": "right",
+          "label": "Right to left"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_on_hover",
+      "label": "Pause on hover",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Announce something <strong>important</strong> here</p>"
+        }
+      ]
+    },
+    {
+      "type": "icon_text",
+      "name": "Icon + Text",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "range",
+          "id": "icon_size",
+          "label": "Custom icon size",
+          "min": 0,
+          "max": 30,
+          "step": 1,
+          "unit": "px",
+          "default": 0,
+          "info": "Overrides default size. Set to 0 to use default."
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Icon announcement"
+        }
+      ]
+    },
+    {
+      "type": "html",
+      "name": "Custom HTML",
+      "settings": [
+        {
+          "type": "html",
+          "id": "html",
+          "label": "HTML",
+          "default": "<span style=\"font-weight: bold;\">HTML content</span>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement Bar Marquee",
+      "category": "Promotional",
+      "blocks": [
+        {
+          "type": "text",
+          "settings": {
+            "text": "<p>More than basketball it's a movement.</p>"
+          }
+        },
+        {
+          "type": "text",
+          "settings": {
+            "text": "<p>Free shipping on orders over <strong>$100</strong></p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

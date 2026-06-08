@@ -1,0 +1,123 @@
+<div class="question-section">
+  <div class="question-container">
+    <h4 class="question-heading">{{ section.settings.heading_text }}</h4>
+    <a href="{{ section.settings.button_url }}" class="question-button">
+      {{ section.settings.button_text }}
+    </a>
+  </div>
+</div>
+
+<style>
+.question-section {
+  width: 100%;
+  padding: 80px 20px;
+  background: inherit;
+}
+
+.question-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+
+.question-heading {
+  color: #000;
+  font-size: 40px;
+  margin: 0;
+  line-height: 1.2;
+  font-family: 'Korosu';
+}
+
+.question-button {
+  background: #931932;
+  color: #fff;
+  font-size: 18px;
+  padding: 15px 30px;
+  border-radius: 28px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  white-space: nowrap;
+  will-change: transform, box-shadow;
+  font-family: 'Poppins Regular';
+}
+
+.question-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px #931932;
+}
+
+@media screen and (max-width: 768px) {
+  .question-section {
+    padding: 40px 15px;
+  }
+  
+  .question-container {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+  
+  .question-heading {
+    font-size: 28px;
+  }
+  
+  .question-button {
+    font-size: 16px;
+    padding: 12px 25px;
+    width: 100%;
+    max-width: 200px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .question-section {
+    padding: 30px 10px;
+  }
+  
+  .question-heading {
+    font-size: 24px;
+  }
+  
+  .question-button {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Question CTA Section",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading_text",
+      "label": "Heading Text",
+      "default": "Got More Questions?"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Contact Us"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Question CTA"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,159 @@
+{% stylesheet %}
+  .shop-category-section {
+    width: 100%;
+    padding: 60px 80px;
+  }
+
+  .shop-category-heading {
+    text-align: center;
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 50px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .shop-category-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+  }
+
+  .shop-category-item {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .shop-category-item:hover {
+    transform: translateY(-5px);
+  }
+
+  .shop-category-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  .shop-category-text {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 500;
+    font-family: 'Poppins Medium';
+    color: #1A1A1A;
+  }
+
+  @media (max-width: 768px) {
+    .shop-category-section {
+      padding: 40px 20px;
+    }
+
+    .shop-category-heading {
+      font-size: 28px;
+      margin-bottom: 30px;
+    }
+
+    .shop-category-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .shop-category-text {
+      font-size: 16px;
+    }
+  }
+{% endstylesheet %}
+
+<div class="shop-category-section">
+  <h2 class="shop-category-heading">{{ section.settings.heading }}</h2>
+  
+  <div class="shop-category-grid">
+    {% for block in section.blocks %}
+      <a href="{{ block.settings.link }}" class="shop-category-item">
+        {% if block.settings.image %}
+          <img 
+            src="{{ block.settings.image | img_url: '500x' }}" 
+            alt="{{ block.settings.text }}"
+            class="shop-category-image"
+            loading="lazy"
+          >
+        {% else %}
+          <div class="shop-category-image" style="background: #f0f0f0; aspect-ratio: 1;"></div>
+        {% endif %}
+        <p class="shop-category-text">{{ block.settings.text }}</p>
+      </a>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Shop by Category",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "SHOP BY CATEGORY"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Category Text",
+          "default": "Category Name"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop by Category",
+      "blocks": [
+        {
+          "type": "category",
+          "settings": {
+            "text": "Writing Tools"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "text": "Ink Refills"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "text": "Pen Cases"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "text": "Accessories"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

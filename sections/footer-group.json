@@ -1,0 +1,112 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.footer.name",
+  "type": "footer",
+  "sections": {
+    "custom_section_footer_gCEdy4": {
+      "type": "Custom-section-footer",
+      "blocks": {
+        "brand_information_wYixcU": {
+          "type": "brand_information",
+          "settings": {
+            "show_social": true
+          }
+        },
+        "link_list_DRjn8f": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Shop All",
+            "menu": "shop",
+            "accordion_type": true,
+            "half_on_mobile": false
+          }
+        },
+        "link_list_8JzVAe": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Information",
+            "menu": "collections",
+            "accordion_type": true,
+            "half_on_mobile": false
+          }
+        },
+        "link_list_pfXBXp": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Support",
+            "menu": "new-1",
+            "accordion_type": true,
+            "half_on_mobile": false
+          }
+        },
+        "custom_newsletter_ybrc4a": {
+          "type": "custom_newsletter",
+          "settings": {
+            "newsletter_headline": "Get 5% Off Today",
+            "newsletter_highlight": "",
+            "newsletter_description": "Save instantly on your favorite  Japanese stationery."
+          }
+        }
+      },
+      "block_order": [
+        "brand_information_wYixcU",
+        "link_list_DRjn8f",
+        "link_list_8JzVAe",
+        "link_list_pfXBXp",
+        "custom_newsletter_ybrc4a"
+      ],
+      "custom_css": [
+        ".footer-block__custom_description {width: 250px;}",
+        ".footer-block__brand-info > * {font-size: 14px;}",
+        "@media screen and (max-width: 768px) {.footer-block__custom_description {width: 100%; }}"
+      ],
+      "settings": {
+        "background_color": "#931932",
+        "header_color": "#ffffff",
+        "text_color": "#ffffff",
+        "highlight_color": "#8f1911",
+        "newsletter_enable": false,
+        "newsletter_heading": "Subscribe to our emails",
+        "enable_follow_on_shop": false,
+        "show_social": true,
+        "enable_country_selector": false,
+        "enable_language_selector": false,
+        "payment_enable": true,
+        "show_policy": false,
+        "margin_top": 0,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "disabled": true,
+      "settings": {
+        "color_scheme": "scheme-1",
+        "newsletter_enable": true,
+        "newsletter_heading": "Subscribe to our emails",
+        "enable_follow_on_shop": true,
+        "show_social": true,
+        "enable_country_selector": true,
+        "enable_language_selector": true,
+        "payment_enable": true,
+        "show_policy": true,
+        "margin_top": 0,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "custom_section_footer_gCEdy4",
+    "footer"
+  ]
+}

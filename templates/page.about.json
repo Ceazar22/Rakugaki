@@ -1,0 +1,35 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "custom_about_us_FjjVJD": {
+      "type": "Custom-about-us",
+      "name": "About Section",
+      "settings": {
+        "background_image": "shopify://shop_images/Frame_1000009916.png",
+        "background_image_mobile": "shopify://shop_images/Frame_1000009916.png",
+        "heading": "ABOUT US",
+        "description": "<p>Rakugaki Central began unexpectedly in 2018 during our college years, back when we were known as Scribbled PH on Instagram. What started as an unplanned idea—with no business strategy or roadmap—grew through the support of people who believed in us. Their trust and word-of-mouth recommendations helped a small hobby page slowly evolve into a space loved by stationery enthusiasts.<br/><br/>In 2020, we rebranded as Rakugaki Central and expanded from Instagram to Shopee, later opening stores on Lazada (2022) and TikTok Shop (2023). Engraving wasn’t part of our original plan. But being professionals in the medical field, we saw how meaningful a personalized pen could be—especially for those who use them every day. What began as a simple service for healthcare workers soon resonated with students, professionals, collectors, and gift-givers who value quality, reliability, and personal meaning.<br/><br/>Our love for stationery traces back to childhood—when receiving a pen or notebook felt like a small reward, a quiet encouragement, or a moment of comfort. Even with limited means, we were taught to appreciate quality over quantity and to find joy in the little things that brighten everyday life. That belief became the heart of Rakugaki Central.<br/><br/>Today, we are dedicated to offering authentic Japanese stationery, thoughtfully packaged items, and optional personalization through<br/>engraving and gift boxes. Every product is chosen with care—well-made, dependable, and crafted to last. We take pride in providing smooth transactions, responsive support, and consistent restocks of both customer favorites and new collections.<br/><br/>Since 2018, our growth has remained organic and community-driven. Many of our customers found us through genuine recommendations of students, stationery lovers, and professionals who trust what we offer. Rakugaki Central has also earned thousands of 5-star reviews across major e-commerce platforms, becoming one of the most reliable sources of genuine Japanese stationery and personalized gifts in the<br/>Philippines.<br/><br/>At Rakugaki Central, we don’t just offer stationery—we bring meaningful tools that inspire productivity, reward effort, and celebrate every story written by hand.</p>"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "custom_about_us_FjjVJD"
+  ]
+}

@@ -1,0 +1,807 @@
+<style>
+  .engraving-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 20px 0;
+  }
+  .engraving-label {
+    font-size: 16px;
+    font-weight: 400;
+    color: #000;
+    font-family: 'Poppins Medium';
+  }
+  .engraving-buttons {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  .engraving-btn {
+    padding: 10px 24px;
+    border: 1.5px solid #000;
+    border-radius: 30px;
+    background: #fff;
+    color: #000;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    height: 40px;
+    font-weight: 400;
+  }
+  .engraving-btn:hover {
+    background: #000;
+    color: #fff;
+  }
+  .engraving-btn.has-logo {
+    background: #000;
+    color: #fff;
+  }
+  .engraving-info-icon {
+    width: 20px;
+    height: 20px;
+    border: 1.5px solid #000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .engraving-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: -850px;
+    width: 200%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999999;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+    margin-top: -200px !important;
+  }
+  .engraving-modal.active {
+    display: flex !important;
+  }
+  .engraving-modal-content {
+    background: #fff;
+    border-radius: 12px;
+    padding: 30px;
+    max-width: 500px;
+    width: 90%;
+    position: relative;
+    margin: auto;
+  }
+  .engraving-modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #000;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+  }
+  .engraving-modal-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #000;
+  }
+  .engraving-upload-area {
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    padding: 40px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .engraving-upload-area:hover {
+    border-color: #000;
+    background: #f9f9f9;
+  }
+  .engraving-upload-area.has-file {
+    border-color: #000;
+    background: #f0f0f0;
+  }
+  .engraving-upload-text {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 8px;
+  }
+  .engraving-upload-hint {
+    font-size: 14px;
+    color: #999;
+  }
+  .engraving-file-input {
+    display: none;
+  }
+  .engraving-preview {
+    margin-top: 20px;
+    display: none;
+  }
+  .engraving-preview.active {
+    display: block;
+  }
+  .engraving-preview-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 12px;
+  }
+  .engraving-preview-name {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 12px;
+  }
+  .engraving-remove-btn {
+    padding: 8px 20px;
+    background: #ff4444;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  .engraving-save-btn {
+    width: 100%;
+    padding: 14px;
+    background: #000;
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  .engraving-save-btn:hover {
+    background: #333;
+  }
+  .engraving-save-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+  .engraving-loading {
+    display: none;
+    text-align: center;
+    margin-top: 15px;
+    color: #666;
+    font-size: 14px;
+  }
+  .engraving-loading.active {
+    display: block;
+  }
+  .engraving-saved-logo {
+    display: none;
+    margin-top: 15px;
+    padding: 15px;
+    background: #f0f0f0;
+    border-radius: 8px;
+    text-align: center;
+  }
+  .engraving-saved-logo.active {
+    display: block;
+  }
+  .engraving-saved-logo img {
+    max-width: 150px;
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  .engraving-saved-logo-text {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+  }
+  .engraving-change-logo-btn {
+    padding: 8px 20px;
+    background: #000;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  .engraving-copy-btn {
+    padding: 8px 20px;
+    background: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-left: 10px;
+  }
+
+  @media (max-width: 768px) {
+    .engraving-section {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .engraving-label {
+      font-size: 14px;
+    }
+    .engraving-buttons {
+      width: 100%;
+      flex-wrap: wrap;
+    }
+    .engraving-btn {
+      padding: 8px 18px;
+      font-size: 13px;
+      height: 36px;
+    }
+    .engraving-modal {
+      left: 0;
+      margin-top: 0px;
+      width: 100%;
+    }
+    .engraving-modal-content {
+      padding: 20px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .engraving-modal-title {
+      font-size: 18px;
+    }
+  }
+</style>
+
+<div class="engraving-section">
+  <div class="engraving-label">Engraving:</div>
+  <div class="engraving-buttons">
+    <button type="button" class="engraving-btn" id="customizeBtn">Add Text</button>
+    <button type="button" class="engraving-btn" id="addLogoBtn">Add logo</button>
+  </div>
+</div>
+
+<div class="engraving-saved-logo" id="savedLogoDisplay">
+  <img src="" alt="Saved logo" id="savedLogoImage">
+  <div class="engraving-saved-logo-text" id="savedLogoName"></div>
+  <button type="button" class="engraving-change-logo-btn" id="changeLogoBtn">Change Logo</button>
+  <button type="button" class="engraving-copy-btn" id="copyBase64Btn">Copy Base64</button>
+</div>
+
+<div class="engraving-modal" id="logoModal">
+  <div class="engraving-modal-content">
+    <button type="button" class="engraving-modal-close" id="closeModal">&times;</button>
+    <h3 class="engraving-modal-title">Upload Logo</h3>
+
+    <div class="engraving-upload-area" id="uploadArea">
+      <div class="engraving-upload-text">Click to upload or drag and drop</div>
+      <div class="engraving-upload-hint">PNG, JPG, JPEG (MAX. 500KB)</div>
+    </div>
+
+    <input
+      type="file"
+      class="engraving-file-input"
+      id="logoFileInput"
+      accept="image/png,image/jpeg,image/jpg"
+    >
+
+    <div class="engraving-preview" id="logoPreview">
+      <img src="" alt="Logo preview" class="engraving-preview-image" id="previewImage">
+      <div class="engraving-preview-name" id="previewName"></div>
+      <button type="button" class="engraving-remove-btn" id="removeLogoBtn">Remove</button>
+    </div>
+
+    <div class="engraving-loading" id="loadingIndicator">Saving logo...</div>
+    <button type="button" class="engraving-save-btn" id="saveLogoBtn" disabled>Save Logo</button>
+  </div>
+</div>
+
+<script>
+(function() {
+  const product = {{ product | json }};
+
+  const rootRoute = window.Shopify && window.Shopify.routes && window.Shopify.routes.root
+    ? window.Shopify.routes.root
+    : '/';
+
+  const LOGO_FEE_PRODUCT_HANDLE = 'logo-upload-fee';
+  const LOGO_FEE_PRICE_CENTS = 2500;
+
+  const customizeBtn = document.getElementById('customizeBtn');
+  const addLogoBtn = document.getElementById('addLogoBtn');
+  const logoModal = document.getElementById('logoModal');
+  const closeModal = document.getElementById('closeModal');
+  const uploadArea = document.getElementById('uploadArea');
+  const logoFileInput = document.getElementById('logoFileInput');
+  const logoPreview = document.getElementById('logoPreview');
+  const previewImage = document.getElementById('previewImage');
+  const previewName = document.getElementById('previewName');
+  const removeLogoBtn = document.getElementById('removeLogoBtn');
+  const saveLogoBtn = document.getElementById('saveLogoBtn');
+  const loadingIndicator = document.getElementById('loadingIndicator');
+  const savedLogoDisplay = document.getElementById('savedLogoDisplay');
+  const savedLogoImage = document.getElementById('savedLogoImage');
+  const savedLogoName = document.getElementById('savedLogoName');
+  const changeLogoBtn = document.getElementById('changeLogoBtn');
+  const copyBase64Btn = document.getElementById('copyBase64Btn');
+
+  const nativeFetch = window.fetch.bind(window);
+
+  let selectedFile = null;
+  let currentBase64 = '';
+  let logoFeeVariantPromise = null;
+  let logoAddToCartInProgress = false;
+
+  function getSelectedVariant() {
+    const selectedOptions = [];
+    const radios = document.querySelectorAll('.option-selector:checked');
+
+    radios.forEach(function(radio) {
+      const position = parseInt(radio.dataset.optionPosition, 10);
+      selectedOptions[position - 1] = radio.value;
+    });
+
+    if (selectedOptions.length > 0) {
+      const variant = product.variants.find(function(productVariant) {
+        return selectedOptions.every(function(value, index) {
+          if (!value) return true;
+          return productVariant.options[index] === value;
+        });
+      });
+
+      if (variant) return variant;
+    }
+
+    return product.variants && product.variants.length > 0 ? product.variants[0] : null;
+  }
+
+  function getStoredLogo() {
+    const name = localStorage.getItem('engraving_logo_name');
+    const image = localStorage.getItem('engraving_logo_image');
+
+    if (!name || !image) return null;
+
+    return { name: name, image: image };
+  }
+
+  function createLogoGroupId() {
+    return 'logo-' + Date.now() + '-' + Math.random().toString(36).slice(2, 10);
+  }
+
+  function buildLogoProperties(logo, logoGroupId) {
+    return {
+      '_Has_Logo': 'true',
+      '_Logo_Group_ID': logoGroupId,
+      '_Engraving_Logo_Name': logo.name,
+      '_Engraving_Logo_Image': logo.image
+    };
+  }
+
+  function buildFeeProperties(logoGroupId) {
+    return {
+      '_Logo_Fee_Component': 'true',
+      '_Logo_Group_ID': logoGroupId,
+      '_Logo_Fee_Amount': '₱25.00'
+    };
+  }
+
+  function getPropertyEntriesFromFormData(formData) {
+    const properties = {};
+
+    formData.forEach(function(value, key) {
+      const match = key.match(/^properties\[(.*)\]$/);
+
+      if (match && match[1]) {
+        properties[match[1]] = value;
+      }
+    });
+
+    return properties;
+  }
+
+  async function getLogoFeeVariantId() {
+    if (logoFeeVariantPromise) return logoFeeVariantPromise;
+
+    logoFeeVariantPromise = nativeFetch(rootRoute + 'products/' + LOGO_FEE_PRODUCT_HANDLE + '.js', {
+      method: 'GET',
+      headers: { Accept: 'application/json' }
+    })
+      .then(function(response) {
+        if (!response.ok) {
+          throw new Error(
+            'Logo Upload Fee product was not found. Ensure its handle is logo-upload-fee and it is published to Online Store.'
+          );
+        }
+        return response.json();
+      })
+      .then(function(feeProduct) {
+        const availableVariant = feeProduct.variants.find(function(variant) {
+          return variant.available;
+        });
+
+        if (!availableVariant) {
+          throw new Error('Logo Upload Fee product has no available variant.');
+        }
+
+        if (availableVariant.price !== LOGO_FEE_PRICE_CENTS) {
+          throw new Error(
+            'Logo Upload Fee product price must be set to ₱25.00 (2500 cents) in Shopify admin. Current price: ₱' + (availableVariant.price / 100).toFixed(2)
+          );
+        }
+
+        return availableVariant.id;
+      })
+      .catch(function(error) {
+        logoFeeVariantPromise = null;
+        throw error;
+      });
+
+    return logoFeeVariantPromise;
+  }
+
+  async function addProductWithLogoFee(form) {
+    if (logoAddToCartInProgress) return;
+
+    const logo = getStoredLogo();
+
+    if (!logo) return;
+
+    logoAddToCartInProgress = true;
+
+    const submitButton = form.querySelector('[type="submit"]');
+
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.setAttribute('aria-busy', 'true');
+    }
+
+    try {
+      const feeVariantId = await getLogoFeeVariantId();
+      const formData = new FormData(form);
+      const selectedVariantId = formData.get('id');
+      const quantityValue = parseInt(formData.get('quantity') || '1', 10);
+      const quantity = Number.isNaN(quantityValue) || quantityValue < 1 ? 1 : quantityValue;
+      const logoGroupId = createLogoGroupId();
+
+      if (!selectedVariantId) {
+        throw new Error('The selected product variant could not be found.');
+      }
+
+      const existingProperties = getPropertyEntriesFromFormData(formData);
+      const parentProperties = Object.assign(
+        {},
+        existingProperties,
+        buildLogoProperties(logo, logoGroupId)
+      );
+
+      const addResponse = await nativeFetch(rootRoute + 'cart/add.js', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+        },
+        body: JSON.stringify({
+          items: [
+            {
+              id: Number(selectedVariantId),
+              quantity: quantity,
+              properties: parentProperties
+            },
+            {
+              id: Number(feeVariantId),
+              quantity: 1,
+              properties: buildFeeProperties(logoGroupId)
+            }
+          ]
+        })
+      });
+
+      if (!addResponse.ok) {
+        const errorData = await addResponse.json().catch(function() { return {}; });
+        throw new Error(errorData.description || 'Unable to add the customized product to cart.');
+      }
+
+      window.location.href = rootRoute + 'cart';
+    } catch (error) {
+      console.error(error);
+      alert(error.message || 'Unable to add the logo fee. Please try again.');
+
+      logoAddToCartInProgress = false;
+
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.removeAttribute('aria-busy');
+      }
+    }
+  }
+
+  if (customizeBtn) {
+    customizeBtn.addEventListener('click', function(event) {
+      event.preventDefault();
+
+      const variant = getSelectedVariant();
+      const selectedOptions = [];
+      const radios = document.querySelectorAll('.option-selector:checked');
+
+      radios.forEach(function(radio) {
+        const position = parseInt(radio.dataset.optionPosition, 10);
+        selectedOptions[position - 1] = radio.value;
+      });
+
+      const allVariantsWithNames = product.variants.map(function(productVariant) {
+        return {
+          id: productVariant.id,
+          title: productVariant.title,
+          price: productVariant.price,
+          available: productVariant.available,
+          option1: productVariant.option1,
+          option2: productVariant.option2,
+          option3: productVariant.option3,
+          option1_name: product.options[0] ? product.options[0].name : null,
+          option2_name: product.options[1] ? product.options[1].name : null,
+          option3_name: product.options[2] ? product.options[2].name : null,
+          featured_image: productVariant.featured_image
+        };
+      });
+
+      const productData = {
+        id: product.id,
+        handle: product.handle,
+        title: product.title,
+        vendor: product.vendor,
+        price: variant ? variant.price : product.price,
+        variantId: variant
+          ? variant.id
+          : (product.variants && product.variants.length > 0 ? product.variants[0].id : null),
+        variantTitle: variant ? variant.title : '',
+        image: variant && variant.featured_image
+          ? variant.featured_image.src
+          : (product.featured_image || ''),
+        options: selectedOptions,
+        allVariants: allVariantsWithNames,
+        tags: product.tags || []
+      };
+
+      sessionStorage.setItem('customizeProduct', JSON.stringify(productData));
+      window.location.href = '/pages/engraving-preview';
+    });
+  }
+
+  function checkExistingLogo() {
+    const logo = getStoredLogo();
+
+    if (!logo) return;
+
+    currentBase64 = logo.image;
+    savedLogoImage.src = logo.image;
+    savedLogoName.textContent = logo.name;
+    savedLogoDisplay.classList.add('active');
+    addLogoBtn.classList.add('has-logo');
+    addLogoBtn.textContent = 'Logo Added ✓';
+  }
+
+  checkExistingLogo();
+
+  if (copyBase64Btn) {
+    copyBase64Btn.addEventListener('click', function() {
+      if (!currentBase64) return;
+
+      navigator.clipboard.writeText(currentBase64).then(function() {
+        const originalText = copyBase64Btn.textContent;
+        copyBase64Btn.textContent = 'Copied!';
+
+        setTimeout(function() {
+          copyBase64Btn.textContent = originalText;
+        }, 2000);
+      }).catch(function() {
+        console.log('Base64 Data:', currentBase64);
+      });
+    });
+  }
+
+  if (addLogoBtn) {
+    addLogoBtn.addEventListener('click', function(event) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      logoModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+  }
+
+  if (changeLogoBtn) {
+    changeLogoBtn.addEventListener('click', function(event) {
+      event.preventDefault();
+
+      logoModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+  }
+
+  if (closeModal) {
+    closeModal.addEventListener('click', function(event) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      logoModal.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+  }
+
+  if (logoModal) {
+    logoModal.addEventListener('click', function(event) {
+      if (event.target === logoModal) {
+        logoModal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+  }
+
+  if (uploadArea) {
+    uploadArea.addEventListener('click', function(event) {
+      event.stopPropagation();
+      logoFileInput.click();
+    });
+
+    uploadArea.addEventListener('dragover', function(event) {
+      event.preventDefault();
+      uploadArea.style.borderColor = '#000';
+      uploadArea.style.background = '#f9f9f9';
+    });
+
+    uploadArea.addEventListener('dragleave', function() {
+      uploadArea.style.borderColor = '#ccc';
+      uploadArea.style.background = '';
+    });
+
+    uploadArea.addEventListener('drop', function(event) {
+      event.preventDefault();
+
+      uploadArea.style.borderColor = '#ccc';
+      uploadArea.style.background = '';
+
+      const files = event.dataTransfer.files;
+
+      if (files.length > 0) {
+        handleFile(files[0]);
+      }
+    });
+  }
+
+  if (logoFileInput) {
+    logoFileInput.addEventListener('change', function(event) {
+      const file = event.target.files[0];
+
+      if (file) {
+        handleFile(file);
+      }
+    });
+  }
+
+  function handleFile(file) {
+    const validTypes = ['image/png', 'image/jpeg', 'image/jpg'];
+    const maxSize = 500 * 1024;
+
+    if (!validTypes.includes(file.type)) {
+      alert('Please upload a PNG, JPG, or JPEG file');
+      return;
+    }
+
+    if (file.size > maxSize) {
+      alert('File size must be less than 500KB. Please compress your image.');
+      return;
+    }
+
+    selectedFile = file;
+
+    const reader = new FileReader();
+
+    reader.onload = function(event) {
+      const image = new Image();
+
+      image.onload = function() {
+        const canvas = document.createElement('canvas');
+        let width = image.width;
+        let height = image.height;
+        const maxDimension = 300;
+
+        if (width > maxDimension || height > maxDimension) {
+          if (width > height) {
+            height = (height / width) * maxDimension;
+            width = maxDimension;
+          } else {
+            width = (width / height) * maxDimension;
+            height = maxDimension;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+
+        const context = canvas.getContext('2d');
+        context.drawImage(image, 0, 0, width, height);
+
+        const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.6);
+
+        previewImage.src = compressedDataUrl;
+        previewName.textContent = file.name;
+        logoPreview.classList.add('active');
+        uploadArea.classList.add('has-file');
+        saveLogoBtn.disabled = false;
+      };
+
+      image.src = event.target.result;
+    };
+
+    reader.readAsDataURL(file);
+  }
+
+  if (removeLogoBtn) {
+    removeLogoBtn.addEventListener('click', function() {
+      selectedFile = null;
+      logoFileInput.value = '';
+      previewImage.src = '';
+      previewName.textContent = '';
+      logoPreview.classList.remove('active');
+      uploadArea.classList.remove('has-file');
+      saveLogoBtn.disabled = true;
+    });
+  }
+
+  if (saveLogoBtn) {
+    saveLogoBtn.addEventListener('click', function() {
+      if (!selectedFile) return;
+
+      saveLogoBtn.disabled = true;
+      loadingIndicator.classList.add('active');
+
+      const imageDataUrl = previewImage.src;
+      const logoName = selectedFile.name;
+
+      currentBase64 = imageDataUrl;
+
+      localStorage.setItem('engraving_logo_name', logoName);
+      localStorage.setItem('engraving_logo_image', imageDataUrl);
+
+      savedLogoImage.src = imageDataUrl;
+      savedLogoName.textContent = logoName;
+      savedLogoDisplay.classList.add('active');
+      addLogoBtn.classList.add('has-logo');
+      addLogoBtn.textContent = 'Logo Added ✓';
+
+      setTimeout(function() {
+        loadingIndicator.classList.remove('active');
+        logoModal.classList.remove('active');
+        document.body.style.overflow = '';
+
+        selectedFile = null;
+        logoFileInput.value = '';
+        previewImage.src = '';
+        previewName.textContent = '';
+        logoPreview.classList.remove('active');
+        uploadArea.classList.remove('has-file');
+        saveLogoBtn.disabled = true;
+      }, 500);
+    });
+  }
+
+  document.addEventListener('submit', function(event) {
+    const form = event.target.closest('form[action*="/cart/add"]');
+
+    if (!form || !getStoredLogo()) return;
+
+    event.preventDefault();
+    event.stopImmediatePropagation();
+
+    addProductWithLogoFee(form);
+  }, true);
+})();
+</script>

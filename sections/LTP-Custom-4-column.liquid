@@ -1,0 +1,384 @@
+{% schema %}
+{
+  "name": "Styled Content Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "How to style it"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#8E191B"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#FFFFFF"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Styled Content Section",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+{% style %}
+  .styled-section {
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .styled-header {
+    background-color: {{ section.settings.bg_color }};
+    color: {{ section.settings.text_color }};
+    padding: 40px 20px;
+    text-align: center;
+  }
+  
+  .styled-heading {
+    font-family: 'Grotesk Medium', sans-serif;
+    font-size: 32px;
+    margin: 0;
+    color: white;
+  }
+  
+  .styled-grid {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    gap: 0;
+    align-items: flex-start;
+  }
+  
+  @media screen and (min-width: 750px) {
+    .styled-slider {
+      display: none;
+    }
+  }
+  
+  .styled-column {
+    padding: 0px;
+    box-sizing: border-box;
+    margin: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .styled-column.wide {
+    flex: 0 0 25%;
+    height: 600px;
+  }
+  
+  .styled-column.regular {
+    flex: 0 0 25%;
+    height: 600px;
+  }
+  
+  .styled-column img {
+    width: 100%;
+    height: 107%;
+    display: block;
+    padding: 0;
+    margin: 0;
+    object-fit: cover;
+    object-position: center;
+  }
+  
+  @media screen and (max-width: 749px) {
+    .styled-grid {
+      display: none;
+    }
+    
+    .styled-slider {
+      display: block;
+      padding: 20px 0 40px;
+    }
+    
+    .styled-slider-container {
+      position: relative;
+      overflow: hidden;
+      touch-action: pan-y pinch-zoom;
+    }
+    
+    .styled-slides-wrapper {
+      display: flex;
+      transition: transform 0.3s ease;
+    }
+    
+    .styled-slide {
+      flex: 0 0 100%;
+      padding: 0 10px;
+      box-sizing: border-box;
+      scroll-snap-align: start;
+    }
+    
+    .styled-slide img {
+      width: 100%;
+      height: 700px;
+      display: block;
+      object-fit: cover;
+      object-position: center;
+    }
+    
+    .styled-dots {
+      display: flex;
+      justify-content: center;
+      padding: 20px 0;
+      gap: 10px;
+    }
+    
+    .styled-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #D9D9D9;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .styled-dot.active {
+      background-color: #8E191B;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .styled-section {
+      margin-bottom: auto !important;
+    }
+  }
+
+  @media screen and (min-width: 750px) and (max-width: 1024px) {
+    .styled-column.wide,
+    .styled-column.regular {
+      height: 450px;
+    }
+  }
+  
+  @media screen and (min-width: 1025px) {
+    .styled-column.wide,
+    .styled-column.regular {
+      height: 900px;
+    }
+  }
+{% endstyle %}
+
+{% if product.metafields.custom.how_to_style_image_1 != blank or product.metafields.custom.how_to_style_image_2 != blank or product.metafields.custom.how_to_style_image_3 != blank or product.metafields.custom.how_to_style_image_4 != blank %}
+  <div class="styled-section">
+    <div class="styled-header">
+      <h2 class="styled-heading">{{ section.settings.heading }}</h2>
+    </div>
+    
+    <div class="styled-grid">
+      {% if product.metafields.custom.how_to_style_image_1 != blank %}
+        <div class="styled-column wide">
+          {{ product.metafields.custom.how_to_style_image_1 | image_url: width: 800 | image_tag: loading: 'lazy' }}
+        </div>
+      {% endif %}
+      
+      {% if product.metafields.custom.how_to_style_image_2 != blank %}
+        <div class="styled-column regular">
+          {{ product.metafields.custom.how_to_style_image_2 | image_url: width: 800 | image_tag: loading: 'lazy' }}
+        </div>
+      {% endif %}
+      
+      {% if product.metafields.custom.how_to_style_image_3 != blank %}
+        <div class="styled-column regular">
+          {{ product.metafields.custom.how_to_style_image_3 | image_url: width: 800 | image_tag: loading: 'lazy' }}
+        </div>
+      {% endif %}
+      
+      {% if product.metafields.custom.how_to_style_image_4 != blank %}
+        <div class="styled-column regular">
+          {{ product.metafields.custom.how_to_style_image_4 | image_url: width: 800 | image_tag: loading: 'lazy' }}
+        </div>
+      {% endif %}
+    </div>
+    
+    <div class="styled-slider" id="styled-slider-{{ section.id }}">
+      <div class="styled-slider-container">
+        <div class="styled-slides-wrapper" id="slides-wrapper-{{ section.id }}">
+          {% if product.metafields.custom.how_to_style_image_1 != blank %}
+            <div class="styled-slide">
+              {{ product.metafields.custom.how_to_style_image_1 | image_url: width: 800 | image_tag: loading: 'lazy' }}
+            </div>
+          {% endif %}
+          
+          {% if product.metafields.custom.how_to_style_image_2 != blank %}
+            <div class="styled-slide">
+              {{ product.metafields.custom.how_to_style_image_2 | image_url: width: 800 | image_tag: loading: 'lazy' }}
+            </div>
+          {% endif %}
+          
+          {% if product.metafields.custom.how_to_style_image_3 != blank %}
+            <div class="styled-slide">
+              {{ product.metafields.custom.how_to_style_image_3 | image_url: width: 800 | image_tag: loading: 'lazy' }}
+            </div>
+          {% endif %}
+          
+          {% if product.metafields.custom.how_to_style_image_4 != blank %}
+            <div class="styled-slide">
+              {{ product.metafields.custom.how_to_style_image_4 | image_url: width: 800 | image_tag: loading: 'lazy' }}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+      
+      <div class="styled-dots">
+        {% assign dot_index = 0 %}
+        {% if product.metafields.custom.how_to_style_image_1 != blank %}
+          <div class="styled-dot {% if dot_index == 0 %}active{% endif %}" data-index="{{ dot_index }}"></div>
+          {% assign dot_index = dot_index | plus: 1 %}
+        {% endif %}
+        
+        {% if product.metafields.custom.how_to_style_image_2 != blank %}
+          <div class="styled-dot" data-index="{{ dot_index }}"></div>
+          {% assign dot_index = dot_index | plus: 1 %}
+        {% endif %}
+        
+        {% if product.metafields.custom.how_to_style_image_3 != blank %}
+          <div class="styled-dot" data-index="{{ dot_index }}"></div>
+          {% assign dot_index = dot_index | plus: 1 %}
+        {% endif %}
+        
+        {% if product.metafields.custom.how_to_style_image_4 != blank %}
+          <div class="styled-dot" data-index="{{ dot_index }}"></div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const sliderId = 'styled-slider-{{ section.id }}';
+    const slidesWrapperId = 'slides-wrapper-{{ section.id }}';
+    const slider = document.getElementById(sliderId);
+    const slidesWrapper = document.getElementById(slidesWrapperId);
+    
+    if (slider && slidesWrapper && window.innerWidth < 750) {
+      let currentSlide = 0;
+      const slides = slider.querySelectorAll('.styled-slide');
+      const dots = slider.querySelectorAll('.styled-dot');
+      const totalSlides = slides.length;
+      
+      let startX = 0;
+      let startY = 0;
+      let currentX = 0;
+      let isDragging = false;
+      let isScrolling = null;
+      let startTime = 0;
+      
+      function showSlide(index) {
+        if (index < 0) index = totalSlides - 1;
+        if (index >= totalSlides) index = 0;
+        
+        const translateX = -index * 100;
+        slidesWrapper.style.transform = `translateX(${translateX}%)`;
+        
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('active', i === index);
+        });
+        
+        currentSlide = index;
+      }
+      
+      function handleStart(e) {
+        startTime = Date.now();
+        startX = e.type === 'mousedown' ? e.clientX : e.touches[0].clientX;
+        startY = e.type === 'mousedown' ? e.clientY : e.touches[0].clientY;
+        currentX = startX;
+        isDragging = true;
+        isScrolling = null;
+        slidesWrapper.style.transition = 'none';
+      }
+      
+      function handleMove(e) {
+        if (!isDragging) return;
+        
+        currentX = e.type === 'mousemove' ? e.clientX : e.touches[0].clientX;
+        const currentY = e.type === 'mousemove' ? e.clientY : e.touches[0].clientY;
+        const deltaX = Math.abs(currentX - startX);
+        const deltaY = Math.abs(currentY - startY);
+        
+        if (isScrolling === null && deltaX > 0 && deltaY > 0) {
+          isScrolling = deltaY > deltaX;
+        }
+        
+        if (isScrolling) {
+          isDragging = false;
+          slidesWrapper.style.transition = 'transform 0.3s ease';
+          showSlide(currentSlide);
+          return;
+        }
+        
+        e.preventDefault();
+        const deltaXMove = currentX - startX;
+        const translateX = -currentSlide * 100 + (deltaXMove / slidesWrapper.offsetWidth) * 100;
+        slidesWrapper.style.transform = `translateX(${translateX}%)`;
+      }
+      
+      function handleEnd() {
+        if (!isDragging || isScrolling) {
+          isDragging = false;
+          isScrolling = null;
+          return;
+        }
+        
+        isDragging = false;
+        slidesWrapper.style.transition = 'transform 0.3s ease';
+        
+        const deltaX = currentX - startX;
+        const deltaTime = Date.now() - startTime;
+        const velocity = Math.abs(deltaX) / deltaTime;
+        
+        const threshold = slidesWrapper.offsetWidth * 0.15;
+        const fastSwipe = velocity > 0.4;
+        
+        if (Math.abs(deltaX) > threshold || fastSwipe) {
+          if (deltaX > 0) {
+            showSlide(currentSlide - 1);
+          } else {
+            showSlide(currentSlide + 1);
+          }
+        } else {
+          showSlide(currentSlide);
+        }
+        
+        isScrolling = null;
+      }
+      
+      showSlide(0);
+      
+      dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+          showSlide(index);
+        });
+      });
+      
+      const sliderContainer = slider.querySelector('.styled-slider-container');
+      
+      sliderContainer.addEventListener('touchstart', handleStart, { passive: true });
+      sliderContainer.addEventListener('touchmove', handleMove, { passive: false });
+      sliderContainer.addEventListener('touchend', handleEnd, { passive: true });
+      
+      sliderContainer.addEventListener('mousedown', handleStart);
+      sliderContainer.addEventListener('mousemove', handleMove);
+      sliderContainer.addEventListener('mouseup', handleEnd);
+      sliderContainer.addEventListener('mouseleave', handleEnd);
+      
+      sliderContainer.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+      });
+    }
+  });
+</script>

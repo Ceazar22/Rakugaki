@@ -1,0 +1,330 @@
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+{{ 'section-related-products.css' | asset_url | stylesheet_tag }}
+
+{% if section.settings.image_shape == 'blob' %}
+  {{ 'mask-blobs.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient">
+  <div class="frequently-bought-together page-width section-{{ section.id }}-padding isolate{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+    
+    {%- liquid
+      # Create array to store frequently bought products
+      assign frequently_bought_products = ''
+      assign products_added = 0
+      assign max_products = section.settings.products_to_show
+      assign skip_count = 0
+      
+      # Get current product price range for similar price products
+      assign current_price = product.price
+      assign price_range_min = current_price | times: 0.5
+      assign price_range_max = current_price | times: 1.5
+      
+      # Strategy 1: Get products from different collections (not the same as current product)
+      assign used_collections = ''
+      for collection in product.collections
+        assign used_collections = used_collections | append: collection.id | append: ','
+      endfor
+      
+      # Look for products in completely different collections first
+      for collection in collections
+        unless used_collections contains collection.id
+          assign collection_products = collection.products
+          for col_product in collection_products
+            if col_product.id != product.id and products_added < max_products
+              # Skip some products to create more randomness
+              if skip_count >= 2
+                assign frequently_bought_products = frequently_bought_products | append: col_product.id | append: ','
+                assign products_added = products_added | plus: 1
+                assign skip_count = 0
+              else
+                assign skip_count = skip_count | plus: 1
+              endif
+            endif
+          endfor
+        endunless
+      endfor
+      
+      # Strategy 2: Get products from same price range but different collections
+      if products_added < max_products
+        for all_product in collections.all.products
+          if all_product.id != product.id and products_added < max_products
+            assign product_price = all_product.price
+            if product_price >= price_range_min and product_price <= price_range_max
+              unless frequently_bought_products contains all_product.id
+                unless used_collections contains all_product.collections.first.id
+                  assign frequently_bought_products = frequently_bought_products | append: all_product.id | append: ','
+                  assign products_added = products_added | plus: 1
+                endunless
+              endunless
+            endif
+          endif
+        endfor
+      endif
+      
+      # Strategy 3: Get products from reverse order (last products in collections)
+      if products_added < max_products
+        assign all_products_reversed = collections.all.products | reverse
+        for reversed_product in all_products_reversed limit: 30
+          if reversed_product.id != product.id and products_added < max_products
+            unless frequently_bought_products contains reversed_product.id
+              assign frequently_bought_products = frequently_bought_products | append: reversed_product.id | append: ','
+              assign products_added = products_added | plus: 1
+            endunless
+          endif
+        endfor
+      endif
+      
+      # Convert string to array and remove empty elements
+      assign frequently_bought_array = frequently_bought_products | split: ','
+    -%}
+    
+    {% if frequently_bought_array.size > 0 %}
+      <h2 class="related-products__heading inline-richtext {{ section.settings.heading_size }}">
+        {{ section.settings.heading }}
+      </h2>
+      <ul
+        class="grid product-grid grid--{{ section.settings.columns_desktop }}-col-desktop grid--{{ section.settings.columns_mobile }}-col-tablet-down"
+        role="list"
+      >
+        {% assign skip_card_product_styles = false %}
+        {% for product_id_str in frequently_bought_array %}
+          {% if product_id_str != '' %}
+            {% assign product_id = product_id_str | plus: 0 %}
+            {% for check_product in collections.all.products %}
+              {% if check_product.id == product_id %}
+                <li class="grid__item">
+                  {% render 'card-product',
+                    card_product: check_product,
+                    media_aspect_ratio: section.settings.image_ratio,
+                    image_shape: section.settings.image_shape,
+                    show_secondary_image: section.settings.show_secondary_image,
+                    show_vendor: section.settings.show_vendor,
+                    show_rating: section.settings.show_rating,
+                    skip_styles: skip_card_product_styles
+                  %}
+                </li>
+                {%- assign skip_card_product_styles = true -%}
+                {% break %}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+  {% if section.settings.image_shape == 'arch' %}
+    {{ 'mask-arch.svg' | inline_asset_content }}
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Frequently Bought",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Dynamic section that shows products frequently bought together with the current product"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "default": "Frequently Bought Together",
+      "label": "Heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "h2",
+          "label": "Small"
+        },
+        {
+          "value": "h1",
+          "label": "Medium"
+        },
+        {
+          "value": "h0",
+          "label": "Large"
+        },
+        {
+          "value": "hxl",
+          "label": "Extra Large"
+        },
+        {
+          "value": "hxxl",
+          "label": "Extra Extra Large"
+        }
+      ],
+      "default": "h1",
+      "label": "Heading size"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "default": 4,
+      "label": "Products to show"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 4,
+      "label": "Number of columns on desktop"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "default": "2",
+      "label": "Number of columns on mobile",
+      "options": [
+        {
+          "value": "1",
+          "label": "1 column"
+        },
+        {
+          "value": "2",
+          "label": "2 columns"
+        }
+      ]    
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "info": "Color scheme is applied to the cards",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Product card"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "Adapt to image"
+        },
+        {
+          "value": "portrait",
+          "label": "Portrait"
+        },
+        {
+          "value": "square",
+          "label": "Square"
+        }
+      ],
+      "default": "adapt",
+      "label": "Image ratio"
+    },
+    {
+      "type": "select",
+      "id": "image_shape",
+      "options": [
+        {
+          "value": "default",
+          "label": "Default"
+        },
+        {
+          "value": "arch",
+          "label": "Arch"
+        },
+        {
+          "value": "blob",
+          "label": "Blob"
+        },
+        {
+          "value": "chevronleft",
+          "label": "Chevron left"
+        },
+        {
+          "value": "chevronright",
+          "label": "Chevron right"
+        },
+        {
+          "value": "diamond",
+          "label": "Diamond"
+        },
+        {
+          "value": "parallelogram",
+          "label": "Parallelogram"
+        },
+        {
+          "value": "round",
+          "label": "Round"
+        }
+      ],
+      "default": "default",
+      "label": "Image shape"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_secondary_image",
+      "default": false,
+      "label": "Show second product image on hover"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "default": false,
+      "label": "Show product vendor"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "default": false,
+      "label": "Show product rating",
+      "info": "To display a rating, add a product rating app. Learn more"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 36
+    }
+  ]
+}
+{% endschema %}

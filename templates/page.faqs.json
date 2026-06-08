@@ -1,0 +1,463 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "image_banner_xKf6GR": {
+      "type": "image-banner",
+      "blocks": {
+        "heading_xmxmja": {
+          "type": "heading",
+          "settings": {
+            "heading": "FAQS",
+            "heading_size": "hxl"
+          }
+        }
+      },
+      "block_order": [
+        "heading_xmxmja"
+      ],
+      "custom_css": [
+        "h2 {color: white !important;}",
+        ".banner__box.content-container.content-container--full-width-mobile.color-scheme-1.gradient {margin-top: -930px;}",
+        "@media screen and (max-width: 768px) {.banner__box.content-container.content-container--full-width-mobile.color-scheme-1.gradient {margin-top: -60px; } .banner__content.banner__content--middle-left.page-width.scroll-trigger.animate--slide-in {background: transparent; }}"
+      ],
+      "name": "Image banner",
+      "settings": {
+        "image": "shopify://shop_images/FAQs_Policies_web.png",
+        "image_2": "shopify://shop_images/FAQs_Policies_mob.png",
+        "image_overlay_opacity": 0,
+        "image_behavior": "none",
+        "full_width": true,
+        "content_width": 1200,
+        "border_radius": 0,
+        "desktop_image_height": "small",
+        "desktop_content_position": "middle-left",
+        "desktop_content_alignment": "left",
+        "show_text_box": false,
+        "color_scheme": "",
+        "mobile_image_height": "small",
+        "stack_images_on_mobile": false,
+        "swap_mobile_position": false,
+        "mobile_content_alignment": "left",
+        "mobile_content_position": "default",
+        "show_text_below": true
+      }
+    },
+    "custom_faq_mffGpN": {
+      "type": "Custom-Faq",
+      "blocks": {
+        "tab_GMCN9U": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "General",
+            "tab_subtitle": ""
+          }
+        },
+        "tab_dQWwFy": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "ORDERING & PAYMENT",
+            "tab_subtitle": ""
+          }
+        },
+        "tab_8hbeDQ": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "SHIPPING & DELIVERY",
+            "tab_subtitle": ""
+          }
+        },
+        "tab_cpqDqf": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "CUSTOM ENGRAVING & GIFT OPTIONS",
+            "tab_subtitle": ""
+          }
+        },
+        "tab_LatYxp": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "PRODUCT INFORMATION",
+            "tab_subtitle": ""
+          }
+        },
+        "tab_XM6fKK": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "RETURNS, REFUNDS & REPLACEMENTS",
+            "tab_subtitle": ""
+          }
+        },
+        "tab_kHUeEk": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "ACCOUNTS & REWARDS",
+            "tab_subtitle": ""
+          }
+        },
+        "tab_PNL6fY": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "CONTACT & SUPPORT",
+            "tab_subtitle": ""
+          }
+        },
+        "accordion_mR8kBA": {
+          "type": "accordion",
+          "settings": {
+            "tab_id": "General",
+            "question": "What is Rakugaki Central?",
+            "answer": "<p>Rakugaki Central is a stationery and gift brand specializing in Japanese writing instruments, premium pens, curated refills, inks, stationery essentials, and elegant gift packaging. All items are sourced from trusted Japanese suppliers and inspected for authenticity and quality.</p>",
+            "plus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 5V19M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>",
+            "minus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>"
+          }
+        },
+        "accordion_3gQa7f": {
+          "type": "accordion",
+          "settings": {
+            "tab_id": "General",
+            "question": "Are your products authentic?",
+            "answer": "<p>Yes. Every item is 100% authentic, sourced directly from verified manufacturers and authorized Japanese distributors.</p>",
+            "plus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 5V19M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>",
+            "minus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>"
+          }
+        },
+        "accordion_xVGFrH": {
+          "type": "accordion",
+          "settings": {
+            "tab_id": "General",
+            "question": "Will you restock limited items?",
+            "answer": "<p>Some items may not return depending on supplier availability. You may join the product waitlist on each page to receive updates.</p>",
+            "plus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 5V19M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>",
+            "minus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>"
+          }
+        },
+        "accordion_zy8yLf": {
+          "type": "accordion",
+          "settings": {
+            "tab_id": "ORDERING & PAYMENT",
+            "question": "How do I place an order?",
+            "answer": "<p>Add your desired items to your cart and checkout directly on our website for the fastest and smoothest ordering experience.</p>",
+            "plus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 5V19M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>",
+            "minus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>"
+          }
+        },
+        "accordion_VKQMiQ": {
+          "type": "accordion",
+          "settings": {
+            "tab_id": "ORDERING & PAYMENT",
+            "question": "Can I reserve an item?",
+            "answer": "<p>Reservations are not available. Items are only secured once payment is completed.</p>",
+            "plus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 5V19M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>",
+            "minus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>"
+          }
+        },
+        "accordion_9RH7AN": {
+          "type": "accordion",
+          "settings": {
+            "tab_id": "ORDERING & PAYMENT",
+            "question": "Do you accept bulk or corporate orders?",
+            "answer": "<p>Yes. We offer packages and discounts for bulk purchases, corporate gifting, and event orders. Contact us through the website for quotations.</p>",
+            "plus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 5V19M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>",
+            "minus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>"
+          }
+        },
+        "accordion_rHPXbx": {
+          "type": "accordion",
+          "settings": {
+            "tab_id": "SHIPPING & DELIVERY",
+            "question": "Where do you ship?",
+            "answer": "<p>We support nationwide shipping. International shipping options will be available in the future.</p>",
+            "plus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 5V19M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>",
+            "minus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>"
+          }
+        },
+        "accordion_z78WJe": {
+          "type": "accordion",
+          "settings": {
+            "tab_id": "SHIPPING & DELIVERY",
+            "question": "How much is the shipping fee?",
+            "answer": "<p>Shipping fees are automatically calculated at checkout based on your location and courier rates.</p>",
+            "plus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 5V19M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>",
+            "minus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>"
+          }
+        },
+        "accordion_hACc6b": {
+          "type": "accordion",
+          "settings": {
+            "tab_id": "SHIPPING & DELIVERY",
+            "question": "How long is the delivery time?",
+            "answer": "<p>Delivery time varies depending on your area and the courier. Orders are typically delivered within a few business days.</p>",
+            "plus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 5V19M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>",
+            "minus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>"
+          }
+        },
+        "accordion_BNekA7": {
+          "type": "accordion",
+          "settings": {
+            "tab_id": " CUSTOM ENGRAVING & GIFT OPTIONS",
+            "question": "Do you offer engraving?",
+            "answer": "<p>Yes. We offer laser engraving for most pens available in our shop. Selected stationery items may also be eligible depending on material suitability.</p>",
+            "plus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 5V19M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>",
+            "minus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>"
+          }
+        },
+        "accordion_VrjtM4": {
+          "type": "accordion",
+          "settings": {
+            "tab_id": " CUSTOM ENGRAVING & GIFT OPTIONS",
+            "question": "What can be engraved?",
+            "answer": "<p>We can engrave any language, character set, or text style. This includes names, words, symbols, numbers, and various character sets from around the world.</p>",
+            "plus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 5V19M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>",
+            "minus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>"
+          }
+        },
+        "accordion_CKeTC9": {
+          "type": "accordion",
+          "settings": {
+            "tab_id": " CUSTOM ENGRAVING & GIFT OPTIONS",
+            "question": "Can you engrave logos, icons, or images?",
+            "answer": "<p>Yes. Simple logos, icons, or images may also be engraved, but these are subject to approval.</p>",
+            "plus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 5V19M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>",
+            "minus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>"
+          }
+        },
+        "accordion_mADtBB": {
+          "type": "accordion",
+          "settings": {
+            "tab_id": " CUSTOM ENGRAVING & GIFT OPTIONS",
+            "question": "What will the engraving look like?",
+            "answer": "<p>Engraving results are monotone and cannot be colored. The final appearance depends on the material and finish of the item.</p>",
+            "plus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 5V19M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>",
+            "minus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>"
+          }
+        },
+        "accordion_KAGUag": {
+          "type": "accordion",
+          "settings": {
+            "tab_id": " CUSTOM ENGRAVING & GIFT OPTIONS",
+            "question": "How long does engraving take?",
+            "answer": "<p>Engraving orders typically require 2–4 days for processing, depending on the bulk of order.</p>",
+            "plus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 5V19M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>",
+            "minus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>"
+          }
+        },
+        "accordion_Pczqnw": {
+          "type": "accordion",
+          "settings": {
+            "tab_id": " CUSTOM ENGRAVING & GIFT OPTIONS",
+            "question": "Are all items eligible for engraving?",
+            "answer": "<p>Most pens can be engraved. Some stationery items may also be engraved depending on their material and surface. If unsure, feel free to ask before ordering.</p>",
+            "plus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 5V19M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>",
+            "minus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>"
+          }
+        },
+        "accordion_Fr9xyU": {
+          "type": "accordion",
+          "settings": {
+            "tab_id": " CUSTOM ENGRAVING & GIFT OPTIONS",
+            "question": "Can I request a specific font?",
+            "answer": "<p>Yes. You may request a specific font style for engraving. You can upload an image (PNG or JPEG file) showing the exact font you want on the name to be engraved.</p><p>All custom fonts and styles are subject to approval to ensure they engrave clearly and cleanly.</p>",
+            "plus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 5V19M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>",
+            "minus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>"
+          }
+        },
+        "accordion_PgNkVf": {
+          "type": "accordion",
+          "settings": {
+            "tab_id": " CUSTOM ENGRAVING & GIFT OPTIONS",
+            "question": "Can I return or replace an engraved item?",
+            "answer": "<p>Engraved items cannot be cancelled, returned or replaced unless the engraving error was caused on our end or the item arrived defective.</p>",
+            "plus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 5V19M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>",
+            "minus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>"
+          }
+        },
+        "accordion_NNBX48": {
+          "type": "accordion",
+          "settings": {
+            "tab_id": " CUSTOM ENGRAVING & GIFT OPTIONS",
+            "question": "Do you offer gift wrapping?",
+            "answer": "<p>Yes. We provide premium gift packaging as an <strong>added service</strong>, using our <strong>Type A</strong> and <strong>Type B</strong> gift boxes. Optional ribbons and other decorative add-ons may also be selected during checkout.</p>",
+            "plus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 5V19M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>",
+            "minus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>"
+          }
+        },
+        "accordion_DdKRbU": {
+          "type": "accordion",
+          "settings": {
+            "tab_id": "PRODUCT INFORMATION",
+            "question": "Do you sell refills?",
+            "answer": "<p>Yes. We offer a wide variety of pen refills. Each product page shows detailed compatibility information, and you may also message us if you need help identifying the correct refill.</p>",
+            "plus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 5V19M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>",
+            "minus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>"
+          }
+        },
+        "accordion_a3wwzx": {
+          "type": "accordion",
+          "settings": {
+            "tab_id": "PRODUCT INFORMATION",
+            "question": "What if the item I want is out of stock?",
+            "answer": "<p>You may join the product’s waitlist to be notified once it becomes available again.</p>",
+            "plus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 5V19M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>",
+            "minus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>"
+          }
+        },
+        "accordion_GUbUnN": {
+          "type": "accordion",
+          "settings": {
+            "tab_id": "PRODUCT INFORMATION",
+            "question": "Do you offer special or seasonal items?",
+            "answer": "<p>We continuously source a variety of stationery items from our partner suppliers. Availability may change depending on their stock.</p>",
+            "plus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 5V19M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>",
+            "minus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>"
+          }
+        },
+        "accordion_xkPDaD": {
+          "type": "accordion",
+          "settings": {
+            "tab_id": "RETURNS, REFUNDS & REPLACEMENTS",
+            "question": "What is your return policy?",
+            "answer": "<p>We accept returns for items that arrive defective, damaged, or incorrect, as long as the issue is reported within 7 days of receiving the order. To help us assess the concern, please provide clear photos or videos showing the issue, including the packaging and condition upon opening. Items that show misuse, accidental damage, wear and tear, or issues caused after delivery are not eligible. Returned items must be in original condition with complete packaging.</p>",
+            "plus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 5V19M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>",
+            "minus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>"
+          }
+        },
+        "accordion_4YFHEf": {
+          "type": "accordion",
+          "settings": {
+            "tab_id": "RETURNS, REFUNDS & REPLACEMENTS",
+            "question": "What is considered a defect?",
+            "answer": "<p>A product may be considered defective if it shows physical damage upon unboxing (such as cracks, dents, or breakage not caused after delivery), incorrect or missing items, or ink flow issues on unused pens after proper priming. Manufacturing defects that affect usability may also qualify. Minor marks from manufacturing or packaging are not considered defects.</p>",
+            "plus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 5V19M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>",
+            "minus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>"
+          }
+        },
+        "accordion_nwYpUM": {
+          "type": "accordion",
+          "settings": {
+            "tab_id": "RETURNS, REFUNDS & REPLACEMENTS",
+            "question": "Do you offer refunds?",
+            "answer": "<p>Refunds may be issued for approved cases such as defective items, incorrect shipments, or unavailable items. Refunds may be returned to the original payment method or issued as store credit depending on the case.</p>",
+            "plus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 5V19M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>",
+            "minus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>"
+          }
+        },
+        "accordion_hgCwGB": {
+          "type": "accordion",
+          "settings": {
+            "tab_id": "ACCOUNTS & REWARDS",
+            "question": "Do I need an account to place an order?",
+            "answer": "<p>You may checkout as a guest, but creating an account allows easier tracking and management of your orders.</p>",
+            "plus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 5V19M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>",
+            "minus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>"
+          }
+        },
+        "accordion_pWLzNH": {
+          "type": "accordion",
+          "settings": {
+            "tab_id": "ACCOUNTS & REWARDS",
+            "question": "Do you have a loyalty or rewards program?",
+            "answer": "<p>A rewards system is currently in development.</p>",
+            "plus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 5V19M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>",
+            "minus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>"
+          }
+        },
+        "accordion_p9MXre": {
+          "type": "accordion",
+          "settings": {
+            "tab_id": "CONTACT & SUPPORT",
+            "question": "How can I reach you?",
+            "answer": "<p>You may contact us through website chat, Facebook/Instagram, or email at rakugakicentral@gmail.com</p>",
+            "plus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 5V19M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>",
+            "minus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>"
+          }
+        },
+        "accordion_M7kgkC": {
+          "type": "accordion",
+          "settings": {
+            "tab_id": "CONTACT & SUPPORT",
+            "question": "What are your support hours?",
+            "answer": "<p>Monday–Saturday, 9 AM–6 PM.</p>",
+            "plus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 5V19M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>",
+            "minus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>"
+          }
+        }
+      },
+      "block_order": [
+        "tab_GMCN9U",
+        "tab_dQWwFy",
+        "tab_8hbeDQ",
+        "tab_cpqDqf",
+        "tab_LatYxp",
+        "tab_XM6fKK",
+        "tab_kHUeEk",
+        "tab_PNL6fY",
+        "accordion_mR8kBA",
+        "accordion_3gQa7f",
+        "accordion_xVGFrH",
+        "accordion_zy8yLf",
+        "accordion_VKQMiQ",
+        "accordion_9RH7AN",
+        "accordion_rHPXbx",
+        "accordion_z78WJe",
+        "accordion_hACc6b",
+        "accordion_BNekA7",
+        "accordion_VrjtM4",
+        "accordion_CKeTC9",
+        "accordion_mADtBB",
+        "accordion_KAGUag",
+        "accordion_Pczqnw",
+        "accordion_Fr9xyU",
+        "accordion_PgNkVf",
+        "accordion_NNBX48",
+        "accordion_DdKRbU",
+        "accordion_a3wwzx",
+        "accordion_GUbUnN",
+        "accordion_xkPDaD",
+        "accordion_4YFHEf",
+        "accordion_nwYpUM",
+        "accordion_hgCwGB",
+        "accordion_pWLzNH",
+        "accordion_p9MXre",
+        "accordion_M7kgkC"
+      ],
+      "name": "Tab Accordion",
+      "settings": {
+        "padding_left": 65,
+        "padding_right": 100,
+        "padding_top": 50,
+        "padding_bottom": 50
+      }
+    },
+    "custom_question_mwFkWg": {
+      "type": "Custom-Question",
+      "name": "Question CTA",
+      "settings": {
+        "heading_text": "Got More Questions?",
+        "button_text": "Contact Us",
+        "button_url": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "image_banner_xKf6GR",
+    "custom_faq_mffGpN",
+    "custom_question_mwFkWg"
+  ]
+}

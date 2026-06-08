@@ -1,0 +1,225 @@
+{%- style -%}
+  #ContactHero-{{ section.id }} {
+    display: block;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+
+    {%- if section.settings.desktop_image != blank -%}
+      background-image: url('{{ section.settings.desktop_image | image_url: width: 3840 }}');
+      aspect-ratio: {{ section.settings.desktop_image.aspect_ratio }};
+    {%- elsif section.settings.mobile_image != blank -%}
+      background-image: url('{{ section.settings.mobile_image | image_url: width: 1500 }}');
+      aspect-ratio: {{ section.settings.mobile_image.aspect_ratio }};
+    {%- else -%}
+      min-height: 250px;
+      background-color: #f4f4f4;
+    {%- endif -%}
+  }
+
+  @media screen and (max-width: 749px) {
+    #ContactHero-{{ section.id }} {
+      {%- if section.settings.mobile_image != blank -%}
+        background-image: url('{{ section.settings.mobile_image | image_url: width: 1500 }}');
+        aspect-ratio: {{ section.settings.mobile_image.aspect_ratio }};
+      {%- elsif section.settings.desktop_image != blank -%}
+        background-image: url('{{ section.settings.desktop_image | image_url: width: 1500 }}');
+        aspect-ratio: {{ section.settings.desktop_image.aspect_ratio }};
+      {%- else -%}
+        min-height: 220px;
+      {%- endif -%}
+    }
+  }
+
+  .contact-hero__inner {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    padding: 0 48px;
+  }
+
+  .contact-hero__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    width: 100%;
+    gap: 24px;
+  }
+
+  .contact-hero__heading {
+    color: #ffffff;
+    font-size: 80px;
+    font-weight: 900;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    margin: 0;
+    text-align: right;
+  }
+
+  .contact-hero__socials {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    margin-left: 150px;
+  }
+
+  .contact-hero__social-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 800;
+    font-family: "Poppins Regular";
+  }
+
+  .contact-hero__social-icon {
+    width: 30px;
+    height: 30px;
+    background-color: #931932;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .contact-hero__social-icon svg {
+    width: 14px;
+    height: 14px;
+    fill: #ffffff;
+  }
+
+  @media screen and (max-width: 749px) {
+    .contact-hero__inner {
+      padding: 20px 20px;
+      align-items: flex-start;
+      justify-content: flex-start;
+    }
+
+    .contact-hero__grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .contact-hero__heading {
+      font-size: clamp(2rem, 10vw, 3rem);
+    }
+
+    .contact-hero__social-item {
+      font-size: 0.8rem;
+    }
+
+    .contact-hero__social-icon {
+      width: 26px;
+      height: 26px;
+    }
+
+    .contact-hero__social-icon svg {
+      width: 12px;
+      height: 12px;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .contact-hero__grid {
+      display: none;
+    }
+  }
+{%- endstyle -%}
+
+<section
+  id="ContactHero-{{ section.id }}"
+  class="contact-hero"
+  aria-label="Contact hero banner"
+>
+  {%- if section.settings.desktop_image == blank and section.settings.mobile_image == blank -%}
+    {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg contact-hero__placeholder' }}
+  {%- endif -%}
+
+  <div class="contact-hero__inner">
+    <div class="contact-hero__grid">
+      <div class="contact-hero__col-heading">
+        <h2 class="contact-hero__heading">Contact Us</h2>
+      </div>
+
+      <div class="contact-hero__col-socials">
+        <div class="contact-hero__socials">
+          <a href="https://facebook.com/rakugakicentral" class="contact-hero__social-item" target="_blank" rel="noopener">
+            <span class="contact-hero__social-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+              </svg>
+            </span>
+            <span>rakugaki central</span>
+          </a>
+
+          <a href="https://instagram.com/rakugakicentral" class="contact-hero__social-item" target="_blank" rel="noopener">
+            <span class="contact-hero__social-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="#ffffff" stroke-width="2"/>
+                <circle cx="12" cy="12" r="4" fill="none" stroke="#ffffff" stroke-width="2"/>
+                <circle cx="17.5" cy="6.5" r="1.2" fill="#ffffff"/>
+              </svg>
+            </span>
+            <span>rakugakicentral</span>
+          </a>
+
+          <a href="mailto:rakugakicentral@gmail.com" class="contact-hero__social-item">
+            <span class="contact-hero__social-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" fill="none" stroke="#ffffff" stroke-width="2"/>
+                <polyline points="22,6 12,13 2,6" fill="none" stroke="#ffffff" stroke-width="2"/>
+              </svg>
+            </span>
+            <span>rakugakicentral@gmail.com</span>
+          </a>
+
+          <a href="tel:+639543802888" class="contact-hero__social-item">
+            <span class="contact-hero__social-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.58 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16z" fill="none" stroke="#ffffff" stroke-width="2"/>
+              </svg>
+            </span>
+            <span>+639543802888 / Viber +639543802888</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contact Hero",
+  "tag": "section",
+  "class": "section section-contact-hero",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "desktop_image",
+      "label": "Desktop background image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile background image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact Hero"
+    }
+  ]
+}
+{% endschema %}

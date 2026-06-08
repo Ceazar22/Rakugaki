@@ -1,0 +1,138 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "banner": {
+      "type": "main-collection-banner",
+      "disabled": true,
+      "settings": {
+        "show_collection_description": true,
+        "show_collection_image": true,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "custom_liquid_Q4TXRQ": {
+      "type": "custom-liquid",
+      "disabled": true,
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "{% if collection %}\n  <nav class=\"breadcrumb\" aria-label=\"Breadcrumb\">\n    <a href=\"{{ routes.root_url }}\">Home</a> &gt; \n    <span>{{ collection.title }}</span>\n  </nav>\n\n  <style>\n    .breadcrumb {\n      font-family: 'Grotesk Regular', sans-serif;\n      font-size: 14px;\n      color: #666;\n      margin-left: 70px;\n    }\n\n    .breadcrumb a {\n      text-decoration: none;\n      color: #333;\n    }\n\n    .breadcrumb a:hover {\n      text-decoration: underline;\n    }\n\n    .breadcrumb span {\n      color: #999;\n    }\n    @media screen and (max-width: 768px) {\n    .breadcrumb {\n    display: none;\n}\n}\n  </style>\n{% endif %}",
+        "color_scheme": "",
+        "padding_top": 16,
+        "padding_bottom": 16
+      }
+    },
+    "image_banner_nL4Xy7": {
+      "type": "image-banner",
+      "blocks": {
+        "heading_98RexM": {
+          "type": "heading",
+          "settings": {
+            "heading": "Shop All",
+            "heading_size": "h1"
+          }
+        },
+        "text_Y4BtrQ": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "<p>All-day comfort. Premium feel. Clean-cut look. Designed for the man who moves.</p>",
+            "text_style": "body"
+          }
+        }
+      },
+      "block_order": [
+        "heading_98RexM",
+        "text_Y4BtrQ"
+      ],
+      "disabled": true,
+      "custom_css": [
+        "h2 {font-family: \"Grotesk Regular\";}"
+      ],
+      "name": "t:sections.image-banner.presets.name",
+      "settings": {
+        "image_overlay_opacity": 0,
+        "image_behavior": "none",
+        "full_width": false,
+        "content_width": 1350,
+        "border_radius": 0,
+        "desktop_image_height": "medium",
+        "desktop_content_position": "bottom-center",
+        "desktop_content_alignment": "center",
+        "show_text_box": false,
+        "color_scheme": "",
+        "mobile_image_height": "medium",
+        "stack_images_on_mobile": true,
+        "swap_mobile_position": false,
+        "mobile_content_alignment": "center",
+        "mobile_content_position": "bottom",
+        "show_text_below": false
+      }
+    },
+    "rich_text_q4ziw4": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_Gzama6": {
+          "type": "heading",
+          "settings": {
+            "heading": "ENGRAVABLE PRODUCTS",
+            "heading_size": "h1"
+          }
+        },
+        "search_xaxJNK": {
+          "type": "search",
+          "settings": {
+            "placeholder": "Search Products"
+          }
+        }
+      },
+      "block_order": [
+        "heading_Gzama6",
+        "search_xaxJNK"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "settings": {
+        "products_per_page": 16,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "image_ratio": "portrait",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": true,
+        "quick_add": "none",
+        "enable_filtering": false,
+        "filter_type": "vertical",
+        "enable_sorting": false,
+        "padding_top": 0,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "custom_liquid_Q4TXRQ",
+    "image_banner_nL4Xy7",
+    "rich_text_q4ziw4",
+    "product-grid"
+  ]
+}

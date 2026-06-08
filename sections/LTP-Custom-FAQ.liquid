@@ -1,0 +1,507 @@
+{%- style -%}
+  .faq-image-accordion {
+    padding: {{ section.settings.padding_top }}px {{ section.settings.padding_right }}px {{ section.settings.padding_bottom }}px {{ section.settings.padding_left }}px;
+  }
+  
+  .faq-image-accordion__container {
+    max-width: {{ section.settings.container_width }}px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: {{ section.settings.column_gap }}px;
+    padding-left: 20px;
+    padding-right: 20px;
+    align-items: center;
+  }
+  
+  .faq-image-accordion__column {
+    flex: 1 1 calc(50% - {{ section.settings.column_gap }}px);
+  }
+  
+  .faq-image-accordion__image {
+    width: 100%;
+    height: auto;
+    border-radius: {{ section.settings.image_border_radius }}px;
+    margin-top: 40px;
+  }
+  
+  .faq-image-accordion__heading {
+    font-family: 'Grotesk Medium', sans-serif;
+    font-size: {{ section.settings.heading_size }}px;
+    color: {{ section.settings.heading_color }};
+    margin-bottom: 0px;
+    padding-left: 20px;
+  }
+  
+  .faq-accordion__item {
+    margin-bottom: 0px;
+    border-bottom: 1px solid {{ section.settings.accordion_border_color }};
+    border-radius: {{ section.settings.accordion_border_radius }}px;
+    overflow: hidden;
+  }
+  
+  .faq-accordion__header {
+    padding: 15px 20px;
+    background: {{ section.settings.accordion_header_bg }};
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .faq-accordion__title {
+    font-family: 'Grotesk Medium', sans-serif;
+    font-size: {{ section.settings.accordion_title_size }}px;
+    color: {{ section.settings.accordion_title_color }};
+    margin: 0;
+  }
+  
+  .faq-accordion__icon {
+    width: 24px;
+    height: 24px;
+    background: {{ section.settings.accordion_icon_bg }};
+    border-radius: 50%;
+    position: relative;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .faq-accordion__icon::before,
+  .faq-accordion__icon::after {
+    content: '';
+    position: absolute;
+    background: {{ section.settings.accordion_icon_color }};
+    transition: all 0.3s ease;
+  }
+  
+  .faq-accordion__icon::before {
+    width: 12px;
+    height: 2px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .faq-accordion__icon::after {
+    width: 2px;
+    height: 12px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .faq-accordion__item.active .faq-accordion__icon::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+    opacity: 0;
+  }
+  
+  .faq-accordion__content {
+    padding: 0 20px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+  }
+  
+  .faq-accordion__content-inner {
+    padding: 15px 0;
+    font-family: 'Grotesk Regular', sans-serif;
+    font-size: {{ section.settings.accordion_content_size }}px;
+    color: {{ section.settings.accordion_content_color }};
+  }
+  
+  .faq-accordion__item.active .faq-accordion__content {
+    max-height: 500px;
+  }
+  
+  @media (max-width: 767px) {
+    .faq-image-accordion__container {
+      align-items: flex-start;
+    }
+    
+    .faq-image-accordion__column {
+      flex: 1 1 100%;
+    }
+    
+    .faq-image-accordion__image-column {
+      order: 1;
+    }
+    
+    .faq-image-accordion__content-column {
+      order: 2;
+    }
+    
+    .faq-image-accordion {
+      padding: {{ section.settings.mobile_padding_top }}px {{ section.settings.mobile_padding_right }}px {{ section.settings.mobile_padding_bottom }}px {{ section.settings.mobile_padding_left }}px;
+    }
+    
+    .faq-image-accordion__heading {
+      font-size: {{ section.settings.mobile_heading_size }}px;
+    }
+    
+    .faq-accordion__header {
+      padding: 12px 16px;
+      min-height: 48px;
+    }
+    
+    .faq-accordion__title {
+      font-size: {{ section.settings.accordion_title_size | minus: 2 }}px;
+      line-height: 1.4;
+      padding-right: 10px;
+    }
+    
+    .faq-accordion__icon {
+      width: 24px;
+      height: 24px;
+      margin-left: auto;
+    }
+  }
+{%- endstyle -%}
+
+<div class="faq-image-accordion">
+  <div class="faq-image-accordion__container">
+    <div class="faq-image-accordion__column faq-image-accordion__image-column">
+      {%- if section.settings.image != blank -%}
+        <img src="{{ section.settings.image | img_url: '800x' }}" 
+             alt="{{ section.settings.image.alt | escape }}" 
+             class="faq-image-accordion__image"
+             loading="lazy">
+      {%- else -%}
+        {{ 'image' | placeholder_svg_tag: 'faq-image-accordion__image' }}
+      {%- endif -%}
+    </div>
+    
+    <div class="faq-image-accordion__column faq-image-accordion__content-column">
+      <h2 class="faq-image-accordion__heading">{{ section.settings.heading }}</h2>
+      
+      <div class="faq-accordion">
+        {%- for block in section.blocks -%}
+          <div class="faq-accordion__item" {{ block.shopify_attributes }}>
+            <div class="faq-accordion__header">
+              <h3 class="faq-accordion__title">{{ block.settings.title }}</h3>
+              <div class="faq-accordion__icon"></div>
+            </div>
+            <div class="faq-accordion__content">
+              <div class="faq-accordion__content-inner">{{ block.settings.content }}</div>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const accordionItems = document.querySelectorAll('.faq-accordion__header');
+    
+    accordionItems.forEach(item => {
+      item.addEventListener('click', function() {
+        const parent = this.parentElement;
+        parent.classList.toggle('active');
+        
+        if (parent.classList.contains('active')) {
+          document.querySelectorAll('.faq-accordion__item').forEach(otherItem => {
+            if (otherItem !== parent && otherItem.classList.contains('active')) {
+              otherItem.classList.remove('active');
+            }
+          });
+        }
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "FAQ with Image",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "min": 800,
+      "max": 1400,
+      "step": 20,
+      "default": 1200,
+      "unit": "px",
+      "label": "Container width"
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 40,
+      "unit": "px",
+      "label": "Space between columns"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_right",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding right",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_left",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding left",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Mobile Padding"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Mobile padding top",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_right",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Mobile padding right",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Mobile padding bottom",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_left",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Mobile padding left",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Image border radius",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 16,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "min": 16,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile heading size",
+      "default": 24
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Accordion"
+    },
+    {
+      "type": "color",
+      "id": "accordion_header_bg",
+      "label": "Header background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "accordion_border_color",
+      "label": "Border color",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "range",
+      "id": "accordion_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "accordion_title_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Title font size",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "accordion_title_color",
+      "label": "Title color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "accordion_content_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Content font size",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "accordion_content_color",
+      "label": "Content color",
+      "default": "#333333"
+    },
+    {
+      "type": "header",
+      "content": "Accordion Icon"
+    },
+    {
+      "type": "color",
+      "id": "accordion_icon_bg",
+      "label": "Icon background",
+      "default": "#8E191B"
+    },
+    {
+      "type": "color",
+      "id": "accordion_icon_color",
+      "label": "Icon color",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Question",
+          "default": "FAQ Question"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Answer",
+          "default": "<p>FAQ answer goes here.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ with Image",
+      "blocks": [
+        {
+          "type": "faq",
+          "settings": {
+            "title": "Question 1",
+            "content": "<p>Answer to question 1 goes here.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "title": "Question 2",
+            "content": "<p>Answer to question 2 goes here.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
