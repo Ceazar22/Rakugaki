@@ -8,6 +8,7 @@
 .card {
   text-decoration: none;
   text-align: var(--text-alignment);
+  position: relative;
 }
 
 .card:not(.ratio) {
@@ -350,11 +351,20 @@
 .card__heading a::after {
   bottom: 0;
   content: '';
+  cursor: pointer;
   left: 0;
   position: absolute;
   right: 0;
   top: 0;
   z-index: 1;
+}
+
+.product-card-wrapper .quick-add,
+.product-card-wrapper quick-add-bulk,
+.product-card-wrapper quantity-popover,
+.product-card-wrapper .custom-product-button {
+  position: relative;
+  z-index: 2;
 }
 
 .card__heading a:after {

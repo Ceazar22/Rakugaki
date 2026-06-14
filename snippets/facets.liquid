@@ -4,6 +4,14 @@
 
 {%- liquid
   assign sort_by = results.sort_by | default: 'created-descending'
+  assign hidden_collection_sort_options = ''
+  unless results.terms
+    assign hidden_collection_sort_options = '|manual|most-relevant|best-selling|created-descending|'
+  endunless
+  assign sort_by_token = '|' | append: sort_by | append: '|'
+  if hidden_collection_sort_options contains sort_by_token
+    assign sort_by = 'title-ascending'
+  endif
   assign total_active_values = 0
   assign default_presentation = 'text'
   if results.url
@@ -360,7 +368,6 @@
                   <label for="SortBy">{{ 'products.facets.sort_by_label' | t }}</label>
                 </h2>
                 <div class="select">
-                  {%- assign sort_by = results.sort_by | default: 'created-descending' -%}
                   <select
                     name="sort_by"
                     class="facet-filters__sort select__select caption-large"
@@ -368,17 +375,17 @@
                     aria-describedby="a11y-refresh-page-message"
                   >
                     {%- for option in results.sort_options -%}
+                      {%- assign option_token = '|' | append: option.value | append: '|' -%}
+                      {%- if hidden_collection_sort_options contains option_token -%}
+                        {%- continue -%}
+                      {%- endif -%}
                       <option
                         value="{{ option.value | escape }}"
                         {% if option.value == sort_by %}
                           selected="selected"
                         {% endif %}
                       >
-                        {%- if option.value == 'created-descending' -%}
-                          New Arrivals
-                        {%- else -%}
-                          {{ option.name | escape }}
-                        {%- endif -%}
+                        {{ option.name | escape }}
                       </option>
                     {%- endfor -%}
                   </select>
@@ -1203,7 +1210,6 @@ const colorMap = {
                     <div class="mobile-facets__sort">
                       <label for="SortBy-mobile">{{ 'products.facets.sort_by_label' | t }}</label>
                       <div class="select">
-                        {%- assign sort_by = results.sort_by | default: 'created-descending' -%}
                         <select
                           name="sort_by"
                           class="select__select"
@@ -1211,17 +1217,17 @@ const colorMap = {
                           aria-describedby="a11y-refresh-page-message"
                         >
                           {%- for option in results.sort_options -%}
+                            {%- assign option_token = '|' | append: option.value | append: '|' -%}
+                            {%- if hidden_collection_sort_options contains option_token -%}
+                              {%- continue -%}
+                            {%- endif -%}
                             <option
                               value="{{ option.value | escape }}"
                               {% if option.value == sort_by %}
                                 selected="selected"
                               {% endif %}
                             >
-                              {%- if option.value == 'created-descending' -%}
-                                New Arrivals
-                              {%- else -%}
-                                {{ option.name | escape }}
-                              {%- endif -%}
+                              {{ option.name | escape }}
                             </option>
                           {%- endfor -%}
                         </select>
@@ -1326,7 +1332,6 @@ const colorMap = {
               <label for="SortBy">{{ 'products.facets.sort_by_label' | t }}</label>
             </h2>
             <div class="select">
-              {%- assign sort_by = results.sort_by | default: 'created-descending' -%}
               <select
                 name="sort_by"
                 class="facet-filters__sort select__select caption-large"
@@ -1334,17 +1339,17 @@ const colorMap = {
                 aria-describedby="a11y-refresh-page-message"
               >
                {%- for option in results.sort_options -%}
+                {%- assign option_token = '|' | append: option.value | append: '|' -%}
+                {%- if hidden_collection_sort_options contains option_token -%}
+                  {%- continue -%}
+                {%- endif -%}
                 <option
                   value="{{ option.value | escape }}"
                   {% if option.value == sort_by %}
                     selected="selected"
                   {% endif %}
                 >
-                  {%- if option.value == 'created-descending' -%}
-                    New Arrivals
-                  {%- else -%}
-                    {{ option.name | escape }}
-                  {%- endif -%}
+                  {{ option.name | escape }}
                 </option>
               {%- endfor -%}
               </select>
