@@ -48,7 +48,14 @@
                 <label for="SortBy">{{ 'products.facets.sort_by_label' | t }}</label>
               </h2>
               <div class="select">
-                {%- assign sort_by = collection.sort_by | default: 'created-descending' -%}
+                {%- liquid
+                  assign hidden_sort_options = '|manual|most-relevant|best-selling|created-descending|'
+                  assign sort_by = collection.sort_by | default: 'title-ascending'
+                  assign sort_by_token = '|' | append: sort_by | append: '|'
+                  if hidden_sort_options contains sort_by_token
+                    assign sort_by = 'title-ascending'
+                  endif
+                -%}
                 <select
                   name="sort_by"
                   class="facet-filters__sort select__select caption-large"
@@ -56,17 +63,17 @@
                   aria-describedby="a11y-refresh-page-message"
                 >
                   {%- for option in collection.sort_options -%}
+                    {%- assign option_token = '|' | append: option.value | append: '|' -%}
+                    {%- if hidden_sort_options contains option_token -%}
+                      {%- continue -%}
+                    {%- endif -%}
                     <option
                       value="{{ option.value | escape }}"
                       {% if option.value == sort_by %}
                         selected="selected"
                       {% endif %}
                     >
-                      {%- if option.value == 'created-descending' -%}
-                        New Arrivals
-                      {%- else -%}
-                        {{ option.name | escape }}
-                      {%- endif -%}
+                      {{ option.name | escape }}
                     </option>
                   {%- endfor -%}
                 </select>
