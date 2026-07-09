@@ -483,6 +483,40 @@
       return null;
     }
 
+    // After a single option is picked, the resolved variant already implies
+    // values for the other options (e.g. picking a Pen Color implies a Tip
+    // Size). Reflect those in the UI so every option group shows as selected.
+    function syncSelectionToVariant(variant) {
+      if (!variant) return;
+
+      document.querySelectorAll('.variant-option').forEach(optionContainer => {
+        let selectedRadio = null;
+
+        optionContainer.querySelectorAll('.option-selector').forEach(radio => {
+          const pos = parseInt(radio.dataset.optionPosition);
+          const val = radio.dataset.optionValue.trim();
+          const label = radio.nextElementSibling;
+          const variantValue = variant.options[pos - 1];
+          const matches = variantValue && variantValue.trim() === val;
+
+          if (matches) {
+            radio.checked = true;
+            selectedRadio = radio;
+            if (label) label.classList.add('active');
+          } else if (label) {
+            label.classList.remove('active');
+          }
+        });
+
+        if (selectedRadio && !optionContainer.classList.contains('size-option')) {
+          const span = optionContainer.querySelector('.selected-value');
+          if (span) span.textContent = selectedRadio.value;
+        }
+      });
+
+      updateAvailability();
+    }
+
     const allRadios = document.querySelectorAll('.option-selector');
     const fitInfo = document.querySelector('.size-fit-info');
     
@@ -517,10 +551,13 @@
         }
         
         updateAvailability();
-        
+
         const variant = updateVariantId();
-        if (variant && variant.featured_image) {
-          changeProductImage(variant);
+        if (variant) {
+          syncSelectionToVariant(variant);
+          if (variant.featured_image) {
+            changeProductImage(variant);
+          }
         }
       });
     });

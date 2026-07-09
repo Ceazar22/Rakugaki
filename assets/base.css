@@ -3791,6 +3791,33 @@ details-disclosure > details {
     transform: rotate(-90deg);
     width: calc(16.8% - .8rem); /* decrease percentage and it will increase items */
   }
+
+  /* Vertical thumbnail strip arrows: bigger, centered across the strip width,
+     and pinned to the very top / bottom edges of the main image instead of the
+     base .slider-button's large asymmetric padding. */
+  .thumbnail-slider .slider-button {
+    padding: 0;
+    width: 44px;   /* pre-rotation width = the arrow's vertical footprint */
+    height: 100px; /* fills the strip's visual width so the caret centers */
+    flex: 0 0 auto;
+  }
+
+  /* Push each caret to its outer edge (top for prev, bottom for next). After
+     the 90deg rotation, the button's horizontal axis maps to vertical. */
+  .thumbnail-slider .slider-button--prev {
+    justify-content: flex-start;
+  }
+
+  .thumbnail-slider .slider-button--next {
+    justify-content: flex-end;
+  }
+
+  .thumbnail-slider .slider-button .svg-wrapper,
+  .thumbnail-slider .slider-button .icon,
+  .thumbnail-slider .slider-button svg {
+    width: 22px;
+    height: 22px;
+  }
 }
 
 .focus-none {
