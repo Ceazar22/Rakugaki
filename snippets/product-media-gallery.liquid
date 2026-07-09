@@ -391,6 +391,42 @@
 
 <script>
 (function() {
+  // Keep the rotated vertical thumbnail strip the same height as the main
+  // product image. Because the strip is rotated 90deg (transform-origin:
+  // left top), its CSS `width` is what you see as its height, so we set the
+  // width to the main gallery viewer's rendered height.
+  var viewer = document.getElementById('GalleryViewer-{{ section.id }}');
+  var thumbs = document.getElementById('GalleryThumbnails-{{ section.id }}');
+
+  if (viewer && thumbs) {
+    var desktopQuery = window.matchMedia('(min-width: 900px)');
+
+    function syncThumbHeight() {
+      if (desktopQuery.matches) {
+        var height = viewer.getBoundingClientRect().height;
+        if (height) thumbs.style.width = Math.round(height) + 'px';
+      } else {
+        thumbs.style.width = '';
+      }
+    }
+
+    syncThumbHeight();
+    window.addEventListener('load', syncThumbHeight);
+    window.addEventListener('resize', syncThumbHeight);
+    if (desktopQuery.addEventListener) desktopQuery.addEventListener('change', syncThumbHeight);
+
+    // Re-sync whenever the main image resizes (image load, variant swap, etc.).
+    if (window.ResizeObserver) {
+      new ResizeObserver(syncThumbHeight).observe(viewer);
+    } else {
+      document.addEventListener('variant:change', syncThumbHeight);
+    }
+  }
+})();
+</script>
+
+<script>
+(function() {
   var galleryId = 'MediaGallery-{{ section.id }}';
 
   function getSlides(sliderList) {
