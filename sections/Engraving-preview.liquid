@@ -28,13 +28,13 @@
 
   .engraving-container {
     display: flex;
-    gap: 40px;
+    gap: 20px;
     align-items: start;
   }
 
   .preview-section {
     background: white;
-    padding: 20px;
+    padding: 0px;
     border-radius: 8px;
     flex: 0 0 35%;
     width: auto;
@@ -81,7 +81,7 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    min-height: 250px;
+    min-height: 300px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -314,7 +314,10 @@
     color: #999;
     text-align: center;
     font-family: 'Poppins Regular';
-  }
+    height: 43px;
+    display: flex;
+    align-items: center;
+}
 
   .add-button {
     display: flex;
@@ -703,12 +706,47 @@
       return false;
     }
 
+    // Locate the option that actually holds the pen colors by its name
+    // (e.g. "Pen Color"). This is more reliable than guessing from the
+    // value strings and guarantees the Item Variation list matches the
+    // Pen Color swatches shown on the product page.
+    function findColorOptionIndex() {
+      const sample = productData.allVariants && productData.allVariants[0];
+      if (!sample) return -1;
+
+      const names = [sample.option1_name, sample.option2_name, sample.option3_name];
+
+      for (let i = 0; i < names.length; i++) {
+        const name = (names[i] || '').toString().toLowerCase();
+        if (name.includes('color') || name.includes('colour')) {
+          return i;
+        }
+      }
+
+      return -1;
+    }
+
     function extractColors() {
       if (!productData.allVariants || productData.allVariants.length === 0) {
         return [];
       }
 
       const colorSet = new Set();
+
+      // Preferred path: pull every distinct value from the option named
+      // like "Pen Color" so the count/values match the product page.
+      const colorIndex = findColorOptionIndex();
+      if (colorIndex !== -1) {
+        const key = 'option' + (colorIndex + 1);
+        productData.allVariants.forEach(variant => {
+          if (variant && variant[key]) {
+            colorSet.add(variant[key]);
+          }
+        });
+        return Array.from(colorSet);
+      }
+
+      // Fallback: no option is named like a color, so guess from values.
       const isSet = isSetProduct();
 
       if (isSet && productData.options && productData.options.length > 0) {
@@ -750,11 +788,46 @@
     const availableColors = extractColors();
     const maxEngravings = getSetQuantity();
 
+    // Default to the pen color the customer already picked on the product
+    // page (carried through in productData.options), falling back to the
+    // first available color when nothing was selected.
+    function getSelectedColor() {
+      // Authoritative value resolved on the product page at Customize time.
+      if (productData.selectedColor && availableColors.includes(productData.selectedColor)) {
+        return productData.selectedColor;
+      }
+
+      const colorIndex = findColorOptionIndex();
+
+      if (colorIndex !== -1) {
+        const key = 'option' + (colorIndex + 1);
+
+        // 1) Prefer the pen color the customer selected on the product page.
+        if (productData.options) {
+          const selected = productData.options[colorIndex];
+          if (selected && availableColors.includes(selected)) {
+            return selected;
+          }
+        }
+
+        // 2) Fall back to the color of the resolved variant (always set by
+        //    the Customize button, even when no swatch radio was captured).
+        if (productData.variantId && productData.allVariants) {
+          const chosen = productData.allVariants.find(v => v && v.id === productData.variantId);
+          if (chosen && chosen[key] && availableColors.includes(chosen[key])) {
+            return chosen[key];
+          }
+        }
+      }
+
+      return availableColors.length > 0 ? availableColors[0] : '';
+    }
+
     let engravings = [
       {
         id: 1,
         text: '',
-        color: availableColors.length > 0 ? availableColors[0] : '',
+        color: getSelectedColor(),
         font: fonts[0].name,
         placement: placementOptions[0],
         giftBox: giftBoxOptions[0].name
@@ -792,7 +865,7 @@
           <div class="customization-section">
             <div class="customization-tabs">
               <div class="tab-button">Personalize</div>
-              <div class="tab-button">Colors</div>
+              <div class="tab-button">Item Variation</div>
               <div class="tab-button">Fonts</div>
               <div class="tab-button">Placement</div>
               <div class="tab-button">Gift Box</div>
@@ -864,10 +937,10 @@
               </div>
             `;
           } else {
-            colorField = `<div class="no-colors-text">No colors available</div>`;
+            colorField = `<div class="no-colors-text">No Variation available</div>`;
           }
         } else {
-          colorField = `<div class="no-colors-text">No colors</div>`;
+          colorField = `<div class="no-colors-text">No Variation</div>`;
         }
 
         const placementField = `

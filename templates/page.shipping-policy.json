@@ -74,6 +74,7 @@
         "heading_gAwi3V": {
           "type": "heading",
           "settings": {
+            "class": "",
             "heading": "Shipping Policy",
             "heading_size": "h1"
           }
@@ -110,6 +111,7 @@
         "heading_JRgiwV": {
           "type": "heading",
           "settings": {
+            "class": "return",
             "heading": "RETURNS & REFUNDS POLICY",
             "heading_size": "h1"
           }
@@ -147,6 +149,7 @@
         "heading_bDTGhC": {
           "type": "heading",
           "settings": {
+            "class": "",
             "heading": "Privacy Policy",
             "heading_size": "h1"
           }
@@ -184,6 +187,7 @@
         "heading_bWEyQi": {
           "type": "heading",
           "settings": {
+            "class": "",
             "heading": "Terms & Conditions",
             "heading_size": "h1"
           }
@@ -221,6 +225,7 @@
         "heading_NmrzCP": {
           "type": "heading",
           "settings": {
+            "class": "",
             "heading": "About Us",
             "heading_size": "h1"
           }
