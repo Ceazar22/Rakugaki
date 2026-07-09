@@ -58,15 +58,17 @@
     display: none;
     position: fixed;
     top: 0;
-    left: -850px;
-    width: 200%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
     z-index: 999999;
     align-items: center;
     justify-content: center;
     overflow-y: auto;
-    margin-top: -200px !important;
+    padding: 20px;
   }
   .engraving-modal.active {
     display: flex !important;
@@ -385,6 +387,24 @@
     return { name: name, image: image };
   }
 
+  function clearStoredLogo() {
+    localStorage.removeItem('engraving_logo_name');
+    localStorage.removeItem('engraving_logo_image');
+    currentBase64 = '';
+  }
+
+  // Lock scrolling on both <html> and <body>; the theme scrolls on the
+  // document element, so locking <body> alone doesn't stop the page.
+  function lockScroll() {
+    document.documentElement.style.overflow = 'hidden';
+    lockScroll();
+  }
+
+  function unlockScroll() {
+    document.documentElement.style.overflow = '';
+    unlockScroll();
+  }
+
   function createLogoGroupId() {
     return 'logo-' + Date.now() + '-' + Math.random().toString(36).slice(2, 10);
   }
@@ -522,6 +542,10 @@
         throw new Error(errorData.description || 'Unable to add the customized product to cart.');
       }
 
+      // The logo now lives on the cart line item, so clear the saved copy
+      // to avoid it carrying over to the next product the customer views.
+      clearStoredLogo();
+
       window.location.href = rootRoute + 'cart';
     } catch (error) {
       console.error(error);
@@ -658,7 +682,7 @@
       event.stopPropagation();
 
       logoModal.classList.add('active');
-      document.body.style.overflow = 'hidden';
+      lockScroll();
     });
   }
 
@@ -667,7 +691,7 @@
       event.preventDefault();
 
       logoModal.classList.add('active');
-      document.body.style.overflow = 'hidden';
+      lockScroll();
     });
   }
 
@@ -677,15 +701,22 @@
       event.stopPropagation();
 
       logoModal.classList.remove('active');
-      document.body.style.overflow = '';
+      unlockScroll();
     });
+  }
+
+  // Move the modal to <body> so its `position: fixed` resolves against the
+  // viewport. A transformed ancestor in the product form otherwise becomes
+  // the containing block and pushes the modal off to the side.
+  if (logoModal && logoModal.parentElement !== document.body) {
+    document.body.appendChild(logoModal);
   }
 
   if (logoModal) {
     logoModal.addEventListener('click', function(event) {
       if (event.target === logoModal) {
         logoModal.classList.remove('active');
-        document.body.style.overflow = '';
+        unlockScroll();
       }
     });
   }
@@ -825,7 +856,7 @@
       setTimeout(function() {
         loadingIndicator.classList.remove('active');
         logoModal.classList.remove('active');
-        document.body.style.overflow = '';
+        unlockScroll();
 
         selectedFile = null;
         logoFileInput.value = '';
