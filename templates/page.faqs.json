@@ -293,7 +293,7 @@
           "settings": {
             "tab_id": " CUSTOM ENGRAVING & GIFT OPTIONS",
             "question": "Do you offer gift wrapping?",
-            "answer": "<p>Yes. We provide premium gift packaging as an <strong>added service</strong>, using our <strong>Type A</strong> and <strong>Type B</strong> gift boxes. Optional ribbons and other decorative add-ons may also be selected during checkout.</p>",
+            "answer": "<p>Yes. We provide premium gift packaging as an added service using our gift boxes. Optional ribbons and other decorative add-ons may also be selected during checkout.</p>",
             "plus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 5V19M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>",
             "minus_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M5 12H19\" stroke=\"#931932\" stroke-width=\"2\" stroke-linecap=\"round\"></path></svg>"
           }

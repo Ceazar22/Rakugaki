@@ -12,7 +12,9 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
-
+ html {
+  scroll-behavior: smooth;
+}
   .search-block {
     width: 100%;
     max-width: 800px;
@@ -75,6 +77,9 @@
       height: 24px;
     }
   }
+  #return {
+  scroll-margin-top: 50px;
+}
 {%- endstyle -%}
 
 <div class="isolate{% unless section.settings.full_width %} page-width{% endunless %}">
@@ -84,16 +89,21 @@
         {%- for block in section.blocks -%}
           {%- case block.type -%}
             {%- when 'heading' -%}
-              <h5
-                class="rich-text__heading rte inline-richtext {{ block.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-                {{ block.shopify_attributes }}
-                {% if settings.animations_reveal_on_scroll %}
-                  data-cascade
-                  style="--animation-order: {{ forloop.index }};"
-                {% endif %}
-              >
-                {{ block.settings.heading }}
-              </h5>
+              {% assign custom_id = block.settings.class | strip %}
+
+<h5
+  {% if custom_id != blank %}
+    id="{{ custom_id }}"
+  {% endif %}
+  class="rich-text__heading rte inline-richtext {{ block.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+  {{ block.shopify_attributes }}
+  {% if settings.animations_reveal_on_scroll %}
+    data-cascade
+    style="--animation-order: {{ forloop.index }};"
+  {% endif %}
+>
+  {{ block.settings.heading }}
+</h5>
             {%- when 'caption' -%}
               <p
                 class="rich-text__caption {{ block.settings.text_style }} {{ block.settings.text_style }}--{{ block.settings.text_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
@@ -190,6 +200,7 @@
     "groups": ["header", "footer"]
   },
   "settings": [
+    
     {
       "type": "select",
       "id": "desktop_content_position",
@@ -273,6 +284,11 @@
       "name": "t:sections.rich-text.blocks.heading.name",
       "limit": 3,
       "settings": [
+        {
+      "type": "text",
+      "id": "class",
+      "label": "Class"
+    },
         {
           "type": "inline_richtext",
           "id": "heading",

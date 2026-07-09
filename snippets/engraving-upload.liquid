@@ -259,14 +259,27 @@
       font-size: 18px;
     }
   }
+
+  .disclaimer-text {
+        font-family: Poppins Light;
+    font-size: 14px;
+    font-style: italic;
+  }
+  .disclaimer {
+    margin-top: 0;
+}
 </style>
 
 <div class="engraving-section">
   <div class="engraving-label">Engraving:</div>
   <div class="engraving-buttons">
-    <button type="button" class="engraving-btn" id="customizeBtn">Add Text</button>
+    <button type="button" class="engraving-btn" id="customizeBtn">Customize</button>
     <button type="button" class="engraving-btn" id="addLogoBtn">Add logo</button>
   </div>
+  
+</div>
+<div class="disclaimer">
+  <span class="disclaimer-text"> Disclaimer: Add Text for Engraving or Add Gift Box </span>
 </div>
 
 <div class="engraving-saved-logo" id="savedLogoDisplay">
@@ -536,6 +549,16 @@
         selectedOptions[position - 1] = radio.value;
       });
 
+      // In the serialized product JSON, `options` is an array of option-name
+      // strings (e.g. "Pen Color"), while `options_with_values` holds objects.
+      // Support both shapes so we always get the real option name.
+      function getOptionName(index) {
+        const opts = product.options_with_values || product.options;
+        if (!opts || !opts[index]) return null;
+        const opt = opts[index];
+        return (opt && opt.name) ? opt.name : opt;
+      }
+
       const allVariantsWithNames = product.variants.map(function(productVariant) {
         return {
           id: productVariant.id,
@@ -545,12 +568,33 @@
           option1: productVariant.option1,
           option2: productVariant.option2,
           option3: productVariant.option3,
-          option1_name: product.options[0] ? product.options[0].name : null,
-          option2_name: product.options[1] ? product.options[1].name : null,
-          option3_name: product.options[2] ? product.options[2].name : null,
+          option1_name: getOptionName(0),
+          option2_name: getOptionName(1),
+          option3_name: getOptionName(2),
           featured_image: productVariant.featured_image
         };
       });
+
+      // Resolve the pen color the customer picked so the preview page can
+      // default the Item Variation dropdown to it. Find the option named
+      // like "Pen Color" and read its value from the selected variant.
+      let selectedColor = '';
+      let colorOptionIndex = -1;
+      for (let i = 0; i < product.options.length; i++) {
+        const name = (getOptionName(i) || '').toString().toLowerCase();
+        if (name.indexOf('color') !== -1 || name.indexOf('colour') !== -1) {
+          colorOptionIndex = i;
+          break;
+        }
+      }
+
+      if (colorOptionIndex !== -1) {
+        if (selectedOptions[colorOptionIndex]) {
+          selectedColor = selectedOptions[colorOptionIndex];
+        } else if (variant && variant.options && variant.options[colorOptionIndex]) {
+          selectedColor = variant.options[colorOptionIndex];
+        }
+      }
 
       const productData = {
         id: product.id,
@@ -566,6 +610,7 @@
           ? variant.featured_image.src
           : (product.featured_image || ''),
         options: selectedOptions,
+        selectedColor: selectedColor,
         allVariants: allVariantsWithNames,
         tags: product.tags || []
       };
