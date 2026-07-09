@@ -330,6 +330,21 @@
       
       return selected;
     }
+
+    function getOptionCount() {
+      return document.querySelectorAll('.variant-option').length;
+    }
+
+    function hasCompleteSelection(options) {
+      const optionCount = getOptionCount();
+      if (options.length < optionCount) return false;
+
+      for (let index = 0; index < optionCount; index += 1) {
+        if (!options[index]) return false;
+      }
+
+      return true;
+    }
     
     function findVariantByOptions(options) {
       const variant = variants.find(v => {
@@ -338,8 +353,98 @@
           return v.options[index].trim() === value.trim();
         });
       });
-      
+
       return variant;
+    }
+
+    function hasVariantForOptions(options) {
+      return variants.some(v => {
+        return options.every((value, index) => {
+          if (!value) return true;
+          return v.options[index].trim() === value.trim();
+        });
+      });
+    }
+
+    function clearSelection(optionContainer) {
+      optionContainer.querySelectorAll('.option-selector').forEach(radio => {
+        radio.checked = false;
+        radio.nextElementSibling?.classList.remove('active');
+      });
+
+      const selectedValueSpan = optionContainer.querySelector('.selected-value');
+      if (selectedValueSpan) selectedValueSpan.textContent = '';
+    }
+
+    function clearInvalidDependentSelections(changedRadio) {
+      const selectedOptions = getSelectedOptions();
+      const changedPosition = parseInt(changedRadio.dataset.optionPosition);
+
+      document.querySelectorAll('.variant-option').forEach(optionContainer => {
+        if (parseInt(optionContainer.dataset.optionPosition) === changedPosition) return;
+
+        const selectedRadio = optionContainer.querySelector('.option-selector:checked');
+        if (!selectedRadio) return;
+
+        const testOptions = [...selectedOptions];
+        const selectedPosition = parseInt(selectedRadio.dataset.optionPosition);
+        testOptions[selectedPosition - 1] = selectedRadio.dataset.optionValue.trim();
+
+        if (!hasVariantForOptions(testOptions)) {
+          clearSelection(optionContainer);
+        }
+      });
+    }
+
+    // Pick the best variant for a chosen colour: keep the currently selected
+    // tip size if that combo exists, otherwise fall back to the first
+    // available variant for that colour (so the tip switches to a valid one).
+    function findBestVariantForColor(colorPos, colorValue) {
+      const selected = getSelectedOptions();
+      const colorIndex = colorPos - 1;
+
+      const availableForColor = variants.filter(v =>
+        v.options[colorIndex].trim() === colorValue && v.available
+      );
+
+      const pool = availableForColor.length > 0
+        ? availableForColor
+        : variants.filter(v => v.options[colorIndex].trim() === colorValue);
+
+      if (pool.length === 0) return null;
+
+      const keepsCurrent = pool.find(v =>
+        selected.every((value, index) => {
+          if (index === colorIndex || !value) return true;
+          return v.options[index].trim() === value.trim();
+        })
+      );
+
+      return keepsCurrent || pool[0];
+    }
+
+    function findBestVariantForOption(optionPos, optionValue) {
+      const selected = getSelectedOptions();
+      const optionIndex = optionPos - 1;
+
+      const availableForOption = variants.filter(v =>
+        v.options[optionIndex].trim() === optionValue && v.available
+      );
+
+      const pool = availableForOption.length > 0
+        ? availableForOption
+        : variants.filter(v => v.options[optionIndex].trim() === optionValue);
+
+      if (pool.length === 0) return null;
+
+      const keepsCurrent = pool.find(v =>
+        selected.every((value, index) => {
+          if (index === optionIndex || !value) return true;
+          return v.options[index].trim() === value.trim();
+        })
+      );
+
+      return keepsCurrent || pool[0];
     }
     
     function changeProductImage(variant) {
@@ -368,25 +473,34 @@
         }
       }
     }
+
+    let filterColorsBySelectedSize = false;
     
     function updateAvailability() {
-      const selectedOptions = getSelectedOptions();
-      
+      const selectedSizeRadio = document.querySelector('.size-option .option-selector:checked');
+
       document.querySelectorAll('.variant-option').forEach(optionContainer => {
         const isColorOption = optionContainer.classList.contains('color-option');
-        const isSizeOption = optionContainer.classList.contains('size-option');
-        
+
         optionContainer.querySelectorAll('.option-selector').forEach(radio => {
           const radioPosition = parseInt(radio.dataset.optionPosition);
           const radioValue = radio.dataset.optionValue.trim();
           const label = radio.nextElementSibling;
-          
-          if (isSizeOption) {
-            const sizeVariants = variants.filter(v => v.options[radioPosition - 1].trim() === radioValue);
-            const hasAvailable = sizeVariants.some(v => v.available);
-            
-            label.style.display = '';
-            
+
+          if (isColorOption) {
+            let colorVariants = variants.filter(v => v.options[radioPosition - 1].trim() === radioValue);
+
+            if (filterColorsBySelectedSize && selectedSizeRadio) {
+              const sizeIndex = parseInt(selectedSizeRadio.dataset.optionPosition) - 1;
+              const sizeValue = selectedSizeRadio.dataset.optionValue.trim();
+              colorVariants = colorVariants.filter(v => v.options[sizeIndex].trim() === sizeValue);
+            }
+
+            const hasVariant = colorVariants.length > 0;
+            const hasAvailable = colorVariants.some(v => v.available);
+
+            label.style.display = hasVariant ? '' : 'none';
+
             if (hasAvailable) {
               label.classList.remove('unavailable');
               radio.disabled = false;
@@ -395,32 +509,20 @@
               radio.disabled = true;
             }
           } else {
-            const testOptions = [...selectedOptions];
-            testOptions[radioPosition - 1] = radioValue;
-            
-            const matchingVariants = variants.filter(variant => {
-              return testOptions.every((value, index) => {
-                if (!value) return true;
-                return variant.options[index].trim() === value.trim();
-              });
-            });
-            
-            if (matchingVariants.length > 0) {
-              const hasAvailable = matchingVariants.some(v => v.available);
-              
-              label.style.display = '';
-              
-              if (hasAvailable) {
-                label.classList.remove('unavailable');
-                radio.disabled = false;
-              } else {
-                label.classList.add('unavailable');
-                radio.disabled = true;
-              }
+            // Tip size (and any other option): stay clickable as long as it
+            // has stock in some variant, regardless of the selected colour, so
+            // the customer can freely change the tip while keeping the colour.
+            const sizeVariants = variants.filter(v => v.options[radioPosition - 1].trim() === radioValue);
+            const hasAvailable = sizeVariants.some(v => v.available);
+
+            label.style.display = '';
+
+            if (hasAvailable) {
+              label.classList.remove('unavailable');
+              radio.disabled = false;
             } else {
-              if (isColorOption) {
-                label.style.display = 'none';
-              }
+              label.classList.add('unavailable');
+              radio.disabled = true;
             }
           }
         });
@@ -429,7 +531,7 @@
 
     function updateVariantId() {
       const selectedOptions = getSelectedOptions();
-      const allSelected = selectedOptions.every(opt => opt !== undefined && opt !== null);
+      const allSelected = hasCompleteSelection(selectedOptions);
       
       if (allSelected && selectedOptions.length > 0) {
         const variant = findVariantByOptions(selectedOptions);
@@ -550,15 +652,53 @@
           fitInfo.style.display = 'block';
         }
         
-        updateAvailability();
+        if (optionContainer.classList.contains('color-option')) {
+          if (!filterColorsBySelectedSize) {
+            updateAvailability();
+          }
 
-        const variant = updateVariantId();
-        if (variant) {
-          syncSelectionToVariant(variant);
-          if (variant.featured_image) {
-            changeProductImage(variant);
+          // Auto-select a Tip Size that's valid for the chosen colour, even if
+          // the previously selected tip isn't offered in that colour.
+          const colorPos = parseInt(this.dataset.optionPosition);
+          const best = findBestVariantForColor(colorPos, this.dataset.optionValue.trim());
+          if (best) {
+            filterColorsBySelectedSize = true;
+            syncSelectionToVariant(best);
+          } else {
+            updateAvailability();
+          }
+        } else {
+          if (optionContainer.classList.contains('size-option')) {
+            filterColorsBySelectedSize = true;
+          }
+
+          const optionPos = parseInt(this.dataset.optionPosition);
+          const best = findBestVariantForOption(optionPos, this.dataset.optionValue.trim());
+          if (best) {
+            syncSelectionToVariant(best);
+          } else {
+            updateAvailability();
+            clearInvalidDependentSelections(this);
+            updateAvailability();
           }
         }
+
+        const variant = updateVariantId();
+        if (variant && variant.featured_image) {
+          changeProductImage(variant);
+        }
+
+        // Keep every currently-checked option highlighted, so changing the Tip
+        // Size never drops the Pen Color's active state (and vice versa).
+        document.querySelectorAll('.variant-option .option-selector').forEach(r => {
+          const lbl = r.nextElementSibling;
+          if (!lbl) return;
+          if (r.checked) {
+            lbl.classList.add('active');
+          } else {
+            lbl.classList.remove('active');
+          }
+        });
       });
     });
     
