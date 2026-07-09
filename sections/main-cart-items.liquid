@@ -269,7 +269,17 @@
 
                             <div class="product-option" style="margin-top:6px;">
                               <span style="display:inline-flex;align-items:center;gap:6px;background:#f0f0f0;border:1px solid #ccc;border-radius:20px;padding:4px 12px;font-size:13px;font-weight:500;color:#000;">
-                                Image Added
+                                <button
+                                  type="button"
+                                  class="js-view-engraving-image"
+                                  data-logo-image="{{ logo_image_value | escape }}"
+                                  data-logo-name="{{ item.properties['_Engraving_Logo_Name'] | default: item.properties['Engraving_Logo_Name'] | escape }}"
+                                  style="background:transparent;border:0;padding:0;margin:0;font:inherit;color:inherit;cursor:pointer;text-decoration:underline;"
+                                  title="View added image"
+                                  aria-label="View added image"
+                                >
+                                  Image Added
+                                </button>
                                 <button
                                   type="button"
                                   class="js-remove-engraving-image"
@@ -600,9 +610,73 @@
   </div>
 </cart-items>
 
+<div
+  id="EngravingImageModal"
+  class="engraving-image-modal"
+  style="display:none;position:fixed;inset:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:999999;align-items:center;justify-content:center;padding:20px;overflow-y:auto;"
+>
+  <div style="position:relative;background:#fff;border-radius:12px;padding:24px;max-width:500px;width:90%;margin:auto;box-shadow:0 10px 40px rgba(0,0,0,0.2);">
+    <button
+      type="button"
+      class="js-close-engraving-image"
+      aria-label="Close"
+      style="position:absolute;top:12px;right:12px;background:none;border:0;font-size:24px;line-height:1;cursor:pointer;color:#000;"
+    >&times;</button>
+    <h3 style="font-size:18px;font-weight:600;margin:0 0 16px;color:#000;">Added Image</h3>
+    <img
+      id="EngravingImageModalImg"
+      src=""
+      alt="Added engraving image"
+      style="display:block;max-width:100%;height:auto;border-radius:8px;margin:0 auto;"
+    >
+    <p id="EngravingImageModalName" style="margin:12px 0 0;font-size:14px;color:#666;text-align:center;word-break:break-word;"></p>
+  </div>
+</div>
+
 <script>
   (function () {
     const cartChangeUrl = {{ routes.cart_change_url | append: '.js' | json }};
+
+    // View the uploaded engraving image in a modal. Elements are looked up
+    // on demand so the cart's AJAX re-render never leaves stale references.
+    function openImageModal(src, name) {
+      const modal = document.getElementById('EngravingImageModal');
+      if (!modal || !src) return;
+      modal.querySelector('#EngravingImageModalImg').src = src;
+      modal.querySelector('#EngravingImageModalName').textContent = name || '';
+      modal.style.display = 'flex';
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeImageModal() {
+      const modal = document.getElementById('EngravingImageModal');
+      if (!modal) return;
+      modal.style.display = 'none';
+      modal.querySelector('#EngravingImageModalImg').src = '';
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('click', function (event) {
+      const viewButton = event.target.closest('.js-view-engraving-image');
+      if (viewButton) {
+        event.preventDefault();
+        openImageModal(viewButton.dataset.logoImage, viewButton.dataset.logoName);
+        return;
+      }
+
+      if (
+        event.target.closest('.js-close-engraving-image') ||
+        event.target.id === 'EngravingImageModal'
+      ) {
+        closeImageModal();
+      }
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') closeImageModal();
+    });
 
     async function changeCartLine(payload) {
       const response = await fetch(cartChangeUrl, {

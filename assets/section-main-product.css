@@ -241,6 +241,39 @@ body:has([id*="prvw"]) .product-form__submit {
   color: white;
 }
 
+/* Non-bundle products (e.g. non-engravable): lay the quantity selector and
+   the Add to Cart button out as a real, vertically-centered row instead of
+   relying on the negative-margin / margin-left offset hacks above. */
+@media screen and (min-width: 769px) {
+  .no-bundle .product__info-container > .product-form__quantity {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 1.5rem 1.5rem 1.5rem 0;
+  }
+
+  .no-bundle .product__info-container > .product-form__quantity .quantity {
+    margin-bottom: 0;
+  }
+
+  .no-bundle .product__info-container > div:has(> product-form.product-form) {
+    display: inline-block;
+    vertical-align: middle;
+    width: calc(100% - 18rem);
+    margin: 1.5rem 0;
+  }
+
+  .no-bundle .product__info-container > div:has(> product-form.product-form) .product-form__buttons {
+    margin: 0;
+    max-width: 100%;
+  }
+
+  .no-bundle .product__info-container > div:has(> product-form.product-form) .product-form__submit {
+    margin: 0;
+    width: 100%;
+    height: 65px;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .product-form__submit {
   margin-bottom: 1rem;
