@@ -29,7 +29,15 @@
   .engraving-container {
     display: flex;
     gap: 20px;
-    align-items: start;
+    align-items: flex-end;
+  }
+
+  .preview-footer {
+    width: 35%;
+  }
+
+  .preview-footer--mobile {
+    display: none;
   }
 
   .preview-section {
@@ -55,7 +63,8 @@
     object-fit: contain;
     padding: 10px;
     border-radius: 8px;
-  }
+    border: 2px solid #8b1538;
+}
 
   .product-details h3 {
     font-size: 16px;
@@ -71,6 +80,15 @@
     font-weight: 600;
     color: #333;
     font-family: 'Poppins Semibold';
+  }
+
+  .gift-box-summary {
+    display: none;
+    margin-top: -15px;
+  }
+
+  .gift-box-summary.is-visible {
+    display: flex;
   }
 
   .preview-box {
@@ -132,6 +150,10 @@
     border: 2px solid #8b1538;
     flex: 1 1 0;
     min-width: 0;
+  }
+
+  .customization-section.has-gift-box {
+    align-self: stretch;
   }
 
   .customization-tabs {
@@ -319,6 +341,10 @@
     align-items: center;
 }
 
+  .gift-box-mobile-dropdown {
+    display: none;
+  }
+
   .add-button {
     display: flex;
     align-items: center;
@@ -426,9 +452,28 @@
     }
 
     .product-info {
-      flex-direction: column;
+      flex-direction: row;
       align-items: center;
-      text-align: center;
+      text-align: left;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .product-image {
+      width: 64px;
+      height: 64px;
+      flex: 0 0 64px;
+      padding: 6px;
+      border-width: 1px;
+    }
+
+    .product-details h3 {
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+
+    .product-price {
+      font-size: 14px;
     }
 
     .preview-box {
@@ -445,19 +490,119 @@
     }
 
     .customization-tabs {
-      gap: 8px;
-      overflow-x: auto;
+      display: none;
     }
 
-    .tab-button {
-      font-size: 11px;
-      white-space: nowrap;
-      padding: 10px 6px;
+    [data-mobile-label]::before {
+      content: attr(data-mobile-label);
+      display: block;
+      margin-bottom: 6px;
+      color: #333;
+      font-family: 'Poppins Medium';
+      font-size: 12px;
+      line-height: 1.3;
     }
 
     .input-row {
       grid-template-columns: 1fr;
       gap: 12px;
+    }
+
+    .gift-box-select-wrapper {
+      display: none;
+    }
+
+    .input-group[data-mobile-label] .char-counter {
+      top: auto;
+      bottom: 13px;
+      transform: none;
+    }
+
+    .select-wrapper[data-mobile-label]::after {
+      top: auto;
+      bottom: 17px;
+      transform: none;
+    }
+
+    .gift-box-mobile-dropdown {
+      display: block;
+      position: relative;
+      min-width: 0;
+      font-family: 'Poppins Regular';
+    }
+
+    .gift-box-mobile-dropdown summary {
+      position: relative;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 12px 42px 12px 12px;
+      border: 1px solid #ddd;
+      border-radius: 25px;
+      background: #fff;
+      color: #1a1a1a;
+      font-size: 12px;
+      line-height: 1.5;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .gift-box-mobile-dropdown summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .gift-box-mobile-dropdown summary::after {
+      content: '';
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      width: 18px;
+      height: 10px;
+      transform: translateY(-50%);
+      background-image: url("data:image/svg+xml,%3Csvg width='18' height='10' viewBox='0 0 18 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9 3.88147L1.447 0.105467C1.009 -0.113533 0.475 0.0174677 0.188 0.415468C-0.0979996 0.812468 -0.0529996 1.36147 0.292 1.70747L8.292 9.70747C8.683 10.0985 9.315 10.0985 9.706 9.70747L17.706 1.70747C17.9 1.51347 18 1.25647 18 0.999468C18 0.795468 17.937 0.590468 17.811 0.415468C17.524 0.0174684 16.991 -0.113532 16.552 0.105468L9 3.88147Z' fill='%231A1A1A'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      transition: transform 0.2s ease;
+    }
+
+    .gift-box-mobile-dropdown[open] summary {
+      border-color: #8b1538;
+    }
+
+    .gift-box-mobile-dropdown[open] summary::after {
+      transform: translateY(-50%) rotate(180deg);
+    }
+
+    .gift-box-mobile-options {
+      position: absolute;
+      top: calc(100% + 6px);
+      right: 0;
+      left: 0;
+      z-index: 20;
+      max-height: 240px;
+      overflow-y: auto;
+      padding: 6px;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+    }
+
+    .gift-box-mobile-option {
+      display: block;
+      width: 100%;
+      padding: 10px 12px;
+      border: 0;
+      border-radius: 8px;
+      background: transparent;
+      color: #1a1a1a;
+      font: inherit;
+      font-size: 12px;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .gift-box-mobile-option.is-selected {
+      background: #931932;
+      color: #fff;
     }
 
     .engraving-header {
@@ -469,6 +614,15 @@
     .preview-section {
       order: 1;
       flex: none;
+      width: 100%;
+    }
+
+    .preview-footer--desktop {
+      display: none;
+    }
+
+    .preview-footer--mobile {
+      display: block;
       width: 100%;
     }
 
@@ -638,19 +792,10 @@
 
     const placementOptions = ['Right Handed', 'Left Handed'];
 
-    const giftBoxOptions = [
-  { name: 'No box', price: 0 },
-  { name: 'Black', price: 25 },
-  { name: 'Black with ribbon', price: 30 },
-  { name: 'Gold', price: 25 },
-  { name: 'Gold with ribbon', price: 30 },
-  { name: 'Rose Gold', price: 25 },
-  { name: 'Rose Gold with Ribbon', price: 30 },
-  { name: 'Silver', price: 25 },
-  { name: 'Silver with Ribbon', price: 30 },
-  { name: 'Red', price: 25 },
-  { name: 'Red with Ribbon', price: 30 }
-];
+    const giftBoxProductHandle = {{ section.settings.gift_box_product_handle | default: 'gift-box-add-on' | json }};
+    let giftBoxProduct = null;
+    let giftBoxOptions = [{ name: 'No box', price: 0, variantId: null, image: '' }];
+    let selectedGiftBox = 'No box';
 
     function giftBoxPriceByName(name) {
       const o = giftBoxOptions.find(g => g.name === name);
@@ -660,6 +805,65 @@
     function giftBoxLabelForSelect(opt) {
       if (opt.price === 0) return opt.name;
       return opt.name + ' — ₱' + opt.price;
+    }
+
+    function giftBoxImage(variant) {
+      if (variant.featured_image && variant.featured_image.src) {
+        return variant.featured_image.src;
+      }
+
+      return giftBoxProduct && giftBoxProduct.featured_image
+        ? giftBoxProduct.featured_image
+        : '';
+    }
+
+    async function loadGiftBoxProduct() {
+      try {
+        const response = await fetch(`/products/${encodeURIComponent(giftBoxProductHandle)}.js`);
+        if (!response.ok) throw new Error(`Gift Box product returned ${response.status}`);
+
+        giftBoxProduct = await response.json();
+        giftBoxOptions = [
+          { name: 'No box', price: 0, variantId: null, image: '' },
+          ...giftBoxProduct.variants
+            .map(variant => ({
+              name: variant.title,
+              price: Number(variant.price) / 100,
+              variantId: variant.id,
+              image: giftBoxImage(variant)
+            }))
+        ];
+
+        renderEngravings();
+        updateGiftBoxSummary();
+      } catch (error) {
+        console.error('Unable to load Gift Box Add-on product:', error);
+      }
+    }
+
+    function updateGiftBoxSummary() {
+      const summary = document.getElementById('giftBoxSummary');
+      if (!summary) return;
+
+      const customizationSection = document.querySelector('.customization-section');
+
+      const selected = giftBoxOptions.find(option => option.name === selectedGiftBox);
+      if (!selected || !selected.variantId) {
+        summary.classList.remove('is-visible');
+        if (customizationSection) customizationSection.classList.remove('has-gift-box');
+        return;
+      }
+
+      const image = summary.querySelector('.gift-box-summary-image');
+      const title = summary.querySelector('.gift-box-summary-title');
+      const price = summary.querySelector('.gift-box-summary-price');
+
+      image.src = selected.image || productData.image;
+      image.alt = selected.name;
+      title.textContent = selected.name;
+      price.textContent = `₱${selected.price.toFixed(2)}`;
+      summary.classList.add('is-visible');
+      if (customizationSection) customizationSection.classList.add('has-gift-box');
     }
 
     function isSetProduct() {
@@ -860,14 +1064,24 @@
               </div>
             </div>
 
+            <div class="gift-box-summary product-info" id="giftBoxSummary">
+              <img class="gift-box-summary-image product-image" src="" alt="">
+              <div class="product-details">
+                <h3><span>Gift Box Added:</span><br><span class="gift-box-summary-title"></span></h3>
+                <div class="gift-box-summary-price product-price"></div>
+              </div>
+            </div>
+
             <div class="preview-box" id="previewBox" style="background-image: url('${backgroundImage}')">
               <div class="preview-text" id="previewText">Preview</div>
             </div>
 
-            <div class="preview-label">Product 1</div>
+            <div class="preview-footer preview-footer--mobile">
+              <div class="preview-label">Product 1</div>
 
-            <div class="preview-note">
-              <strong>Note:</strong> The preview reflects font appearance only. Final placement, engraving outcome, and color will vary depending on the specific pen model and material.
+              <div class="preview-note">
+                <strong>Note:</strong> The preview reflects font appearance only. Final placement, engraving outcome, and color will vary depending on the specific pen model and material.
+              </div>
             </div>
           </div>
 
@@ -892,6 +1106,14 @@
             <textarea class="notes-textarea" placeholder="Add additional notes" id="additionalNotes"></textarea>
 
             <button class="add-to-cart-button" id="addToCartBtn">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="preview-footer preview-footer--desktop">
+          <div class="preview-label">Product 1</div>
+
+          <div class="preview-note">
+            <strong>Note:</strong> The preview reflects font appearance only. Final placement, engraving outcome, and color will vary depending on the specific pen model and material.
           </div>
         </div>
       `;
@@ -939,34 +1161,46 @@
 
           if (availableForSelection.length > 0) {
             colorField = `
-              <div class="select-wrapper">
+              <div class="select-wrapper" data-mobile-label="Item Variation">
                 <select class="custom-select" data-id="${engraving.id}" data-field="color">
                   ${availableForSelection.map(c => `<option value="${c}" ${engraving.color === c ? 'selected' : ''}>${c}</option>`).join('')}
                 </select>
               </div>
             `;
           } else {
-            colorField = `<div class="no-colors-text">No Variation available</div>`;
+            colorField = `<div data-mobile-label="Item Variation"><div class="no-colors-text">No Variation available</div></div>`;
           }
         } else {
-          colorField = `<div class="no-colors-text">No Variation</div>`;
+          colorField = `<div data-mobile-label="Item Variation"><div class="no-colors-text">No Variation</div></div>`;
         }
 
         const placementField = `
-          <div class="select-wrapper">
+          <div class="select-wrapper" data-mobile-label="Placement">
             <select class="custom-select" data-id="${engraving.id}" data-field="placement">
               ${placementOptions.map(p => `<option value="${p}" ${engraving.placement === p ? 'selected' : ''}>${p}</option>`).join('')}
             </select>
           </div>
         `;
 
-        const giftBoxField = `
-          <div class="select-wrapper">
+        const giftBoxField = index === 0 ? `
+          <div class="select-wrapper gift-box-select-wrapper">
             <select class="custom-select" data-id="${engraving.id}" data-field="giftBox">
-              ${giftBoxOptions.map(g => `<option value="${g.name}" ${engraving.giftBox === g.name ? 'selected' : ''}>${giftBoxLabelForSelect(g)}</option>`).join('')}
+              ${giftBoxOptions.map(g => `<option value="${g.name}" ${selectedGiftBox === g.name ? 'selected' : ''}>${giftBoxLabelForSelect(g)}</option>`).join('')}
             </select>
           </div>
-        `;
+          <details class="gift-box-mobile-dropdown" data-id="${engraving.id}" data-mobile-label="Gift Box">
+            <summary>${giftBoxLabelForSelect(giftBoxOptions.find(g => g.name === selectedGiftBox) || giftBoxOptions[0])}</summary>
+            <div class="gift-box-mobile-options">
+              ${giftBoxOptions.map(g => `
+                <button
+                  type="button"
+                  class="gift-box-mobile-option${selectedGiftBox === g.name ? ' is-selected' : ''}"
+                  data-value="${g.name}"
+                >${giftBoxLabelForSelect(g)}</button>
+              `).join('')}
+            </div>
+          </details>
+        ` : '<div></div>';
 
         item.innerHTML = `
           <div class="engraving-header">
@@ -977,7 +1211,7 @@
             </div>
           </div>
           <div class="input-row">
-            <div class="input-group">
+            <div class="input-group" data-mobile-label="Personalize">
               <input
                 type="text"
                 class="custom-input"
@@ -990,7 +1224,7 @@
               <span class="char-counter">${engraving.text.length}/40</span>
             </div>
             ${colorField}
-            <div class="select-wrapper">
+            <div class="select-wrapper" data-mobile-label="Fonts">
               <select class="custom-select" data-id="${engraving.id}" data-field="font">
                 ${fonts.map(f => `<option value="${f.name}" ${engraving.font === f.name ? 'selected' : ''}>${f.name}</option>`).join('')}
               </select>
@@ -1028,7 +1262,15 @@
           const field = this.dataset.field;
           const engraving = engravings.find(e => e.id === id);
           if (engraving) {
-            engraving[field] = this.value;
+            if (field === 'giftBox') {
+              selectedGiftBox = this.value;
+              engravings.forEach((item, index) => {
+                item.giftBox = index === 0 ? selectedGiftBox : 'No box';
+              });
+              updateGiftBoxSummary();
+            } else {
+              engraving[field] = this.value;
+            }
             if (field === 'color') {
               renderEngravings();
             }
@@ -1039,6 +1281,16 @@
         select.addEventListener('focus', function() {
           const id = parseInt(this.dataset.id);
           setActiveEngraving(id);
+        });
+      });
+
+      container.querySelectorAll('.gift-box-mobile-option').forEach(button => {
+        button.addEventListener('click', function() {
+          selectedGiftBox = this.dataset.value;
+          engravings.forEach((item, index) => {
+            item.giftBox = index === 0 ? selectedGiftBox : 'No box';
+          });
+          renderEngravings();
         });
       });
 
@@ -1060,6 +1312,7 @@
       }
 
       updatePreview();
+      updateGiftBoxSummary();
     }
 
     function setActiveEngraving(id) {
@@ -1119,7 +1372,7 @@
       if (!activeEngraving) return;
 
       const previewText = document.getElementById('previewText');
-      const previewLabel = document.querySelector('.preview-label');
+      const previewLabels = document.querySelectorAll('.preview-label');
 
       if (!previewText) return;
 
@@ -1128,30 +1381,10 @@
       previewText.textContent = activeEngraving.text || 'Preview';
       previewText.style.fontFamily = font ? font.family : 'inherit';
 
-      if (previewLabel) {
-        const index = engravings.findIndex(e => e.id === activeEngravingId);
-        previewLabel.textContent = `Product ${index + 1}`;
-      }
-    }
-
-    async function getGiftBoxVariantId(price) {
-      const handle = 'gift-box-fee';
-      try {
-        const res = await fetch(`/products/${handle}.js`);
-        const product = await res.json();
-        const priceInCents = Math.round(price * 100);
-        const variant = product.variants.find(v => {
-          return parseInt(v.price) === priceInCents || parseFloat(v.price) === price;
-        });
-        if (!variant) {
-          console.warn('Gift box variant not found for price:', price, 'cents:', priceInCents);
-          console.warn('Available variants:', product.variants.map(v => ({ id: v.id, price: v.price, title: v.title })));
-        }
-        return variant ? variant.id : null;
-      } catch (e) {
-        console.error('Gift box fetch error:', e);
-        return null;
-      }
+      const index = engravings.findIndex(e => e.id === activeEngravingId);
+      previewLabels.forEach(label => {
+        label.textContent = `Product ${index + 1}`;
+      });
     }
 
     async function addToCart(productVariantId) {
@@ -1192,39 +1425,35 @@
       properties['__Combined Customization Fee'] = '₱' + combinedCustomization.toFixed(2);
 
       try {
-        const items = [{
-          id: productVariantId,
-          quantity: 1,
-          properties: properties
-        }];
+        const selectedGiftBoxOption = giftBoxOptions.find(option => option.name === selectedGiftBox);
+        const hasGiftBox = selectedGiftBoxOption && selectedGiftBoxOption.variantId;
+        const giftBoxGroupId = hasGiftBox
+          ? `gift-box-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`
+          : '';
 
-        const giftBoxEngravings = engravings.filter(e => giftBoxPriceByName(e.giftBox) > 0);
+        if (hasGiftBox) {
+          properties['_Gift_Box_Group_ID'] = giftBoxGroupId;
+        }
 
-        if (giftBoxEngravings.length > 0) {
-          const pricesNeeded = [...new Set(giftBoxEngravings.map(e => giftBoxPriceByName(e.giftBox)))];
-          const variantMap = {};
+        const items = [];
 
-          await Promise.all(pricesNeeded.map(async (price) => {
-            const variantId = await getGiftBoxVariantId(price);
-            if (variantId) variantMap[price] = variantId;
-          }));
-
-          giftBoxEngravings.forEach((engraving, i) => {
-            const gbPrice = giftBoxPriceByName(engraving.giftBox);
-            const variantId = variantMap[gbPrice];
-            if (variantId) {
-              items.push({
-                id: variantId,
-                quantity: 1,
-                properties: {
-                  'Box Type': engraving.giftBox,
-                  'For': 'Product ' + (engravings.indexOf(engraving) + 1),
-                  '_linked_to': productData.title
-                }
-              });
+        if (hasGiftBox) {
+          items.push({
+            id: selectedGiftBoxOption.variantId,
+            quantity: 1,
+            properties: {
+              'Gift Box For': productData.title,
+              '_Gift_Box_Component': 'true',
+              '_Gift_Box_Group_ID': giftBoxGroupId
             }
           });
         }
+
+        items.push({
+          id: productVariantId,
+          quantity: 1,
+          properties: properties
+        });
 
         const response = await fetch('/cart/add.js', {
           method: 'POST',
@@ -1248,6 +1477,7 @@
     }
 
     renderPage();
+    loadGiftBoxProduct();
   })();
 </script>
 
@@ -1419,8 +1649,8 @@
     {
       "type": "text",
       "id": "gift_box_product_handle",
-      "label": "Gift Box Fee Product Handle",
-      "info": "Handle of a hidden product with variants priced at ₱25 and ₱30"
+      "label": "Gift Box Add-on Product Handle",
+      "info": "Product whose variants appear in the Gift Box selector"
     }
   ],
   "presets": [
