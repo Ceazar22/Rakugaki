@@ -33,6 +33,22 @@
   .browse-link:hover {
     opacity: 0.8;
   }
+
+  @media screen and (min-width: 750px) {
+    .cart-item--gift-box-addon > td,
+    .cart-item--standalone > td {
+      border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.2);
+      padding-bottom: 4rem;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .cart-item--gift-box-addon,
+    .cart-item--standalone {
+      border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.2);
+      padding-bottom: 3.5rem;
+    }
+  }
 {%- endstyle -%}
 
 {%- unless settings.cart_type == 'drawer' -%}
@@ -128,6 +144,24 @@
                     {%- assign is_logo_fee_component = true -%}
                   {%- endif -%}
 
+                  {%- assign is_gift_box_component = false -%}
+                  {%- if item.properties['_Gift_Box_Component'] == 'true' -%}
+                    {%- assign is_gift_box_component = true -%}
+                  {%- endif -%}
+
+                  {%- assign has_gift_box_component = false -%}
+                  {%- assign gift_box_group_id = item.properties['_Gift_Box_Group_ID'] -%}
+                  {%- if gift_box_group_id != blank and is_gift_box_component == false -%}
+                    {%- for gift_box_item in cart.items -%}
+                      {%- if gift_box_item.properties['_Gift_Box_Component'] == 'true'
+                        and gift_box_item.properties['_Gift_Box_Group_ID'] == gift_box_group_id
+                      -%}
+                        {%- assign has_gift_box_component = true -%}
+                        {%- break -%}
+                      {%- endif -%}
+                    {%- endfor -%}
+                  {%- endif -%}
+
                   {%- unless is_logo_fee_component -%}
                     {%- assign logo_image_value = item.properties['_Engraving_Logo_Image'] | default: item.properties['Engraving_Logo_Image'] | strip -%}
                     {%- assign logo_image_value_downcase = logo_image_value | downcase -%}
@@ -158,7 +192,14 @@
 
                     {%- assign item_total_with_logo_fee = item.final_line_price | plus: linked_logo_fee_price -%}
                   
-                  <tr class="cart-item" id="CartItem-{{ item.index | plus: 1 }}">
+                  <tr
+                    class="cart-item{% if has_gift_box_component %} cart-item--gift-box-parent{% elsif is_gift_box_component %} cart-item--gift-box-addon{% else %} cart-item--standalone{% endif %}"
+                    id="CartItem-{{ item.index | plus: 1 }}"
+                    {% if gift_box_group_id != blank %}
+                      data-gift-box-group="{{ gift_box_group_id | escape }}"
+                      data-gift-box-role="{% if is_gift_box_component %}addon{% else %}parent{% endif %}"
+                    {% endif %}
+                  >
                     <td class="cart-item__media">
                       {% if item.image %}
                         <a href="{{ item.url }}" class="cart-item__link" aria-hidden="true" tabindex="-1"> </a>
@@ -636,6 +677,33 @@
 <script>
   (function () {
     const cartChangeUrl = {{ routes.cart_change_url | append: '.js' | json }};
+
+    function organizeGiftBoxRows() {
+      const rows = Array.from(document.querySelectorAll('[data-gift-box-group]'));
+
+      rows
+        .filter(row => row.dataset.giftBoxRole === 'parent')
+        .forEach(parentRow => {
+          const giftBoxRow = rows.find(row =>
+            row.dataset.giftBoxRole === 'addon' &&
+            row.dataset.giftBoxGroup === parentRow.dataset.giftBoxGroup
+          );
+
+          if (giftBoxRow && parentRow.nextElementSibling !== giftBoxRow) {
+            parentRow.insertAdjacentElement('afterend', giftBoxRow);
+          }
+        });
+    }
+
+    organizeGiftBoxRows();
+
+    const cartItemsContainer = document.getElementById('main-cart-items');
+    if (cartItemsContainer) {
+      new MutationObserver(organizeGiftBoxRows).observe(cartItemsContainer, {
+        childList: true,
+        subtree: true
+      });
+    }
 
     // View the uploaded engraving image in a modal. Elements are looked up
     // on demand so the cart's AJAX re-render never leaves stale references.
