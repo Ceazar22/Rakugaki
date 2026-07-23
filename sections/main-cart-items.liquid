@@ -144,6 +144,11 @@
                     {%- assign is_logo_fee_component = true -%}
                   {%- endif -%}
 
+                  {%- assign is_engraving_fee_component = false -%}
+                  {%- if item.properties['_Engraving_Fee_Component'] == 'true' -%}
+                    {%- assign is_engraving_fee_component = true -%}
+                  {%- endif -%}
+
                   {%- assign is_gift_box_component = false -%}
                   {%- if item.properties['_Gift_Box_Component'] == 'true' -%}
                     {%- assign is_gift_box_component = true -%}
@@ -162,13 +167,16 @@
                     {%- endfor -%}
                   {%- endif -%}
 
-                  {%- unless is_logo_fee_component -%}
+                  {%- unless is_logo_fee_component or is_engraving_fee_component -%}
                     {%- assign logo_image_value = item.properties['_Engraving_Logo_Image'] | default: item.properties['Engraving_Logo_Image'] | strip -%}
                     {%- assign logo_image_value_downcase = logo_image_value | downcase -%}
                     {%- assign logo_group_id = item.properties['_Logo_Group_ID'] -%}
                     {%- assign has_logo_added = false -%}
                     {%- assign linked_logo_fee_price = 0 -%}
                     {%- assign linked_logo_fee_key = blank -%}
+                    {%- assign engraving_fee_group_id = item.properties['_Engraving_Fee_Group_ID'] -%}
+                    {%- assign linked_engraving_fee_price = 0 -%}
+                    {%- assign linked_engraving_fee_key = blank -%}
 
                     {%- if logo_image_value != blank
                       and logo_image_value_downcase != 'none'
@@ -190,7 +198,24 @@
                       {%- endfor -%}
                     {%- endif -%}
 
+                    {%- if engraving_fee_group_id != blank -%}
+                      {%- for fee_item in cart.items -%}
+                        {%- if fee_item.properties['_Engraving_Fee_Component'] == 'true'
+                          and fee_item.properties['_Engraving_Fee_Group_ID'] == engraving_fee_group_id
+                        -%}
+                          {%- assign linked_engraving_fee_price = fee_item.final_line_price -%}
+                          {%- assign linked_engraving_fee_key = fee_item.key -%}
+                        {%- endif -%}
+                      {%- endfor -%}
+                    {%- endif -%}
+
                     {%- assign item_total_with_logo_fee = item.final_line_price | plus: linked_logo_fee_price -%}
+                    {%- if linked_engraving_fee_key != blank -%}
+                      {%- assign engraving_fee_for_quantity = linked_engraving_fee_price -%}
+                    {%- else -%}
+                      {%- assign engraving_fee_for_quantity = 0 -%}
+                    {%- endif -%}
+                    {%- assign item_total_with_customization = item_total_with_logo_fee | plus: engraving_fee_for_quantity -%}
                   
                   <tr
                     class="cart-item{% if has_gift_box_component %} cart-item--gift-box-parent{% elsif is_gift_box_component %} cart-item--gift-box-addon{% else %} cart-item--standalone{% endif %}"
@@ -243,6 +268,8 @@
                           {{ item.original_price | money }}
                         </div>
                       {%- endif -%}
+
+                      {%- render 'engraving-product-fees', item: item -%}
 
                       {%- if item.product.has_only_default_variant == false
                         or item.properties.size != 0
@@ -369,20 +396,12 @@
                               {{ 'products.product.price.sale_price' | t }}
                             </dt>
                             <dd class="price price--end">
-                              {%- if linked_logo_fee_price > 0 -%}
-                                {{ item_total_with_logo_fee | money }}
-                              {%- else -%}
-                                {{ item.final_line_price | money }}
-                              {%- endif -%}
+                              {{ item_total_with_customization | money }}
                             </dd>
                           </dl>
                         {%- else -%}
                           <span class="price price--end">
-                            {%- if linked_logo_fee_price > 0 -%}
-                              {{ item_total_with_logo_fee | money }}
-                            {%- else -%}
-                              {{ item.original_line_price | money }}
-                            {%- endif -%}
+                            {{ item_total_with_customization | money }}
                           </span>
                         {%- endif -%}
 
@@ -445,6 +464,10 @@
                                 name="updates[]"
                                 value="{{ item.quantity }}"
                                 data-cart-quantity="{{ cart | item_count_for_variant: item.variant.id }}"
+                                {% if linked_engraving_fee_key != blank %}
+                                  data-engraving-fee-key="{{ linked_engraving_fee_key | escape }}"
+                                  data-engraving-count="{{ item.properties['__Engraving Count'] | default: 1 | escape }}"
+                                {% endif %}
                                 min="0"
                                 data-min="{{ item.variant.quantity_rule.min }}"
                                 {% if item.variant.quantity_rule.max != null %}
@@ -475,6 +498,10 @@
                               {% if linked_logo_fee_key != blank %}
                                 data-item-key="{{ item.key | escape }}"
                                 data-fee-key="{{ linked_logo_fee_key | escape }}"
+                              {% endif %}
+                              {% if linked_engraving_fee_key != blank %}
+                                data-engraving-fee-key="{{ linked_engraving_fee_key | escape }}"
+                                data-engraving-count="{{ item.properties['__Engraving Count'] | default: 1 | escape }}"
                               {% endif %}
                               aria-label="{{ 'sections.cart.remove_title' | t: title: item.title | escape }}"
                             >
@@ -595,20 +622,12 @@
                               {{ 'products.product.price.sale_price' | t }}
                             </dt>
                             <dd class="price price--end">
-                              {%- if linked_logo_fee_price > 0 -%}
-                                {{ item_total_with_logo_fee | money }}
-                              {%- else -%}
-                                {{ item.final_line_price | money }}
-                              {%- endif -%}
+                              {{ item_total_with_customization | money }}
                             </dd>
                           </dl>
                         {%- else -%}
                           <span class="price price--end">
-                            {%- if linked_logo_fee_price > 0 -%}
-                              {{ item_total_with_logo_fee | money }}
-                            {%- else -%}
-                              {{ item.original_line_price | money }}
-                            {%- endif -%}
+                            {{ item_total_with_customization | money }}
                           </span>
                         {%- endif -%}
 

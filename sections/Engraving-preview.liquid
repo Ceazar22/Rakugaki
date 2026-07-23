@@ -29,7 +29,7 @@
   .engraving-container {
     display: flex;
     gap: 20px;
-    align-items: flex-end;
+    align-items: flex-start;
   }
 
   .preview-footer {
@@ -154,6 +154,12 @@
 
   .customization-section.has-gift-box {
     align-self: stretch;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .customization-section.has-gift-box .notes-textarea {
+    flex: 1 1 160px;
   }
 
   .customization-tabs {
@@ -792,7 +798,9 @@
 
     const placementOptions = ['Right Handed', 'Left Handed'];
 
+    const engravingFeeProductHandle = {{ section.settings.engraving_fee_product_handle | default: 'engraving-add-on' | json }};
     const giftBoxProductHandle = {{ section.settings.gift_box_product_handle | default: 'gift-box-add-on' | json }};
+    let engravingFeeVariantPromise = null;
     let giftBoxProduct = null;
     let giftBoxOptions = [{ name: 'No box', price: 0, variantId: null, image: '' }];
     let selectedGiftBox = 'No box';
@@ -815,6 +823,36 @@
       return giftBoxProduct && giftBoxProduct.featured_image
         ? giftBoxProduct.featured_image
         : '';
+    }
+
+    function loadEngravingFeeVariant() {
+      if (engravingFeeVariantPromise) return engravingFeeVariantPromise;
+
+      engravingFeeVariantPromise = fetch(`/products/${encodeURIComponent(engravingFeeProductHandle)}.js`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`Engraving Add-on product returned ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(feeProduct => {
+          const expectedPrice = Math.round(engravingPrice * 100);
+          const feeVariant = feeProduct.variants.find(variant =>
+            variant.available && Number(variant.price) === expectedPrice
+          );
+
+          if (!feeVariant) {
+            throw new Error(`Engraving Add-on needs an available ₱${engravingPrice.toFixed(2)} variant.`);
+          }
+
+          return feeVariant;
+        })
+        .catch(error => {
+          engravingFeeVariantPromise = null;
+          throw error;
+        });
+
+      return engravingFeeVariantPromise;
     }
 
     async function loadGiftBoxProduct() {
@@ -885,11 +923,12 @@
       }
 
       for (let tag of productData.tags) {
-        const lowerTag = tag.toLowerCase();
-        const match = lowerTag.match(/(\d+)\s*set|set\s*(\d+)/);
+        const lowerTag = tag.toString().toLowerCase().trim();
+
+        const match = lowerTag.match(/(?:^|\s)(\d+)\s*set(?:\s|$)|(?:^|\s)set\s*(\d+)(?:\s|$)/);
         if (match) {
           const quantity = parseInt(match[1] || match[2]);
-          return quantity;
+          if (quantity > 0) return quantity;
         }
       }
 
@@ -993,13 +1032,8 @@
       return Array.from(colorSet);
     }
 
-    function getAvailableColors() {
-      const usedColors = engravings.map(e => e.color).filter(Boolean);
-      return availableColors.filter(color => !usedColors.includes(color));
-    }
-
     const availableColors = extractColors();
-    const maxEngravings = getSetQuantity();
+    const productQuantity = getSetQuantity();
 
     // Default to the pen color the customer already picked on the product
     // page (carried through in productData.options), falling back to the
@@ -1036,16 +1070,24 @@
       return availableColors.length > 0 ? availableColors[0] : '';
     }
 
-    let engravings = [
-      {
-        id: 1,
+    const initiallySelectedColor = getSelectedColor();
+    const initialColors = [
+      initiallySelectedColor,
+      ...availableColors.filter(color => color !== initiallySelectedColor)
+    ].filter(Boolean);
+
+    // The product tag defines the exact number of items in the set, so all
+    // customization rows are ready as soon as the preview page opens.
+    let engravings = Array.from({ length: productQuantity }, (_, index) => {
+      return {
+        id: index + 1,
         text: '',
-        color: getSelectedColor(),
+        color: initialColors[index] || initiallySelectedColor || availableColors[0] || '',
         font: fonts[0].name,
         placement: placementOptions[0],
         giftBox: giftBoxOptions[0].name
-      }
-    ];
+      };
+    });
     let activeEngravingId = 1;
 
     function renderPage() {
@@ -1096,13 +1138,6 @@
 
             <div id="engravingList"></div>
 
-            <button class="add-button" id="addEngravingBtn">
-              <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-              </svg>
-              Add
-            </button>
-
             <textarea class="notes-textarea" placeholder="Add additional notes" id="additionalNotes"></textarea>
 
             <button class="add-to-cart-button" id="addToCartBtn">Add to Cart</button>
@@ -1119,11 +1154,6 @@
       `;
 
       document.getElementById('mainContent').innerHTML = html;
-
-      const addEngravingBtn = document.getElementById('addEngravingBtn');
-      if (addEngravingBtn) {
-        addEngravingBtn.addEventListener('click', () => addEngraving());
-      }
 
       const addToCartBtn = document.getElementById('addToCartBtn');
       if (addToCartBtn) {
@@ -1142,14 +1172,6 @@
       engravings.forEach((engraving, index) => {
         const item = document.createElement('div');
         item.className = 'engraving-item';
-
-        const deleteBtn = engravings.length > 1 ? `
-          <button class="delete-button" data-id="${engraving.id}">
-            <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M6 0L5 1H0V3H1V18C1 18.5222 1.19133 19.0546 1.56836 19.4316C1.94539 19.8087 2.47778 20 3 20H13C13.5222 20 14.0546 19.8087 14.4316 19.4316C14.8087 19.0546 15 18.5222 15 18V3H16V1H11L10 0H6ZM3 3H13V18H3V3ZM5 5V16H7V5H5ZM9 5V16H11V5H9Z" fill="#1A1A1A"/>
-            </svg>
-          </button>
-        ` : '';
 
         const isActive = engraving.id === activeEngravingId;
 
@@ -1207,7 +1229,6 @@
             <div class="engraving-title ${isActive ? 'active' : ''}">Product ${index + 1}</div>
             <div class="engraving-price-delete">
               <div class="engraving-price">₱${engravingPrice.toFixed(2)}</div>
-              ${deleteBtn}
             </div>
           </div>
           <div class="input-row">
@@ -1294,23 +1315,6 @@
         });
       });
 
-      container.querySelectorAll('.delete-button').forEach(btn => {
-        btn.addEventListener('click', function() {
-          const id = parseInt(this.dataset.id);
-          deleteEngraving(id);
-        });
-      });
-
-      const addBtn = document.getElementById('addEngravingBtn');
-      if (addBtn) {
-        const remainingColors = getAvailableColors();
-        if (engravings.length >= maxEngravings || (availableColors.length > 0 && remainingColors.length === 0)) {
-          addBtn.style.display = 'none';
-        } else {
-          addBtn.style.display = 'flex';
-        }
-      }
-
       updatePreview();
       updateGiftBoxSummary();
     }
@@ -1329,42 +1333,6 @@
       }
 
       updatePreview();
-    }
-
-    function deleteEngraving(id) {
-      if (engravings.length > 1) {
-        engravings = engravings.filter(e => e.id !== id);
-        if (activeEngravingId === id) {
-          activeEngravingId = engravings[0].id;
-        }
-        renderEngravings();
-      }
-    }
-
-    function addEngraving() {
-      const remainingColors = getAvailableColors();
-
-      if (engravings.length >= maxEngravings) {
-        alert(`Maximum ${maxEngravings} item${maxEngravings > 1 ? 's' : ''} allowed for this product.`);
-        return;
-      }
-
-      if (availableColors.length > 0 && remainingColors.length === 0) {
-        alert('All available colors have been used. Please remove an item to add a new one with a different color.');
-        return;
-      }
-
-      const newId = Math.max(...engravings.map(e => e.id)) + 1;
-      engravings.push({
-        id: newId,
-        text: '',
-        color: remainingColors.length > 0 ? remainingColors[0] : '',
-        font: fonts[0].name,
-        placement: placementOptions[0],
-        giftBox: giftBoxOptions[0].name
-      });
-      activeEngravingId = newId;
-      renderEngravings();
     }
 
     function updatePreview() {
@@ -1425,6 +1393,8 @@
       properties['__Combined Customization Fee'] = '₱' + combinedCustomization.toFixed(2);
 
       try {
+        const engravingFeeVariant = await loadEngravingFeeVariant();
+        const engravingFeeGroupId = `engraving-fee-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
         const selectedGiftBoxOption = giftBoxOptions.find(option => option.name === selectedGiftBox);
         const hasGiftBox = selectedGiftBoxOption && selectedGiftBoxOption.variantId;
         const giftBoxGroupId = hasGiftBox
@@ -1434,6 +1404,8 @@
         if (hasGiftBox) {
           properties['_Gift_Box_Group_ID'] = giftBoxGroupId;
         }
+
+        properties['_Engraving_Fee_Group_ID'] = engravingFeeGroupId;
 
         const items = [];
 
@@ -1448,6 +1420,16 @@
             }
           });
         }
+
+        items.push({
+          id: engravingFeeVariant.id,
+          quantity: totalEngravingCount,
+          properties: {
+            '_Engraving_Fee_Component': 'true',
+            '_Engraving_Fee_Group_ID': engravingFeeGroupId,
+            '_Engraving_Fee_Parent': productData.title
+          }
+        });
 
         items.push({
           id: productVariantId,
@@ -1470,7 +1452,8 @@
           alert('Error adding to cart: ' + (result.description || result.message || 'Please try again.'));
         }
       } catch (error) {
-        alert('Error adding to cart. Please try again.');
+        console.error(error);
+        alert(error.message || 'Error adding to cart. Please try again.');
       } finally {
         if (loadingOverlay) loadingOverlay.classList.remove('active');
       }
@@ -1645,6 +1628,13 @@
       "type": "url",
       "id": "font_10",
       "label": "Font 10 File URL"
+    },
+    {
+      "type": "text",
+      "id": "engraving_fee_product_handle",
+      "label": "Engraving Add-on Product Handle",
+      "default": "engraving-add-on",
+      "info": "Unlisted product containing the engraving fee variant"
     },
     {
       "type": "text",

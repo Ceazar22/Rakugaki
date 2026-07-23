@@ -23,6 +23,7 @@
       "settings": {
         "background_image": "shopify://shop_images/Frame_1000009916.png",
         "engraving_price": 25,
+        "engraving_fee_product_handle": "engraving-add-on",
         "font_name_1": "Champtone serif",
         "font_1": "https://cdn.shopify.com/s/files/1/0615/1104/1109/files/Champtone_serif_demo.ttf?v=1765838687",
         "font_name_2": "Arial Rounded Bold",
