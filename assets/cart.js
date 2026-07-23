@@ -147,15 +147,30 @@ class CartItems extends HTMLElement {
   updateQuantity(line, quantity, event, name, variantId) {
     this.enableLoading(line);
 
+    const engravingFeeControl = event.target.closest?.('[data-engraving-fee-key]');
+    const engravingFeeKey = engravingFeeControl?.dataset.engravingFeeKey;
+    const engravingCount = parseInt(engravingFeeControl?.dataset.engravingCount || '1', 10);
+    const sections = this.getSectionsToRender().map((section) => section.section);
     const body = JSON.stringify({
       line,
       quantity,
-      sections: this.getSectionsToRender().map((section) => section.section),
-      sections_url: window.location.pathname,
+      ...(engravingFeeKey ? {} : { sections, sections_url: window.location.pathname }),
     });
     const eventTarget = event.currentTarget instanceof CartRemoveButton ? 'clear' : 'change';
 
     fetch(`${routes.cart_change_url}`, { ...fetchConfig(), ...{ body } })
+      .then((response) => {
+        if (!engravingFeeKey || !response.ok) return response;
+
+        const feeBody = JSON.stringify({
+          id: engravingFeeKey,
+          quantity: quantity * engravingCount,
+          sections,
+          sections_url: window.location.pathname,
+        });
+
+        return fetch(`${routes.cart_change_url}`, { ...fetchConfig(), ...{ body: feeBody } });
+      })
       .then((response) => {
         return response.text();
       })

@@ -39,15 +39,7 @@
 {%- endstyle -%}
 
 {%- assign total_engraving_fees = 0 -%}
-{%- for item in cart.items -%}
-  {%- if item.properties['__Total Engraving Fee'] -%}
-    {%- assign fee_string = item.properties['__Total Engraving Fee'] | remove: '₱' | remove: ',' -%}
-    {%- assign fee_amount = fee_string | times: 100 -%}
-    {%- assign total_engraving_fees = total_engraving_fees | plus: fee_amount -%}
-  {%- endif -%}
-{%- endfor -%}
-
-{%- assign cart_total_with_engraving = cart.total_price | plus: total_engraving_fees -%}
+{%- assign cart_total_with_engraving = cart.total_price -%}
 
 <div
   class="gradient color-{{ section.settings.color_scheme }}{% if cart == empty %} is-empty{% endif %}"

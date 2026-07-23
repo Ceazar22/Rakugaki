@@ -1,0 +1,14 @@
+{%- assign engraving_product_count = item.properties['__Engraving Count'] | default: 0 | plus: 0 -%}
+{%- assign engraving_product_price = item.properties['__Engraving Fee Per Item'] | strip -%}
+{%- assign engraving_fee_group_id = item.properties['_Engraving_Fee_Group_ID'] | strip -%}
+
+{%- if engraving_product_count > 0 and engraving_product_price != blank and engraving_fee_group_id != blank -%}
+  <div class="engraving-product-fees">
+    {%- for product_number in (1..engraving_product_count) -%}
+      <div class="product-option engraving-product-fee">
+        <span>Product {{ product_number }}:</span>
+        <span>{{ engraving_product_price }}</span>
+      </div>
+    {%- endfor -%}
+  </div>
+{%- endif -%}

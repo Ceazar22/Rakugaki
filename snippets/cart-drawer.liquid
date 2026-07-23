@@ -17,6 +17,8 @@
   }
 </style>
 
+{%- assign drawer_total_with_engraving = cart.total_price -%}
+
 <cart-drawer class="drawer{% if cart == empty %} is-empty{% endif %}">
   <div id="CartDrawer" class="cart-drawer">
     <div id="CartDrawer-Overlay" class="cart-drawer__overlay"></div>
@@ -118,6 +120,31 @@
 
                   <tbody role="rowgroup">
                     {%- for item in cart.items -%}
+                      {%- assign is_engraving_fee_component = false -%}
+                      {%- if item.properties['_Engraving_Fee_Component'] == 'true' -%}
+                        {%- assign is_engraving_fee_component = true -%}
+                      {%- endif -%}
+
+                      {%- unless is_engraving_fee_component -%}
+                      {%- assign engraving_fee_group_id = item.properties['_Engraving_Fee_Group_ID'] -%}
+                      {%- assign linked_engraving_fee_key = blank -%}
+                      {%- assign linked_engraving_fee_price = 0 -%}
+                      {%- if engraving_fee_group_id != blank -%}
+                        {%- for drawer_linked_item in cart.items -%}
+                          {%- if drawer_linked_item.properties['_Engraving_Fee_Component'] == 'true'
+                            and drawer_linked_item.properties['_Engraving_Fee_Group_ID'] == engraving_fee_group_id
+                          -%}
+                            {%- assign linked_engraving_fee_key = drawer_linked_item.key -%}
+                            {%- assign linked_engraving_fee_price = drawer_linked_item.final_line_price -%}
+                          {%- endif -%}
+                        {%- endfor -%}
+                      {%- endif -%}
+                      {%- if linked_engraving_fee_key != blank -%}
+                        {%- assign engraving_fee_for_quantity = linked_engraving_fee_price -%}
+                      {%- else -%}
+                        {%- assign engraving_fee_for_quantity = 0 -%}
+                      {%- endif -%}
+                      {%- assign drawer_item_total_with_engraving = item.final_line_price | plus: engraving_fee_for_quantity -%}
                       <tr id="CartDrawer-Item-{{ item.index | plus: 1 }}" class="cart-item" role="row">
                         <td class="cart-item__media" role="cell" headers="CartDrawer-ColumnProductImage">
                           {% if item.image %}
@@ -163,6 +190,8 @@
                               {{ item.original_price | money }}
                             </div>
                           {%- endif -%}
+
+                          {%- render 'engraving-product-fees', item: item -%}
 
                           {%- if item.product.has_only_default_variant == false
                             or item.properties.size != 0
@@ -246,12 +275,12 @@
                                   {{ 'products.product.price.sale_price' | t }}
                                 </span>
                                 <span class="price price--end">
-                                  {{ item.final_line_price | money }}
+                                  {{ drawer_item_total_with_engraving | money }}
                                 </span>
                               </div>
                             {%- else -%}
                               <span class="price price--end">
-                                {{ item.original_line_price | money }}
+                                {{ drawer_item_total_with_engraving | money }}
                               </span>
                             {%- endif -%}
 
@@ -311,6 +340,10 @@
                                     value="{{ item.quantity }}"
                                     {% # theme-check-disable %}
                                     data-cart-quantity="{{ cart | item_count_for_variant: item.variant.id }}"
+                                    {% if linked_engraving_fee_key != blank %}
+                                      data-engraving-fee-key="{{ linked_engraving_fee_key | escape }}"
+                                      data-engraving-count="{{ item.properties['__Engraving Count'] | default: 1 | escape }}"
+                                    {% endif %}
                                     min="0"
                                     data-min="{{ item.variant.quantity_rule.min }}"
                                     {% if item.variant.quantity_rule.max != null %}
@@ -339,6 +372,10 @@
                               <cart-remove-button
                                 id="CartDrawer-Remove-{{ item.index | plus: 1 }}"
                                 data-index="{{ item.index | plus: 1 }}"
+                                {% if linked_engraving_fee_key != blank %}
+                                  data-engraving-fee-key="{{ linked_engraving_fee_key | escape }}"
+                                  data-engraving-count="{{ item.properties['__Engraving Count'] | default: 1 | escape }}"
+                                {% endif %}
                               >
                                 <button
                                   type="button"
@@ -450,6 +487,7 @@
                           </quantity-popover>
                         </td>
                       </tr>
+                      {%- endunless -%}
                     {%- endfor -%}
                   </tbody>
                 </table>
@@ -504,7 +542,7 @@
 
           <div class="totals" role="status">
             <h2 class="totals__total">{{ 'sections.cart.estimated_total' | t }}</h2>
-            <p class="totals__total-value">{{ cart.total_price | money_with_currency }}</p>
+            <p class="totals__total-value">{{ drawer_total_with_engraving | money_with_currency }}</p>
           </div>
 
           <small class="tax-note caption-large rte">
@@ -568,4 +606,3 @@
     </div>
   </div>
 </cart-drawer>
-

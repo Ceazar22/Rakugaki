@@ -319,7 +319,7 @@
         {%- liquid
           assign cart_display_count = cart.item_count
           for item in cart.items
-            if item.properties['_Logo_Fee_Component'] == 'true'
+            if item.properties['_Logo_Fee_Component'] == 'true' or item.properties['_Engraving_Fee_Component'] == 'true'
               assign cart_display_count = cart_display_count | minus: item.quantity
             endif
           endfor
